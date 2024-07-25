@@ -1,0 +1,144 @@
+@import './variables';
+@import './header';
+@import './footer';
+@import './nosotros';
+@import './indexMain';
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html {
+  font-size: 62.5%;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  font-size: 2rem;
+  overflow-x: hidden;
+  margin: 0;
+  padding: 0;
+}
+
+ul, ol {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+main {
+  padding: 6rem;
+  background-color: $mainGreen;
+  color: black;
+  line-height: 3rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center; /* Centra los elementos verticalmente */
+
+  .pages__img {
+    width: 300px; /* Ajusta el tamaño según tus necesidades */
+    height: 200px;
+    margin-bottom: 2rem;
+    margin-left: auto; /* Centra la imagen horizontalmente */
+    margin-right: auto; /* Centra la imagen horizontalmente */
+  }
+
+  a {
+    text-decoration: none; /* Elimina el subrayado predeterminado */
+    color: inherit; /* Utiliza el color del texto del elemento padre */
+  }
+
+  a:hover {
+    text-decoration: none; /* También elimina el subrayado en el estado de hover (si lo deseas) */
+  }
+
+  .bigFontSize {
+    font-size: 2.25rem;
+    line-height: 3.30rem;
+  }
+
+  p, h3, h4 {
+    text-align: left!important; /* este  funciona perfectamente */ 
+  }
+
+  p {margin-bottom: 2rem;}
+
+  h1 {
+    margin-bottom: 4rem;
+    text-align: center;
+    text-transform: uppercase;
+  }
+
+  h3 {
+    text-transform: uppercase;
+    margin-top: 35px; /* Este valor puede ajustarse según la cantidad de espacio que desees */
+  }
+
+  h4 {
+    margin-top: 20px;
+    text-decoration: underline;
+  }
+}
+
+.enterprise {
+  padding: 2px 5px;
+  color: white;
+  text-transform: uppercase;
+}
+
+.enterprise:hover {
+  background-color: white;
+  color: $mainGreen;
+}
+
+.btn-wsp {
+  position: fixed;
+  width: 6rem;
+  height: 6rem;
+  line-height: 6rem; // Ajusta para centrar el texto verticalmente
+  border-radius: 50%; // Usar 50% para asegurar el redondeo completo
+  text-align: center;
+  font-size: 4rem; // Ajusta para un tamaño de fuente más proporcional
+  box-shadow: 0px 1px 1rem rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  transition: all 300ms ease;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  background: #25d366;
+  color: #FFF;
+  display: flex; // Alinea el ícono dentro del botón
+  justify-content: center;
+  align-items: center;
+
+  &:hover {
+    background: #20ba5a;
+  }
+}
+
+.scrollup {
+  position: fixed; 
+  bottom: .1rem;
+  right: 128rem;
+  display: none;
+  background: url(../images/icon_top.png) no-repeat;
+  background-size: cover;
+  border: none;
+  cursor: pointer;
+
+  &:hover {
+    opacity: 1;
+  }
+}
+
+
+@media only screen and (min-width:320px) and (max-width:768px){
+
+  .btn-wsp{
+    width:6.3rem;
+    height:6.3rem;
+    line-height: 6.6rem;
+  }
+}
