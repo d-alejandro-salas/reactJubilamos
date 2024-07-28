@@ -118,7 +118,7 @@ main {
   }
 }
 
-.scrollup {
+.scrollUp {
   position: fixed; 
   bottom: .1rem;
   right: 128rem;
@@ -127,12 +127,16 @@ main {
   background-size: cover;
   border: none;
   cursor: pointer;
+  transition: transform 0.3s ease;
 
   &:hover {
     opacity: 1;
   }
-}
 
+  &.scaled {
+  transform: scale(1.2);
+  }
+}
 
 @media only screen and (min-width:320px) and (max-width:768px){
 
