@@ -1,0 +1,42 @@
+[
+  {
+    "titulo": "Jubilaciones",
+    "imagen": "jubilaciones.jpg",
+    "descripcion": "Tramitamos la mejor jubilación posible para nuestros clientes, brindándoles un servicio integral, analizando requisitos de edad y aportes realizados; también brindamos la posibilidad de que accedan a la jubilación utilizando las moratorias vigentes en caso de no contar con los aportes requeridos por ley."
+  },
+  {
+    "titulo": "Pensiones por fallecimiento",
+    "imagen": "pension.webp",
+    "descripcion": "Ante el fallecimiento de un trabajador en actividad o jubilado, tendrán derecho a solicitar el beneficio de Pensión los cónyuges/convivientes o sus hijos menores e hijos mayores discapacitados."
+  },
+  {
+    "titulo": "Reajuste de haberes",
+    "imagen": "reajustes.webp",
+    "descripcion": "En nuestro país, 1 de cada 5 personas cobra menos de lo que le corresponde. Recordá siempre que es tu dinero el cual aportaste a lo largo de la vida y es tu derecho reclamarlo."
+  },
+  {
+    "titulo": "Retiros por invalidez",
+    "imagen": "invalidez.webp",
+    "descripcion": "Hombres y mujeres que no alcanzaron la edad para acceder a la jubilación ordinaria, que tengan una incapacidad laboral del 66% determinada por junta médica y que cumplan con la condición de «aportante regular» o «aportante irregular con derecho», podrán acceder a este beneficio."
+  },
+  {
+    "titulo": "Renta vitalicia",
+    "imagen": "rentaVitalicia.webp",
+    "descripcion": "Si tenes una Pensión / Renta Vitalicia de una Compañía de Seguro de Retiro –ex AFJP- y cobras menos que la jubilación mínima, iniciamos el reclamo para lograr los aumentos y reajustar tu haber mensual con los fallos de la Corte Suprema de Justicia de la Nación."
+  },
+  {
+    "titulo": "Moratorias",
+    "imagen": "moratorias.webp",
+    "descripcion": "Toda persona que no cuente con los años de aportes necesarios, sean trabajadores autónomos o empleados en relación de dependencia, podrán acceder a una jubilación o pensión por fallecimiento de un trabajador mediante la adhesión a una moratoria."
+  },
+  {
+    "titulo": "PUAM",
+    "imagen": "puam.jpg",
+    "descripcion": "En caso de que tengas 65 años de edad y no puedas jubilarte por falta de aportes, gestionamos la Pensión Universal al Adulto Mayor. Este beneficio es equivalente al 80% de una jubilación mínima y se actualiza por la Ley de Movilidad."
+  },
+  {
+    "titulo": "Sucesiones",
+    "imagen": "sucesiones.jpg",
+    "descripcion": "Te brindamos el respaldo y la orientación adecuada para gestionar los aspectos legales que conlleva una sucesión. En nuestro estudio jurídico, entendemos la complejidad y la sensibilidad que rodea este proceso, con años de experiencia y un equipo comprometido, estamos aquí para brindarle la asesoría que necesitas para afrontar este camino con confianza y tranquilidad."
+  }
+]
