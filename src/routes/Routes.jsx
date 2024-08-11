@@ -5,13 +5,14 @@ import { Routes, Route } from 'react-router-dom';
 import HomePage from '../pages/HomePage';
 import Nosotros from '../pages/Nosotros';
 import Jubilaciones from '../pages/Jubilaciones';
-import PensionesPorFallecimiento from '../pages/Pensionesporfallecimiento';
-import ReajusteHaberes from '../pages/Reajustehaberes';
+import PensionesPorFallecimiento from '../pages/PensionesPorFallecimiento';
+import ReajusteHaberes from '../pages/ReajusteHaberes';
 import Retiros from '../pages/Retiros';
-import RentaVitalicia from '../pages/Rentavitalicia';
+import RentaVitalicia from '../pages/RentaVitalicia';
 import Moratorias from '../pages/Moratorias';
-import PUAM from '../pages/PUAM';
+import PUAM from '../pages/Puam';
 import Sucesiones from '../pages/Sucesiones';
+import DetailService from '../pages/DetailService';
 
 const AppRoutes = () => (
   <Routes>
@@ -25,6 +26,7 @@ const AppRoutes = () => (
     <Route path="/moratorias" element={<Moratorias />} />
     <Route path="/PUAM" element={<PUAM />} />
     <Route path="/sucesiones" element={<Sucesiones />} />
+    <Route path="/servicios/:productId" element={<DetailService />} />
   </Routes>
 );
 

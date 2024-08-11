@@ -3,7 +3,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import PuamPhoto from '../assets/Images/puam.jpg';
 
-const PUAM = () => {
+const Puam = () => {
   return (
   <main>
     <h1>Puam</h1>
@@ -15,4 +15,4 @@ const PUAM = () => {
   );
 };
 
-export default PUAM;
+export default Puam;
