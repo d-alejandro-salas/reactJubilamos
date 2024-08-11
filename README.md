@@ -1,6 +1,6 @@
 # React + Vite
 
-This template provides a minimal setup to get React working with Vite, featuring HMR (Hot Module Replacement) and some ESLint rules.
+This template provides a minimal setup for integrating React with Vite, featuring Hot Module Replacement (HMR) and some ESLint rules.
 
 Currently, two official plugins are available:
 
@@ -9,7 +9,7 @@ Currently, two official plugins are available:
 
 ## React and Vite
 
-The project is set up to use React with Vite. The entire page is constructed using various components, with JavaScript XML (i.e., .jsx) as the markup language.
+The project is set up to use React with Vite. The entire application is constructed using various components, with JavaScript XML (.jsx) as the markup language.
 
 ### Image Management
 
@@ -35,7 +35,16 @@ Routes are managed using `react-router-dom`. You can define and manage your rout
 
 ## Running the Project
 
+1. **Install dependencies**:
+
+   Before running the project, ensure all necessary dependencies are installed:
+
 - **`npm run dev`**: Starts the development server at `http://localhost:3000`.
 - **`npm run build`**: Builds the project for production in the `dist` directory.
 - **`npm run preview`**: Previews the production build.
+
+
+### Explanation:
+- **`npm install`**: This command will install all the dependencies listed in the `package.json` file, ensuring that anyone who clones your project can run it without issues.
+
 
