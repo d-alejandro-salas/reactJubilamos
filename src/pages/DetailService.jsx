@@ -1,18 +1,31 @@
-import React from 'react'
-import {useParams} from "react-router-dom"
-import jubilacionesImg from '../assets/Images/jubilaciones.webp';
+// src/pages/DetailService.jsx
+
+import { useParams } from 'react-router-dom';
+import dataPages from '../utils/dataPages.json'; // Importa el archivo .json de datos
+import images from '../assets/images/imagesIndex.js';
+
+function normalizeString(str) {
+    return str.toLowerCase().replace(/\s+/g, '');
+}
 
 const DetailService = () => {
-    const {productId} = useParams();
-    console.log("nombre del servicio...", productId)
+    const { productId } = useParams();
+
+    // Buscar los datos en el array de dataPages
+    const pageData = dataPages.find(item => normalizeString(item.title) === normalizeString(productId));
+
     return (
         <main>
-            <h1> {productId} </h1>
-            <img className="pages__img" src={jubilacionesImg}/>
+            <h1>{pageData.title}</h1>
+            <img className="pages__img" src={images[pageData.image]} alt={pageData.title} />
             <section>
-                <p className="bigFontSize">Tramitamos la mejor jubilación posible para nuestros clientes, brindándoles un servicio integral, donde se analizan requisitos de edad y aportes realizados; también posibilitamos el acceso a la jubilación utilizando las moratorias vigentes en caso de no contar con los aportes requeridos por ley.</p>
+                {pageData.paragraphs.map((paragraph, index) => (
+                    <p key={index}>{paragraph}</p>
+                ))}
             </section>
         </main>
-    )
-}
-export default DetailService
+    );
+};
+
+export default DetailService;
+

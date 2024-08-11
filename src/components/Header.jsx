@@ -1,7 +1,7 @@
 // src/components/Header.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import logo from '../assets/Images/logo.jpg'; // Asegúrate de que la ruta del logo sea correcta
+import logo from '../assets/images/logo.jpg'; // Asegúrate de que la ruta del logo sea correcta
 
 const Header = () => {
   return (

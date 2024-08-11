@@ -1,7 +1,6 @@
 // src/pages/Retiros.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
-import RentaVitaliciaPhoto from '../assets/Images/rentaVitalicia.webp';
+import RentaVitaliciaPhoto from '../assets/images/rentaVitalicia.webp';
 
 const RentaVitalicia = () => {
   return (

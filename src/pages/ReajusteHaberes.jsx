@@ -1,7 +1,7 @@
 // src/pages/Reajustes.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ReajustesPhoto from '../assets/Images/reajustes.webp';
+import ReajustesPhoto from '../assets/images/reajustes.webp';
 
 const ReajustesHaberes = () => {
   return (

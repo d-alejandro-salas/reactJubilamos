@@ -1,7 +1,7 @@
 // src/pages/PUAM.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PuamPhoto from '../assets/Images/puam.jpg';
+import PuamPhoto from '../assets/images/puam.jpg';
 
 const Puam = () => {
   return (

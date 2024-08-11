@@ -1,7 +1,7 @@
 // src/pages/Jubilaciones.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import jubilacionesImg from '../assets/Images/jubilaciones.webp';
+import jubilacionesImg from '../assets/images/jubilaciones.webp';
 
 const Jubilaciones = () => {
   return (

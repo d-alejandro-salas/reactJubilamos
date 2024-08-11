@@ -1,29 +1,7 @@
 // src/pages/HomePage.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
-import data from '../utils/data.json';
+import HomePageCard from '../components/HomePageCard';
 
-// Importar todas las imágenes
-import jubilacionesImg from '../assets/Images/jubilaciones.webp';
-import pensionImg from '../assets/Images/pension.webp';
-import reajustesImg from '../assets/Images/reajustes.webp';
-import invalidezImg from '../assets/Images/invalidez.webp';
-import rentaVitaliciaImg from '../assets/Images/rentaVitalicia.webp';
-import moratoriasImg from '../assets/Images/moratorias.webp';
-import puamImg from '../assets/Images/puam.jpg';
-import sucesionesImg from '../assets/Images/sucesiones.jpg';
-
-// Mapeo de nombres de imágenes a sus importaciones
-const imageMap = {
-  'jubilaciones.jpg': jubilacionesImg,
-  'pension.webp': pensionImg,
-  'reajustes.webp': reajustesImg,
-  'invalidez.webp': invalidezImg,
-  'rentaVitalicia.webp': rentaVitaliciaImg,
-  'moratorias.webp': moratoriasImg,
-  'puam.jpg': puamImg,
-  'sucesiones.jpg': sucesionesImg,
-};
 
 const HomePage = () => {
   return (
@@ -41,19 +19,7 @@ const HomePage = () => {
         </p>
       </section>
       <br />
-      <section id="mainGrid">
-        {data.map((item, index) => (
-          <div key={index}>
-            <Link className="mainGrid__link" to={`/${item.titulo.toLowerCase().replace(/ /g, '')}`}>
-              <h2>{item.titulo}</h2>
-              <div className="linkDescription__container">
-                <img src={imageMap[item.imagen]} alt={item.titulo} />
-                <p>{item.descripcion}</p>
-              </div>
-            </Link>
-          </div>
-        ))}
-      </section>
+      <HomePageCard/>
     </main>
   );
 };
