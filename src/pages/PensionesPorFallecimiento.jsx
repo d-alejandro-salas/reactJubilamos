@@ -1,9 +1,9 @@
 // src/pages/Jubilaciones.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import Pension from '../assets/Images/pension.webp';
+import Pension from '../assets/images/pension.webp';
 
-const pensionesPorFallecimiento = () => {
+const PensionesPorFallecimiento = () => {
   return (
     <main>
       <h1>Pensiones por fallecimiento</h1>
@@ -19,4 +19,4 @@ const pensionesPorFallecimiento = () => {
   );
 };
 
-export default pensionesPorFallecimiento;
+export default PensionesPorFallecimiento;

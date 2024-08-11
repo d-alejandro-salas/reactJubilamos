@@ -1,9 +1,9 @@
 // src/pages/Reajustes.jsx
 import React from 'react';
 import { Link } from 'react-router-dom';
-import ReajustesPhoto from '../assets/Images/reajustes.webp';
+import ReajustesPhoto from '../assets/images/reajustes.webp';
 
-const Reajustes = () => {
+const ReajustesHaberes = () => {
   return (
   <main>
     <h1>Reajuste de haberes</h1>
@@ -26,4 +26,4 @@ const Reajustes = () => {
   );
 };
 
-export default Reajustes;
+export default ReajustesHaberes;

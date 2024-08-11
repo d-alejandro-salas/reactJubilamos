@@ -1,7 +1,6 @@
 // src/pages/Retiros.jsx
 import React from 'react';
-import { Link } from 'react-router-dom';
-import Invalidez from '../assets/Images/invalidez.webp';
+import Invalidez from '../assets/images/invalidez.webp';
 
 const Retiros = () => {
   return (
