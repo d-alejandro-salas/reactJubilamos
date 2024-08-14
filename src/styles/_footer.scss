@@ -138,16 +138,31 @@ footer {
     margin-top: 2rem; // Ajusta el espacio según sea necesario
     }
 
-    .reactLogo {
-      width: 4rem; // Ajusta el tamaño del logotipo según tus preferencias
-      height: auto;
-      animation: spin 20s linear infinite; // Agrega una animación de rotación si lo deseas
-    }
+.reactLogo {
+  width: 4rem; // Ajusta el tamaño del logotipo según tus preferencias
+  height: auto;
+  animation: reactLogo-spin 20s linear infinite;
 
-    @keyframes spin {
-      0% { transform: rotate(0deg); }
-      100% { transform: rotate(360deg); }
+  @keyframes reactLogo-spin {
+    0% {
+      transform: rotate(0deg);
     }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  &:hover {
+    transform: scale(1.6);
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    animation: none;
+  }
+}
+
+
+
   }
 }
 
