@@ -1,6 +1,6 @@
 // src/components/Header.jsx
 
-import { Nav } from './HeaderNav';
+import { Nav } from './molecules/HeaderNav';
 import logo from '../assets/images/logo.jpg';
 
 export const Header = () => {

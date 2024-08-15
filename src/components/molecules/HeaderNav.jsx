@@ -1,20 +1,21 @@
 import { NavLink } from 'react-router-dom';
+import { Button } from '../atoms/Button';
 
 export const Nav = () => {
   return (
     <nav>
       <ul>
         <li>
-          <NavLink to="/jubilaciones">JUBILATE</NavLink>
+          <Button to="/jubilaciones">JUBILATE</Button>
         </li>
         <li>
-          <NavLink to="/reajustedehaberes">HABER MENSUAL</NavLink>
+          <Button to="/reajustedehaberes">HABER MENSUAL</Button>
         </li>
         <li>
           <a href="#redesSociales">CONTACTATE</a>
         </li>
         <li>
-          <NavLink to="/nosotros">NOSOTROS</NavLink>
+          <Button to="/nosotros">NOSOTROS</Button>
         </li>
         <li>
           <a href="#enlaces">SITIOS DE INTERÉS</a>
