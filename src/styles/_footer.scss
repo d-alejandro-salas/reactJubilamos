@@ -1,9 +1,9 @@
-@import './variables.scss';
+@use './variables' as v;
 
 /* Diseño mobile-first */
 
 footer {
-  background-color: $headerFooterBackground;
+  background-color: v.$headerFooterBackground;
   color: #fff;
   padding: 1rem;
   text-align: center;
@@ -14,7 +14,7 @@ footer {
     transition: color 0.3s, transform 0.3s;
 
     &:hover {
-      color: $mainGreen;
+      color: v.$mainGreen;
     }
   }
 
@@ -38,7 +38,7 @@ footer {
       }
 
       a {
-        color: #333; // Color por defecto
+        color: v.$headerFooterBackground; // Color por defecto
         font-size: 24px; // Tamaño de fuente
         transition: 0.3s; // Transición de color al hacer hover
 
@@ -95,13 +95,13 @@ footer {
       cursor: pointer;
 
       &:hover {
-        color: $mainGreen;
+        color: v.$mainGreen;
       }
     }
   }
 
   .destacado {
-    border: .2rem solid $mainGreen;
+    border: .2rem solid v.$mainGreen;
     border-radius: .8rem;
     padding: 1rem;
     animation: resaltar 1s 2 alternate;
@@ -160,9 +160,6 @@ footer {
     animation: none;
   }
 }
-
-
-
   }
 }
 

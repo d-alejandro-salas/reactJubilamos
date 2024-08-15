@@ -1,9 +1,9 @@
 // src/pages/Jubilaciones.jsx
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 import jubilacionesImg from '../assets/images/jubilaciones.webp';
 
-const Jubilaciones = () => {
+export const Jubilaciones = () => {
   return (
      <main>
       <h1>JUBILACIÓN</h1>
@@ -114,5 +114,3 @@ const Jubilaciones = () => {
     </main>
   );
 };
-
-export default Jubilaciones;

@@ -1,4 +1,4 @@
-@import './variables';
+@use './variables' as v;
 @import './header';
 @import './footer';
 @import './nosotros';
@@ -29,14 +29,14 @@ ul, ol {
   padding-left: 0;
 }
 
-main {
+main, #introduction {
   padding: 6rem;
   background-color: $mainGreen;
   color: black;
   line-height: 3rem;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centra los elementos verticalmente */
+  justify-content: center;
 
   .pages__img {
     width: 300px; /* Ajusta el tamaño según tus necesidades */
@@ -83,6 +83,29 @@ main {
   }
 }
 
+#introduction {
+  font-family: Arial, sans-serif;
+  font-size: 2rem;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #0a7a83;
+  color: white;
+
+  a {
+    color: inherit!important;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
+
+    &:hover {
+      color: v.$mainGreen!important;
+    }
+  }
+}
+
 .enterprise {
   padding: 2px 5px;
   color: white;
@@ -91,7 +114,7 @@ main {
 
 .enterprise:hover {
   background-color: white;
-  color: $mainGreen;
+  color: v.$mainGreen;
 }
 
 .btn-wsp {

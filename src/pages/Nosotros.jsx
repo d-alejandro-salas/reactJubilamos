@@ -1,8 +1,8 @@
 // src/pages/Nosotros.jsx
-import React from 'react';
+
 import { Link } from 'react-router-dom';
 
-const Nosotros = () => {
+export const Nosotros = () => {
   return (
     <main className="nosotros-page">
       <h1>NOSOTROS</h1>
@@ -15,7 +15,7 @@ const Nosotros = () => {
         <li><Link to="/jubilaciones">✅ Jubilaciones</Link></li>
         <li><Link to="/pensionesPorFallecimiento">✅ Pensiones</Link></li>
         <li><Link to="/rentaVitalicia">✅ Rentas Vitalicias</Link></li>
-        <li><Link to="/reajusteHaberes">✅ Reajuste de Haberes</Link></li>
+        <li><Link to="/reajustedehaberes">✅ Reajuste de Haberes</Link></li>
         <li><Link to="/sucesiones">✅ Sucesiones</Link></li>
       </ul>
       <p>Tenemos ubicadas nuestras oficinas en el corazón de la Recoleta, en la Ciudad de Buenos Aires, realizamos trámites y gestiones previsionales en todo el país.</p>
@@ -24,5 +24,3 @@ const Nosotros = () => {
     </main>
   );
 };
-
-export default Nosotros;

@@ -1,11 +1,4 @@
-@import './variables.scss';
-
-#introduction {
-  background-color: #0a7a83;
-  color: white;
-  width: 100%;
-  padding: 5rem 7.5rem 0rem 7.5rem;
-}
+@use './variables' as v;
 
 #mainGrid {
   display: grid;
