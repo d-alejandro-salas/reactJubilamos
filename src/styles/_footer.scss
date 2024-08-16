@@ -39,7 +39,7 @@ footer {
 
       a {
         color: v.$headerFooterBackground; // Color por defecto
-        font-size: 24px; // Tamaño de fuente
+        font-size: 2.4rem; // Tamaño de fuente
         transition: 0.3s; // Transición de color al hacer hover
 
         // Estilos para los iconos de redes sociales específicos
@@ -164,7 +164,7 @@ footer {
 }
 
 /* Diseño para tabletas */
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 60rem) {
   footer {
     padding: 2rem;
     justify-content: space-between;

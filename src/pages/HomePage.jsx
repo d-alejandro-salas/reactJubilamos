@@ -1,6 +1,6 @@
 // src/pages/HomePage.jsx
 
-import HomePageCard from '../components/HomePageCard';
+import HomePageCard from '../components/molecules/HomePageCard';
 
 export const HomePage = () => {
   return (

@@ -2,25 +2,27 @@
 
 #mainGrid {
   display: grid;
-  gap: 20px;
+  gap: 2rem; /* 20px */
   justify-content: center;
 
   div {
     background-color: white;
     color: black;
     text-align: center;
-    padding: 20px;
-    border: 1px solid #ccc;
-    border-radius: 8px;
+    border: 0.1rem solid #ccc; /* 1px */
+    border-radius: 0.8rem; /* 8px */
     transition: transform 0.3s ease;
+    cursor: pointer;
 
     &:hover {
       transform: scale(1.05);
     }
 
     .mainGrid__link {
-    display: flex;
-    flex-direction: column; /* Cambia la dirección del eje principal a vertical */
+      display: flex;
+      flex-direction: column; /* Cambia la dirección del eje principal a vertical */
+      height: 100%;
+      padding: 2rem;
 
       .linkDescription__container {
         align-self: flex-end; /* Ubica este elemento al final del contenedor padre en el eje Y */
@@ -37,7 +39,7 @@
       margin-bottom: 1rem;
       text-transform: uppercase;
       text-align: center;
-      height: 75px;
+      height: 7.5rem; /* 75px */
     }
 
     img {
@@ -52,11 +54,10 @@
   }
 }
 
-
 /* Diseño para tabletas */
-@media screen and (min-width: 600px) {
+@media screen and (min-width: 600px) { /* 600px */
   #mainGrid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); /* 300px */
   }
 
   p {
@@ -65,8 +66,7 @@
 }
 
 /* Diseño para escritorio */
-@media screen and (min-width: 1024px) {
-
+@media screen and (min-width: 1024px) { /* 1024px */
   #mainGrid {
     grid-template-columns: repeat(4, 1fr);
   }
