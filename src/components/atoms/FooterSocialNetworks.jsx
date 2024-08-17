@@ -16,7 +16,8 @@ function FooterSocialNetworks() {
             <FaFacebookF />
           </a>
         </li>
-        <li><a href="https://www.instagram.com/jubilamos" className="fa fa-instagram" title="Instagram" target="_blank" rel="noopener noreferrer"></a></li>
+        <li>
+          <a href="https://www.instagram.com/jubilamos" className="fa fa-instagram" title="Instagram" target="_blank" rel="noopener noreferrer"></a></li>
         <li>
           <a 
             href="https://api.whatsapp.com/send/?phone=5491132140614" 

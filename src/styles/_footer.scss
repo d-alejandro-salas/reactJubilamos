@@ -36,15 +36,12 @@ footer {
       li {
         margin-left: 2rem; // Ajusta el valor según la separación deseada
         transition: 0.3s; // Transición de color al hacer hover
-
-        &:hover {
-          transform: scale(1.6);
-        }
       }
 
       a {
         color: v.$headerFooterBackground; // Color por defecto
         font-size: 2.4rem; // Tamaño de fuente
+        display: inline-block;
 
         // Estilos para los iconos de redes sociales específicos
         &.fb {
@@ -63,6 +60,10 @@ footer {
 
         &.envelope {
           color: #c4302b!important; // Rojo oscuro para el ícono de correo electrónico
+        }
+        
+        &:hover {
+          transform: scale(1.6);
         }
       }
     }
@@ -139,11 +140,11 @@ footer {
     .reactLogoContainer {
       text-align: center;
       margin-top: 2rem; // Ajusta el espacio según sea necesario
+      transition: 0.3s; // Transición de color al hacer hover
 
       &:hover {
         transform: scale(1.4)!important;
       }
-    }
 
     .reactLogo {
       width: 4rem; // Ajusta el tamaño del logotipo según tus preferencias
@@ -164,6 +165,7 @@ footer {
       }
     }
   }
+  }    
 }
 
 /* Diseño para tabletas */
