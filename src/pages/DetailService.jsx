@@ -2,7 +2,7 @@
 
 import { useParams } from 'react-router-dom';
 import dataPages from '../utils/dataPages.json'; // Importa el archivo .json de datos
-import images from '../assets/images/imagesIndex.js';
+import images from '../assets/imagesIndex.js';
 
 function normalizeString(str) {
     return str.toLowerCase().replace(/\s+/g, '');

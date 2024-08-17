@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom';
 import data from '../../utils/dataHomePageCard.json';
-import images from '../../assets/images/imagesIndex.js';
+import images from '../../assets/imagesIndex.js';
 
 function HomePageCard() {
   return (
