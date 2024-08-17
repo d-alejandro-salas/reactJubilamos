@@ -1,11 +1,10 @@
 // src/pages/HomePage.jsx
-import React from 'react';
-import HomePageCard from '../components/HomePageCard';
 
+import HomePageCard from '../components/molecules/HomePageCard';
 
-const HomePage = () => {
+export const HomePage = () => {
   return (
-    <main>
+    <>
       <section id="introduction">
         <h1>Estudio Jurídico especializado en Derecho Previsional y Sucesiones</h1>
         <p className="bigFontSize">
@@ -17,11 +16,8 @@ const HomePage = () => {
         <p>
           <u>ENTREVISTAS VIRTUALES</u>: En nuestro estudio jurídico, realizamos entrevistas de forma remota, ofreciéndote la comodidad de evitar desplazamientos a nuestras oficinas. Podés comunicarte con nosotros a través de <a href="https://api.whatsapp.com/send/?phone=5491132140614">WhatsApp</a>, teléfono o <a href="mailto:jubilamosinf@hotmail.com">correo electrónico</a>. Tu tranquilidad es nuestra prioridad, y nuestro compromiso es brindarte el respaldo que necesites.
         </p>
-      </section>
-      <br />
+      </section><main><br />      
       <HomePageCard/>
-    </main>
+    </main></>
   );
 };
-
-export default HomePage;

@@ -1,8 +1,8 @@
 // src/pages/Retiros.jsx
-import React from 'react';
+
 import Invalidez from '../assets/images/invalidez.webp';
 
-const Retiros = () => {
+export const Retiros = () => {
   return (
     <main>
       <h1>Retiros por invalidez</h1>
@@ -12,5 +12,3 @@ const Retiros = () => {
     </main>
   );
 };
-
-export default Retiros;

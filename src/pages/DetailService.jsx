@@ -8,7 +8,7 @@ function normalizeString(str) {
     return str.toLowerCase().replace(/\s+/g, '');
 }
 
-const DetailService = () => {
+export const DetailService = () => {
     const { productId } = useParams();
 
     // Buscar los datos en el array de dataPages
@@ -26,6 +26,4 @@ const DetailService = () => {
         </main>
     );
 };
-
-export default DetailService;
 

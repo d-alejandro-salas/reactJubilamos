@@ -1,4 +1,4 @@
-@import './variables';
+@use './variables' as v;
 @import './header';
 @import './footer';
 @import './nosotros';
@@ -29,18 +29,18 @@ ul, ol {
   padding-left: 0;
 }
 
-main {
+main, #introduction {
   padding: 6rem;
-  background-color: $mainGreen;
+  background-color: v.$mainGreen;
   color: black;
   line-height: 3rem;
   display: flex;
   flex-direction: column;
-  justify-content: center; /* Centra los elementos verticalmente */
+  justify-content: center;
 
   .pages__img {
-    width: 300px; /* Ajusta el tamaño según tus necesidades */
-    height: 200px;
+    width: 30rem; /* Ajusta el tamaño según tus necesidades */
+    height: 20rem;
     margin-bottom: 2rem;
     margin-left: auto; /* Centra la imagen horizontalmente */
     margin-right: auto; /* Centra la imagen horizontalmente */
@@ -74,53 +74,79 @@ main {
 
   h3 {
     text-transform: uppercase;
-    margin-top: 35px; /* Este valor puede ajustarse según la cantidad de espacio que desees */
+    margin-top: 3.5rem; /* Este valor puede ajustarse según la cantidad de espacio que desees */
   }
 
   h4 {
-    margin-top: 20px;
+    margin-top: 2rem;
     text-decoration: underline;
   }
 }
 
+#introduction {
+  font-family: Arial, sans-serif;
+  font-size: 2rem;
+  box-sizing: border-box;
+  margin: 0;
+  padding: 6rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  background-color: #0a7a83;
+  color: white;
+
+  a {
+    color: inherit!important;
+    text-decoration: none;
+    transition: color 0.3s, transform 0.3s;
+
+    &:hover {
+      color: v.$mainGreen!important;
+    }
+  }
+}
+
 .enterprise {
-  padding: 2px 5px;
+  padding: .2rem .5rem;
   color: white;
   text-transform: uppercase;
 }
 
 .enterprise:hover {
   background-color: white;
-  color: $mainGreen;
+  color: v.$mainGreen;
 }
 
-.btn-wsp {
+.wsp-btn {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  text-decoration: none;
   position: fixed;
-  width: 6rem;
-  height: 6rem;
-  line-height: 6rem; // Ajusta para centrar el texto verticalmente
-  border-radius: 50%; // Usar 50% para asegurar el redondeo completo
-  text-align: center;
-  font-size: 4rem; // Ajusta para un tamaño de fuente más proporcional
-  box-shadow: 0px 1px 1rem rgba(0, 0, 0, 0.3);
-  z-index: 100;
-  transition: all 300ms ease;
   bottom: 2.5rem;
   right: 2.5rem;
   background: #25d366;
   color: #FFF;
-  display: flex; // Alinea el ícono dentro del botón
-  justify-content: center;
-  align-items: center;
+  border-radius: 5rem;
+  text-align: center;
+  font-size: 3.5rem;
+  box-shadow: 0px .1rem 1rem rgba(0, 0, 0, 0.3);
+  z-index: 100;
+  transition: all 300ms ease;
+  width: 6.3rem;
+  height: 6.3rem;
+  line-height: 6.6rem;
 
   &:hover {
-    background: #20ba5a;
+    color: #20ba5a;
+    background: white;
+    transform: scale(1.13);
   }
 }
 
-.scrollUp {
+#scrollToTopButton {
   position: fixed; 
-  bottom: .1rem;
+  bottom: 1rem;
   right: 128rem;
   display: none;
   background: url(../images/icon_top.png) no-repeat;
@@ -139,6 +165,10 @@ main {
 }
 
 @media only screen and (min-width:320px) and (max-width:768px){
+  
+  #scrollToTopButton {
+    bottom: .1rem;
+    right: 65rem;}
 
   .btn-wsp{
     width:6.3rem;

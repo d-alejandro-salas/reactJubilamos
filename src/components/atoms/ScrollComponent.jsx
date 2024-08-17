@@ -1,18 +1,8 @@
-// src/components/ScrollComponents.jsx
+// src/components/ScrollComponent.jsx
+
 import React, { useEffect } from 'react';
-import { useLocation } from 'react-router-dom';
 
-export const ScrollToTop = () => {
-  const { pathname } = useLocation();
-
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, [pathname]);
-
-  return null;
-};
-
-export const ScrollToTopButton = () => {
+const ScrollToTopButton = () => {
   useEffect(() => {
     const handleScroll = () => {
       const button = document.getElementById('scrollToTopButton');
@@ -42,7 +32,6 @@ export const ScrollToTopButton = () => {
   return (
     <button
       id="scrollToTopButton"
-      className="scrollUp"
       onClick={scrollToTop}
       aria-label="Scroll to top"
     >
@@ -50,3 +39,5 @@ export const ScrollToTopButton = () => {
     </button>
   );
 };
+
+export default ScrollToTopButton;
