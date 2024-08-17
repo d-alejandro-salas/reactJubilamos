@@ -28,49 +28,48 @@ footer {
       margin-bottom: 1rem;
     }
 
-    .redesSociales__ul {
+    .socialNetworks__ul {
       display: flex;
       justify-content: center; // Alinea los elementos en el centro horizontalmente
       transform: scale(1.5);
 
       li {
         margin-left: 2rem; // Ajusta el valor según la separación deseada
+        transition: 0.3s; // Transición de color al hacer hover
+
+        &:hover {
+          transform: scale(1.6);
+        }
       }
 
       a {
         color: v.$headerFooterBackground; // Color por defecto
         font-size: 2.4rem; // Tamaño de fuente
-        transition: 0.3s; // Transición de color al hacer hover
 
         // Estilos para los iconos de redes sociales específicos
-        &.fa-facebook {
-          color: #3b5998; // Azul de Facebook
+        &.fb {
+          color: #3b5998!important; // Azul de Facebook
         }
 
         &.fa-instagram {
-          background-image: linear-gradient(to bottom, #e4405f, #8a2be2); // Rosa de Instagram a Violeta
+          background-image: linear-gradient(to bottom, #e4405f, #8a2be2)!important; // Rosa de Instagram a Violeta
           -webkit-background-clip: text; // Aplicar clip al texto para que el gradiente se muestre solo en el texto
           color: transparent; // Hacer el texto transparente para que solo se muestre el gradiente de fondo
         }
 
-        &.fa-whatsapp {
-          color: #25d366; // Verde de WhatsApp
+        &.wsp {
+          color: #25d366!important; // Verde de WhatsApp
         }
 
-        &.fa-envelope {
-          color: #c4302b; // Rojo oscuro para el ícono de correo electrónico
-        }
-
-        // Estilos para hover
-        &:hover {
-          transform: scale(1.6);
+        &.envelope {
+          color: #c4302b!important; // Rojo oscuro para el ícono de correo electrónico
         }
       }
     }
   }
 
-  #enlaces {
-    text-align: center; /* Centra el contenido horizontalmente en la sección "enlaces" */
+  #links {
+    text-align: center; /* Centra el contenido horizontalmente en la sección "links" */
 
     a {
       display: block;
@@ -79,9 +78,13 @@ footer {
   }
 
   #mapa {
-    text-align: left;
+    text-align: center;
 
     h3 {
+      text-align: center;
+    }
+
+    p {
       text-align: center;
     }
 
@@ -124,42 +127,42 @@ footer {
   }
 
   .developerSection {
-
     display: flex;
     flex-direction: column;
     align-items: center;
 
     p {
-      textAlign: 'center';
-      font-size:'smaller'}
-      
+      text-align: center;
+      font-size: smaller;
+    }
+
     .reactLogoContainer {
-    text-align: center;
-    margin-top: 2rem; // Ajusta el espacio según sea necesario
+      text-align: center;
+      margin-top: 2rem; // Ajusta el espacio según sea necesario
+
+      &:hover {
+        transform: scale(1.4)!important;
+      }
     }
 
-.reactLogo {
-  width: 4rem; // Ajusta el tamaño del logotipo según tus preferencias
-  height: auto;
-  animation: reactLogo-spin 20s linear infinite;
+    .reactLogo {
+      width: 4rem; // Ajusta el tamaño del logotipo según tus preferencias
+      height: auto;
+      animation: reactLogo-spin 20s linear infinite;
 
-  @keyframes reactLogo-spin {
-    0% {
-      transform: rotate(0deg);
+      @keyframes reactLogo-spin {
+        0% {
+          transform: rotate(0deg);
+        }
+        100% {
+          transform: rotate(360deg);
+        }
+      }
+
+      @media (prefers-reduced-motion: reduce) {
+        animation: none;
+      }
     }
-    100% {
-      transform: rotate(360deg);
-    }
-  }
-
-  &:hover {
-    transform: scale(1.6);
-  }
-
-  @media (prefers-reduced-motion: reduce) {
-    animation: none;
-  }
-}
   }
 }
 
@@ -183,6 +186,8 @@ footer {
       span:first-child {
         text-decoration: underline;
       }
+
+      p {text-align: left}
 
       #verMapa {
         display: inline!important;

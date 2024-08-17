@@ -12,13 +12,13 @@ export const Nav = () => {
           <Button to="/reajustedehaberes">HABER MENSUAL</Button>
         </li>
         <li>
-          <a href="#redesSociales">CONTACTATE</a>
+          <a href="#socialNetworks">CONTACTATE</a>
         </li>
         <li>
           <Button to="/nosotros">NOSOTROS</Button>
         </li>
         <li>
-          <a href="#enlaces">SITIOS DE INTERÉS</a>
+          <a href="#links">SITIOS DE INTERÉS</a>
         </li>
       </ul>
     </nav>
