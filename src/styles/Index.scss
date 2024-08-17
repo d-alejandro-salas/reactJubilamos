@@ -146,8 +146,8 @@ main, #introduction {
 
 #scrollToTopButton {
   position: fixed; 
-  bottom: 1rem;
-  right: 128rem;
+  bottom: 2.5rem;
+  left: 2.5rem;
   display: none;
   background: url(../images/icon_top.png) no-repeat;
   background-size: cover;
@@ -161,18 +161,5 @@ main, #introduction {
 
   &.scaled {
   transform: scale(1.2);
-  }
-}
-
-@media only screen and (min-width:320px) and (max-width:768px){
-  
-  #scrollToTopButton {
-    bottom: .1rem;
-    right: 46rem;}
-
-  .btn-wsp{
-    width:6.3rem;
-    height:6.3rem;
-    line-height: 6.6rem;
   }
 }
