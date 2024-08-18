@@ -1,4 +1,4 @@
-// src/components/ScrollComponent.jsx
+// src/components/atoms/ScrollComponent.jsx
 
 import React, { useEffect } from 'react';
 import { useLocation } from 'react-router-dom';
