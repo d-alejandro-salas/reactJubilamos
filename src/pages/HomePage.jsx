@@ -5,6 +5,10 @@ import HomePageCard from '../components/molecules/HomePageCard';
 export const HomePage = () => {
   return (
     <>
+        <meta name="title" content="Estudio Jurídico especializado en Derecho Previsional y Sucesiones"></meta>
+        <meta name="description" content=""></meta>
+        <meta name="keywords" content="jubilaciones, pensiones, anses, " />
+        
       <section id="introduction">
         <h1>Estudio Jurídico especializado en Derecho Previsional y Sucesiones</h1>
         <p className="bigFontSize">

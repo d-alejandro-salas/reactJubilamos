@@ -1,0 +1,14 @@
+# Permitir a todos los motores de búsqueda acceder a todo el sitio
+User-agent: *
+Disallow:
+
+# Bloquear acceso a carpetas específicas
+Disallow: /private/
+Disallow: /temp/
+Disallow: /admin/
+
+# Permitir el acceso a una carpeta específica aunque esté bloqueada
+Allow: /public/
+
+# Especificar el archivo de mapa del sitio
+Sitemap: https://www.tusitio.com/sitemap.xml
