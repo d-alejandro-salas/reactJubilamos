@@ -1,33 +1,14 @@
 // src/pages/HomePage.jsx
-import React from 'react';
-import { Link } from 'react-router-dom';
-import data from '../utils/data.json';
 
-// Importar todas las imágenes
-import jubilacionesImg from '../assets/Images/jubilaciones.webp';
-import pensionImg from '../assets/Images/pension.webp';
-import reajustesImg from '../assets/Images/reajustes.webp';
-import invalidezImg from '../assets/Images/invalidez.webp';
-import rentaVitaliciaImg from '../assets/Images/rentaVitalicia.webp';
-import moratoriasImg from '../assets/Images/moratorias.webp';
-import puamImg from '../assets/Images/puam.jpg';
-import sucesionesImg from '../assets/Images/sucesiones.jpg';
+import HomePageCard from '../components/molecules/HomePageCard';
 
-// Mapeo de nombres de imágenes a sus importaciones
-const imageMap = {
-  'jubilaciones.jpg': jubilacionesImg,
-  'pension.webp': pensionImg,
-  'reajustes.webp': reajustesImg,
-  'invalidez.webp': invalidezImg,
-  'rentaVitalicia.webp': rentaVitaliciaImg,
-  'moratorias.webp': moratoriasImg,
-  'puam.jpg': puamImg,
-  'sucesiones.jpg': sucesionesImg,
-};
-
-const HomePage = () => {
+export const HomePage = () => {
   return (
-    <main>
+    <>
+        <meta name="title" content="Estudio Jurídico especializado en Derecho Previsional y Sucesiones"></meta>
+        <meta name="description" content=""></meta>
+        <meta name="keywords" content="jubilaciones, pensiones, anses, " />
+        
       <section id="introduction">
         <h1>Estudio Jurídico especializado en Derecho Previsional y Sucesiones</h1>
         <p className="bigFontSize">
@@ -39,23 +20,8 @@ const HomePage = () => {
         <p>
           <u>ENTREVISTAS VIRTUALES</u>: En nuestro estudio jurídico, realizamos entrevistas de forma remota, ofreciéndote la comodidad de evitar desplazamientos a nuestras oficinas. Podés comunicarte con nosotros a través de <a href="https://api.whatsapp.com/send/?phone=5491132140614">WhatsApp</a>, teléfono o <a href="mailto:jubilamosinf@hotmail.com">correo electrónico</a>. Tu tranquilidad es nuestra prioridad, y nuestro compromiso es brindarte el respaldo que necesites.
         </p>
-      </section>
-      <br />
-      <section id="mainGrid">
-        {data.map((item, index) => (
-          <div key={index}>
-            <Link className="mainGrid__link" to={`/${item.titulo.toLowerCase().replace(/ /g, '')}`}>
-              <h2>{item.titulo}</h2>
-              <div className="linkDescription__container">
-                <img src={imageMap[item.imagen]} alt={item.titulo} />
-                <p>{item.descripcion}</p>
-              </div>
-            </Link>
-          </div>
-        ))}
-      </section>
-    </main>
+      </section><main><br />      
+      <HomePageCard/>
+    </main></>
   );
 };
-
-export default HomePage;

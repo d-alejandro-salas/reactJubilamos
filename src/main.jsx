@@ -1,11 +1,13 @@
 import React from 'react';
-import ReactDOM from 'react-dom';
-import './styles/Index.scss';  // Import the Sass file
+import ReactDOM from 'react-dom/client';
+import './styles/Index.scss'; // Sass file is imported.
 import App from './App';
 
-ReactDOM.render(
+// A root is created with createRoot
+const root = ReactDOM.createRoot(document.getElementById('root'));
+
+root.render(
   <React.StrictMode>
     <App />
-  </React.StrictMode>,
-  document.getElementById('root')
+  </React.StrictMode>
 );

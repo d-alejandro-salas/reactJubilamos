@@ -1,11 +1,11 @@
 // src/pages/Jubilaciones.jsx
-import React from 'react';
-import { Link } from 'react-router-dom';
-import jubilacionesImg from '../assets/Images/jubilaciones.webp';
 
-const Jubilaciones = () => {
+import { Link } from 'react-router-dom';
+import jubilacionesImg from '../assets/images/jubilaciones.webp';
+
+export const Jubilaciones = () => {
   return (
-     <main>
+     <main> 
       <h1>JUBILACIÓN</h1>
       <img className="pages__img" src={jubilacionesImg}/>
       <p className="bigFontSize">Tramitamos la mejor jubilación posible para nuestros clientes, brindándoles un servicio integral, donde se analizan requisitos de edad y aportes realizados; también posibilitamos el acceso a la jubilación utilizando las moratorias vigentes en caso de no contar con los aportes requeridos por ley.</p>
@@ -114,5 +114,3 @@ const Jubilaciones = () => {
     </main>
   );
 };
-
-export default Jubilaciones;
