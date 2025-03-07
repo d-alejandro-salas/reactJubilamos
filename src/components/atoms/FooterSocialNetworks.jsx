@@ -1,4 +1,4 @@
-import { FaFacebookF, FaWhatsapp, FaEnvelope } from "react-icons/fa6";
+import { FaFacebookF, FaYoutube, FaWhatsapp, FaEnvelope } from "react-icons/fa6";
 
 function FooterSocialNetworks() {
   return (
@@ -18,7 +18,17 @@ function FooterSocialNetworks() {
         </li>
         <li>
           <a href="https://www.instagram.com/jubilamos" className="fa fa-instagram" title="Instagram" target="_blank" rel="noopener noreferrer"></a></li>
-        <li>
+          <li>
+          <a 
+            href="mailto:jubilamosinf@hotmail.com" 
+            title="Email" 
+            className="envelope" 
+            target="_blank" 
+            rel="noopener noreferrer"
+          >
+            <FaEnvelope />
+          </a>
+        </li><li>
           <a 
             href="https://api.whatsapp.com/send/?phone=5491132140614" 
             className="wsp" 
@@ -29,15 +39,16 @@ function FooterSocialNetworks() {
             <FaWhatsapp />
           </a>
         </li>
+
         <li>
           <a 
-            href="mailto:jubilamosinf@hotmail.com" 
-            title="Email" 
-            className="envelope" 
+            href="https://www.youtube.com/@Jubilamos-Info" 
+            title="YouTube" 
+            className="youTube" 
             target="_blank" 
             rel="noopener noreferrer"
           >
-            <FaEnvelope />
+            <FaYoutube />
           </a>
         </li>
       </ul>
