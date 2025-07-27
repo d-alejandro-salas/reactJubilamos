@@ -10,7 +10,8 @@ export function HomePageCard() {
           <Link className="mainGrid__link" to={`/${item.titulo.toLowerCase().replace(/ /g, '')}`}>
             <h2>{item.titulo}</h2>
             <div className="linkDescription__container">
-              <img width="600" height="400" src={images[item.imagen.replace(/\.(jpg|jpeg|png|webp)$/, '')]} alt={item.titulo} />
+              <img 
+      loading="lazy" width="600" height="400" src={images[item.imagen.replace(/\.(jpg|jpeg|png|webp)$/, '')]} alt={item.titulo} />
               <p>{item.descripcion}</p>
             </div>
           </Link>
