@@ -2,7 +2,7 @@ import { Link } from 'react-router-dom';
 import data from '../../utils/dataHomePageCard.json';
 import images from '../../assets/images/imagesIndex.js';
 
-function HomePageCard() {
+export function HomePageCard() {
   return (
     <div id="mainGrid">
       {data.map((item) => (
@@ -10,7 +10,8 @@ function HomePageCard() {
           <Link className="mainGrid__link" to={`/${item.titulo.toLowerCase().replace(/ /g, '')}`}>
             <h2>{item.titulo}</h2>
             <div className="linkDescription__container">
-              <img src={images[item.imagen.replace(/\.(jpg|jpeg|png|webp)$/, '')]} alt={item.titulo} />
+              <img 
+      loading="lazy" width="600" height="400" src={images[item.imagen.replace(/\.(jpg|jpeg|png|webp)$/, '')]} alt={item.titulo} />
               <p>{item.descripcion}</p>
             </div>
           </Link>
@@ -20,4 +21,3 @@ function HomePageCard() {
   );
 }
 
-export default HomePageCard;
