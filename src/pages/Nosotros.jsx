@@ -8,9 +8,7 @@ export const Nosotros = () => {
       <h1>NOSOTROS</h1>
       <p>En Jubilamos, nuestra prioridad es brindar apoyo integral a nuestros clientes en todas las etapas de sus trámites ante ANSES y en la protección de sus derechos. Nos especializamos en ofrecer asesoramiento y la mejor orientación, asegurando la máxima seguridad jurídica y bienestar para quienes confían en nuestros servicios.</p>
       <p>Nuestro compromiso es garantizar la más alta calidad en la asistencia que proporcionamos. Con calidez, celeridad y una amplia experiencia en el campo, trabajamos incansablemente para asegurar que cada cliente reciba el apoyo necesario de manera oportuna y eficiente. Creemos firmemente en la importancia de proteger los derechos y velar el bienestar en cada paso del proceso.</p>
-      <p>
-        En Jubilamos, fusionamos calidez humana con experiencia legal. Cada caso es abordado con dedicación y cuidado. Tu tranquilidad y satisfacción son nuestra meta constante.
-      </p>
+      <p>En Jubilamos, fusionamos calidez humana con experiencia legal. Cada caso es abordado con dedicación y cuidado. Tu tranquilidad y satisfacción son nuestra meta constante, de la mano de los especialistas Dr. Monti y Dr. Ferrara, abogados dedicados exclusivamente al Derecho Previsional.</p>
       <ul>
         <li><Link to="/jubilaciones">✅ Jubilaciones</Link></li>
         <li><Link to="/pensionesPorFallecimiento">✅ Pensiones</Link></li>
