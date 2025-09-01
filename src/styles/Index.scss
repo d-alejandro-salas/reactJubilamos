@@ -1,8 +1,11 @@
 @use './variables' as v;
 @import './header';
 @import './footer';
+@import './contacto';
 @import './nosotros';
 @import './indexMain';
+
+
 
 *,
 *::before,
@@ -163,3 +166,44 @@ main, #introduction {
   transform: scale(1.2);
   }
 }
+
+.socialNetworks__ul {
+      display: flex;
+      justify-content: center; // Alinea los elementos en el centro horizontalmente
+      transform: scale(1.5);
+
+      li {
+        margin-left: 2rem; // Ajusta el valor según la separación deseada
+        transition: 0.3s; // Transición de color al hacer hover
+      }
+
+      a {
+        font-size: 2.4rem; // Tamaño de fuente
+        display: inline-block;
+        transition: color 0.3s, transform 0.3s;
+
+
+        // Estilos para los iconos de redes sociales específicos
+        &.fb {
+          color: #3b5998!important; // Azul de Facebook
+        }
+
+        &.fa-instagram {
+          background-image: linear-gradient(to bottom, #e4405f, #8a2be2)!important; // Rosa de Instagram a Violeta
+          -webkit-background-clip: text; // Aplicar clip al texto para que el gradiente se muestre solo en el texto
+          color: transparent; // Hacer el texto transparente para que solo se muestre el gradiente de fondo
+        }
+
+        &.wsp {
+          color: #25d366!important; // Verde de WhatsApp
+        }
+
+        &.envelope, &.youTube{
+          color: #c4302b!important; // Rojo oscuro para el ícono de correo electrónico
+        }
+        
+        &:hover {
+          transform: scale(1.6);
+        }
+      }
+    }

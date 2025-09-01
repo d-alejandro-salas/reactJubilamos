@@ -2,7 +2,8 @@
 
 import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
-import FooterSocialNetworks from '../atoms/FooterSocialNetworks';
+import SocialNetworks from '../atoms/SocialNetworks';
+
 
 function FooterSections() {
 
@@ -34,7 +35,7 @@ function FooterSections() {
   return (
     <>
         <section id="socialNetworks" className={highlightedSection === 'socialNetworks' ? 'destacado' : ''}>
-          <FooterSocialNetworks /><br />
+          <SocialNetworks className="on-dark" />
           <p style={{ textAlign: 'justify' }}>
             Puedes contactarnos a través de <a href="https://www.facebook.com/jubilamosok" title="Facebook">Facebook</a>, <a href="https://www.instagram.com/jubilamos" title="Instagram">Instagram</a>, <a href="https://api.whatsapp.com/send/?phone=5491132140614">WhatsApp</a>, ☎️ llamada directa al 1132140614 o por <a href="mailto:jubilamosinf@hotmail.com">correo electrónico</a>.
           </p>

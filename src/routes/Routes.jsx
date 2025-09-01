@@ -2,6 +2,7 @@
 
 import { Routes, Route } from 'react-router-dom';
 import { HomePage } from '../pages/HomePage';
+import { Contacto } from '../pages/Contacto';
 import { Nosotros } from '../pages/Nosotros';
 import { Jubilaciones } from '../pages/Jubilaciones';
 import { PensionesPorFallecimiento } from '../pages/PensionesPorFallecimiento';
@@ -12,6 +13,7 @@ const AppRoutes = () => (
   <Routes>
     <Route path="/" element={<HomePage />} />
     <Route path="/jubilaciones" element={<Jubilaciones />} />
+    <Route path="/contacto" element={<Contacto />} />
     <Route path="/nosotros" element={<Nosotros />} />
     <Route path="/pensionesporfallecimiento" element={<PensionesPorFallecimiento />} />
     <Route path="/reajustedehaberes" element={<ReajusteDeHaberes />} />

@@ -1,4 +1,4 @@
-import { NavLink } from 'react-router-dom';
+
 import { Button } from '../atoms/Button';
 
 export const Nav = () => {
@@ -12,7 +12,7 @@ export const Nav = () => {
           <Button to="/reajustedehaberes">HABER MENSUAL</Button>
         </li>
         <li>
-          <a href="#socialNetworks">CONTACTATE</a>
+          <Button to="/contacto">CONTACTANOS</Button>
         </li>
         <li>
           <Button to="/nosotros">NOSOTROS</Button>
