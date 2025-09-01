@@ -1,0 +1,118 @@
+@use "sass:color";
+@use "./variables" as v;
+
+// Derivados a partir de tus variables
+$ink: #222; // texto principal
+$muted: #666; // texto secundario
+$border: color.scale(v.$headerFooterBackground, $lightness: 60%); // gris claro desde #333
+$focus: v.$mainGreen; // verde principal
+$ring: rgba($focus, .25);
+
+form {
+  /* Card */
+  background: #fff;
+  color: $ink;
+  max-width: 820px;
+  margin: 2.5rem auto;
+  /* Aumentar el padding para mayor presencia */
+  padding: 2.5rem;
+  border: 1px solid $border;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.06);
+
+  /* Encabezado */
+  h2 {
+    /* Ajustar tamaño para que el título sea más destacado */
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+    text-align: center;
+    /* Mayor separación inferior */
+    margin: 0 0 1rem 0;
+    color: color.scale(v.$headerFooterBackground, $lightness: 15%);
+  }
+
+  p {
+    text-align: center;
+    color: $muted;
+    /* Incrementar margen inferior para mejor separación */
+    margin: 0 0 2rem 0;
+  }
+
+  /* Campos */
+  div {
+    display: grid;
+    /* Separación ligeramente mayor entre campos */
+    gap: .5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    /* Incrementar tamaño de etiqueta para mayor legibilidad */
+    font-size: 1.2rem;
+    font-weight: 600;
+  }
+
+  input,
+  select,
+  textarea {
+    appearance: none;
+    width: 100%;
+    background: #fff;
+    border: 1px solid $border;
+    /* Radios mayores y más relleno */
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    /* Tipografía más grande */
+    font-size: 1.25rem;
+    line-height: 1.4;
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+
+    &:focus {
+      border-color: $focus;
+      box-shadow: 0 0 0 3px $ring;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    /* Altura mínima incrementada para mensajes más largos */
+    min-height: 160px;
+  }
+
+  /* Botón */
+  button {
+    display: inline-block;
+    /* Aumentar margen para separar el botón del último campo */
+    margin: 1.5rem auto 0;
+    /* Botón de mayor tamaño */
+    padding: 1.2rem 2.8rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    /* Bordes más redondeados */
+    border-radius: 10px;
+    border: 2px solid $focus;
+    background: transparent;
+    color: color.mix(#000, $focus, 25%); // verde legible
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease, transform .02s ease;
+
+    &:hover {
+      background: $focus;
+      color: #fff;
+    }
+    &:active { transform: translateY(1px); }
+    &:disabled { opacity: .6; cursor: not-allowed; }
+  }
+}
+
+/* Layout responsivo opcional (alinear teléfono y email en 2 columnas cuando hay ancho) */
+@media (min-width: 860px) {
+  form {
+    .row-2 {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 1rem;
+    }
+  }
+}

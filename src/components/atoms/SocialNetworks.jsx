@@ -46,12 +46,11 @@ function FooterSocialNetworks() {
             title="YouTube" 
             className="youTube" 
             target="_blank" 
-            rel="noopener noreferrer"
-          >
+            rel="noopener noreferrer">
             <FaYoutube />
           </a>
         </li>
-      </ul>
+      </ul><br/>
     </>
   );
 }

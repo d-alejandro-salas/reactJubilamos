@@ -1,6 +1,5 @@
 // src/pages/Jubilaciones.jsx
 
-import { Link } from 'react-router-dom';
 import jubilacionesImg from '../assets/images/jubilaciones.webp';
 
 export const Jubilaciones = () => {
