@@ -32,7 +32,17 @@ abbr.req {
    - ≥640px: “chip” con líneas laterales
    =========================== */
 .contactPage {
-  .sectionTitle {
+
+  /* Línea 36 — unificar ancho en X para todos los hijos */
+  --container: min(820px, 92%);
+
+  & > * {
+    width: 100%;
+    max-width: var(--container);
+    margin-inline: auto;   // centra el contenido
+  }
+
+  .sectionTitle { max-width: var(--container); 
     text-align: center;
     margin: 2rem auto 1rem;
     max-width: min(980px, 92%);
