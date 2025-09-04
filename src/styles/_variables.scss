@@ -1,2 +1,16 @@
+// styles/_variables.scss
+
 $mainGreen: #8acfa2;
 $headerFooterBackground: #333;
+
+// tiempos y transiciones
+$time-fast: 0.20s;
+$time-base: 0.30s;
+$time-slow: 0.45s;
+$easing: ease;
+
+$tr-color: color $time-base $easing;
+$tr-transform: transform $time-base $easing;
+$tr-base: $tr-transform, $tr-color;
+$transition-fast: 0.3s;
+$transition-default: transform $transition-fast, color $transition-fast;
