@@ -169,6 +169,9 @@ main, #introduction {
 
 .socialNetworks {
   background-color: inherit;
+  align-items: center;
+  
+  .socialNetworks__h3 {display: flex; justify-content: center;}
 
   .socialNetworks__ul {
     display: flex;
