@@ -5,7 +5,7 @@ import { FaFacebookF, FaYoutube, FaWhatsapp, FaEnvelope } from "react-icons/fa6"
 export const SocialNetworks = () => {
   return (
   <div className="socialNetworks">
-    <h3>CONTACTO - REDES SOCIALES</h3><br/>
+    <h3 className="socialNetworks__h3">CONTACTO - REDES SOCIALES</h3><br/>
     <ul className="socialNetworks__ul">
       <li>
         <a 
