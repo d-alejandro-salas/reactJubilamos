@@ -3,7 +3,7 @@ export const ContactForm = () => {
   const req = (
     <>
       {" "}
-      <abbr className="req" title="obligatorio" aria-hidden="true">*</abbr>
+      <abbr className="req" title="obligatorio" aria-hidden="true"><span style={{ color: "red" }}>*</span></abbr>
       <span className="sr-only"> (obligatorio)</span>
     </>
   );
@@ -17,13 +17,11 @@ export const ContactForm = () => {
         correspondiente.
       </p>
 
-      {/* Nota sobre obligatoriedad */}
       <p className="form-note" aria-live="polite">
-        Los campos marcados con <abbr className="req" title="obligatorio">*</abbr> son
+        Los campos marcados con <abbr className="req" title="obligatorio"><span style={{ color: "red" }}>*</span></abbr> son
         obligatorios.
       </p>
 
-      {/* Nombre (obligatorio) */}
       <div>
         <label htmlFor="fullName">Nombre y apellidos:{req}</label>
         <input
@@ -40,10 +38,9 @@ export const ContactForm = () => {
         />
       </div>
 
-      {/* Teléfono (opcional) + E-mail (obligatorio) */}
-      <div className="row-2">
+        <div className="row-2">
         <div>
-          <label htmlFor="phone">Teléfono:</label>
+            <label htmlFor="phone">Teléfono:{req}</label>
           <input
             id="phone"
             name="phone"
@@ -51,7 +48,13 @@ export const ContactForm = () => {
             autoComplete="tel"
             inputMode="tel"
             placeholder="Ej.: 11 3214-0614"
-            onInvalid={(e) => e.currentTarget.setCustomValidity("")}
+            // 2. SE HACE OBLIGATORIO
+            required
+            aria-required="true"
+            // 3. SE AÑADE MENSAJE DE ERROR
+            onInvalid={(e) =>
+              e.currentTarget.setCustomValidity("Por favor, ingrese su teléfono.")
+            }
             onInput={(e) => e.currentTarget.setCustomValidity("")}
           />
         </div>
@@ -76,8 +79,7 @@ export const ContactForm = () => {
         </div>
       </div>
 
-      {/* Servicio (opcional) */}
-      <div>
+       <div>
         <label htmlFor="service">Servicio de interés:</label>
         <select id="service" name="service">
           <option value="">Seleccione…</option>
@@ -89,24 +91,21 @@ export const ContactForm = () => {
         </select>
       </div>
 
-{/* Mensaje (obligatorio) */}
-<div>
-  <label htmlFor="message">Mensaje:{req}</label>
-  <textarea
-    id="message"
-    name="message"
-    rows={5}
-    placeholder="Hacenos libremente tu consulta"
-    required
-    aria-required="true"
-    onInvalid={(e) =>
-      e.currentTarget.setCustomValidity("Por favor, escriba su mensaje.")
-    }
-    onInput={(e) => e.currentTarget.setCustomValidity("")}
-  />
-</div>
-
-
+     <div>
+        <label htmlFor="message">Mensaje:{req}</label>
+        <textarea
+          id="message"
+          name="message"
+          rows={5}
+          placeholder="Hacenos libremente tu consulta"
+          required
+          aria-required="true"
+          onInvalid={(e) =>
+            e.currentTarget.setCustomValidity("Por favor, escriba su mensaje.")
+          }
+          onInput={(e) => e.currentTarget.setCustomValidity("")}
+        />
+      </div>
       <button type="submit">Enviar</button>
     </form>
   );
