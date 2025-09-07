@@ -1,11 +1,9 @@
 @use './variables' as v;
-@import './header';
-@import './footer';
-@import './contact';
-@import './nosotros';
-@import './indexMain';
-
-
+@use './header';
+@use './footer';
+@use './contact';
+@use './nosotros';
+@use './indexMain';
 
 *,
 *::before,
@@ -33,7 +31,7 @@ ul, ol {
 }
 
 main, #introduction {
-  padding: 6rem;
+  padding: 2rem 1.5rem;
   background-color: v.$mainGreen;
   color: black;
   line-height: 3rem;
@@ -177,22 +175,20 @@ main, #introduction {
     display: flex;
     justify-content: center;
     gap: 2rem; // criterio unificado para separación
-    transform: scale(1.5);
-
+    transform: scale(1.2);
+    flex-wrap: wrap;
     li {
       transition: v.$tr-color;
     }
 
     a {
-      color: #fff; // ⚠️ Si lo dejas igual al fondo, los íconos quedan invisibles
+      color: #fff;
       font-size: 2.4rem;
       display: inline-block;
       transition: v.$tr-base;
       transform-origin: center;
 
       &.fb { color: #3b5998 !important; }
-
-
 
       &.wsp { color: #25d366 !important; }
 
@@ -219,3 +215,11 @@ main, #introduction {
   }
 }
 
+@media (min-width: 768px) { // 768px es un punto de quiebre común para tablets
+  main, #introduction {
+    padding: 6rem; // Restauramos el padding grande solo en pantallas anchas
+  }
+  .socialNetworks .socialNetworks__ul {
+    transform: scale(1.5);
+  }
+}

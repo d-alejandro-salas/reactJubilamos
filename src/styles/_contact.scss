@@ -1,181 +1,79 @@
-/* src/styles/_contacto.scss */
+/* src/styles/_contact.scss */
 @use "sass:color";
 @use "./variables" as v;
 
 /* ===========================
-   UTILITARIAS DEL FORM
+   VARIABLES LOCALES DEL FORMULARIO
    =========================== */
-
-/* asterisco visible y rojo (para <abbr class="req">*</abbr>) */
-abbr.req {
-  color: #c62828;
-  font-weight: 700;
-  text-decoration: none;
-}
-
-/* texto “Los campos marcados con * son obligatorios” */
-.form-note {
-  font-size: .95rem;
-  opacity: .9;
-  margin: 0 0 1rem 0;
-}
-
-/* accesibilidad: sólo lectores de pantalla */
-.sr-only {
-  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
-  overflow: hidden; clip: rect(0, 0, 0, 0); white-space: nowrap; border: 0;
-}
+$ink: #222;      // Texto principal
+$muted: #666;    // Texto secundario
+$border: color.scale(v.$headerFooterBackground, $lightness: 60%); // Borde gris claro
+$focus: v.$mainGreen; // Color de enfoque (verde)
+$ring: rgba($focus, .25); // Sombra de enfoque
 
 /* ===========================
-   CONTACTO: Título de sección
-   - Mobile-first: subrayado corto
-   - ≥640px: “chip” con líneas laterales
+   ESTRUCTURA GENERAL DE LA PÁGINA
    =========================== */
 .contactPage {
+  // Variable para unificar el ancho máximo de los contenedores
+  --container-width: min(820px, 92%);
 
-  /* Línea 36 — unificar ancho en X para todos los hijos */
-  --container: min(820px, 92%);
-
+  // Aplica el ancho y centrado a todos los hijos directos de .contactPage
   & > * {
     width: 100%;
-    max-width: var(--container);
-    margin-inline: auto;   // centra el contenido
+    max-width: var(--container-width);
+    margin-left: auto;
+    margin-right: auto;
   }
 
-  .sectionTitle { max-width: var(--container); 
-    text-align: center;
-    margin: 2rem auto 1rem;
-    max-width: min(980px, 92%);
-    font-weight: 700;
-    font-size: clamp(1.1rem, .9rem + 1.6vw, 1.6rem);
-    line-height: 1.25;
-    letter-spacing: .01em;
-    color: #111;
-    text-transform: none;
-
-    /* subrayado corto (MOBILE) */
-    &::after {
-      content: "";
-      display: block;
-      width: 88px;
-      height: 3px;
-      margin: .6rem auto 0;
-      background: color.scale(v.$mainGreen, $lightness: -10%);
-      border-radius: 2px;
-    }
-
-    .sectionLink {
-      color: inherit;
-      text-decoration: none;
-      transition: color .15s ease, border-color .15s ease, background .15s ease;
-    }
-    .sectionLink:hover {
-      color: color.scale(v.$mainGreen, $lightness: -10%);
-      text-decoration: underline;
-      text-underline-offset: 3px;
-    }
-  }
-
-  /* DESKTOP: chip centrado con líneas */
-  @media (min-width: 640px) {
-    .sectionTitle {
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      gap: .9rem;
-      margin: 2.5rem auto 1.25rem;
-
-      /* líneas a los lados (hairlines) */
-      &::before,
-      &::after {
-        content: "";
-        height: 1px;
-        flex: 1 1 100%;
-        background: color.scale(v.$headerFooterBackground, $lightness: 65%);
-        width: auto;
-        margin: 0;            /* anulamos el subrayado móvil */
-        border-radius: 0;
-      }
-
-      /* la “etiqueta” que contiene el texto/click */
-      .sectionLink {
-        display: inline-block;
-        padding: .35rem .9rem;
-        border-radius: .5rem;
-        background: #fff;
-        border: 1px solid color.scale(v.$headerFooterBackground, $lightness: 70%);
-        color: inherit;
-        text-decoration: none;
-        box-shadow: 0 1px 0 rgba(0,0,0,.04);
-        white-space: nowrap; /* evita saltos raros en desktop */
-      }
-      .sectionLink:hover {
-        color: color.scale(v.$mainGreen, $lightness: -10%);
-        border-color: color.scale(v.$mainGreen, $lightness: -5%);
-        background: #fff;
-        text-decoration: none;
-      }
-    }
-  }
-
-  /* Mapa responsivo — 100% en mobile, acotado en desktop */
+  // Estilo para el mapa de Google Maps
   iframe {
-    width: 100% !important;
-    max-width: 820px;
+    aspect-ratio: 16 / 9; // Mantiene la proporción del video
     height: auto;
-    aspect-ratio: 16/9;
-    display: block;
-    margin: 0 auto;
-    border: 0;
+    margin-top: 2rem;
+    border: none; // Sin borde
+    border-radius: .8rem; // Bordes redondeados consistentes
   }
 }
 
 /* ===========================
-   CONTACTO: Formulario
+   FORMULARIO DE CONTACTO
    =========================== */
-
-/* Derivados a partir de tus variables */
-$ink: #222;   /* texto principal   */
-$muted: #666; /* texto secundario  */
-$border: color.scale(v.$headerFooterBackground, $lightness: 60%); /* gris claro desde #333 */
-$focus: v.$mainGreen; /* verde principal */
-$ring: rgba($focus, .25);
-
 form {
-  /* Card */
+  // Estilos del contenedor del formulario (tarjeta)
   background: #fff;
   color: $ink;
-  max-width: 820px;
-  margin: 2.5rem auto;
   padding: 2.5rem;
+  margin-top: 2rem;
   border: 1px solid $border;
   border-radius: 10px;
   box-shadow: 0 8px 20px rgba(0,0,0,.06);
 
-  /* Encabezado */
+  h2, p {
+    text-align: center;
+  }
+
   h2 {
     font-size: clamp(1.8rem, 3vw, 2.5rem);
     font-weight: 700;
-    text-align: center;
-    margin: 0 0 1rem 0;
+    margin: 0 0 1rem;
     color: color.scale(v.$headerFooterBackground, $lightness: 15%);
   }
 
   p {
-    text-align: center;
     color: $muted;
-    margin: 0 0 2rem 0;
+    margin: 0 0 2rem;
   }
 
-  /* Campos */
-  div {
+  // Contenedor para cada campo (label + input)
+  .form-group {
     display: grid;
     gap: .5rem;
     margin-bottom: 1.5rem;
   }
 
   label {
-    font-size: 1.2rem;
+    font-size: 1.5rem;
     font-weight: 600;
   }
 
@@ -191,7 +89,7 @@ form {
     font-size: 1.25rem;
     line-height: 1.4;
     outline: none;
-    transition: border-color .15s ease, box-shadow .15s ease, background .15s ease;
+    transition: border-color .15s ease, box-shadow .15s ease;
 
     &:focus {
       border-color: $focus;
@@ -204,10 +102,10 @@ form {
     min-height: 160px;
   }
 
-  /* Botón */
+  // Botón de envío
   button {
-    display: block;            /* permite centrar con margin auto */
-    margin: 1.5rem auto 0;     /* centrado eje X */
+    display: block;
+    margin: 1.5rem auto 0;
     padding: 1.2rem 2.8rem;
     font-size: 1.25rem;
     font-weight: 700;
@@ -224,13 +122,38 @@ form {
   }
 }
 
-/* Layout opcional: 2 columnas en anchos grandes para fila específica */
+// Layout de 2 columnas para pantallas grandes
 @media (min-width: 860px) {
-  form {
-    .row-2 {
-      display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 1rem;
-    }
+  form .row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* ===========================
+   TARJETA DE REDES SOCIALES
+   =========================== */
+.socialCard { // <-- CORREGIDO a camelCase como pediste
+  background-color: #fff;
+  border-radius: .8rem;
+  border: 1px solid #ddd;
+  padding: 2.5rem 2rem;
+  text-align: center; // Mantenemos centrado para el H3 y los íconos
+  margin-top: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+
+  h3 {
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    text-align: justify!important;
+    margin-bottom: 2.5rem;
+    max-width: 50ch; // Mantenemos esto para que las líneas no sean muy largas
+    margin-left: auto;  // Esto asegura que el bloque del párrafo esté centrado
+    margin-right: auto; // si su max-width es menor que el contenedor.
   }
 }
