@@ -1,13 +1,17 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
-import './styles/Index.scss'; // Sass file is imported.
+import { HelmetProvider } from 'react-helmet-async';  // ✅ nuevo
+import './styles/Index.scss'; // estilo
 import App from './App';
 
-// A root is created with createRoot
+// Creamos el root
 const root = ReactDOM.createRoot(document.getElementById('root'));
 
+// Render principal
 root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
+  <HelmetProvider>
+    <React.StrictMode>
+      <App />
+    </React.StrictMode>
+  </HelmetProvider>
 );
