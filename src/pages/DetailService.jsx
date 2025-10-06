@@ -1,29 +1,38 @@
-// src/pages/DetailService.jsx
+import { useParams } from "react-router-dom";
+import Seo from "../components/seo/Seo";           // ✅ nuevo
+import dataPages from "../utils/dataPages.json";
+import images from "../assets/images/imagesIndex.js";
 
-import { useParams } from 'react-router-dom';
-import dataPages from '../utils/dataPages.json'; // Importa el archivo .json de datos
-import images from '../assets/images/imagesIndex.js';
-
-function normalizeString(str) {
-    return str.toLowerCase().replace(/\s+/g, '');
-}
+function normalizeString(str){ return str.toLowerCase().replace(/\s+/g, ""); }
 
 export const DetailService = () => {
-    const { productId } = useParams();
+  const { productId } = useParams();
+  const pageData = dataPages.find(item => normalizeString(item.title) === normalizeString(productId));
 
-    // Buscar los datos en el array de dataPages
-    const pageData = dataPages.find(item => normalizeString(item.title) === normalizeString(productId));
+  // ✅ metas derivadas del contenido
+  const title = pageData ? `${pageData.title} – Jubilamos` : "Servicio – Jubilamos";
+  const description = pageData?.paragraphs?.[0]?.slice(0, 155) || "Asesoramiento previsional y sucesorio en todo el país.";
+  const image = pageData ? images[pageData.image] : undefined;
 
-    return (
-        <main>
-            <h1>{pageData.title}</h1>
-            <img className="pages__img" src={images[pageData.image]} alt={pageData.title} />
-            <section>
-                {pageData.paragraphs.map((paragraph, index) => (
-                    <p key={index}>{paragraph}</p>
-                ))}
-            </section>
-        </main>
-    );
+return (
+  <>
+    <Seo title={title} description={description} path={`/${productId}`} image={image} />
+    <main>
+      {pageData ? (
+        <>
+          <h1>{pageData.title}</h1>
+          <img className="pages__img" src={images[pageData.image]} alt={pageData.title} />
+          <section>
+            {pageData.paragraphs.map((p, i) => <p key={i}>{p}</p>)}
+          </section>
+        </>
+      ) : (
+        <>
+          <h1>Servicio no encontrado</h1>
+          <p>La página solicitada no existe o fue movida.</p>
+        </>
+      )}
+    </main>
+  </>
+);
 };
-

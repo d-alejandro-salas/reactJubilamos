@@ -1,12 +1,23 @@
 // src/pages/Jubilaciones.jsx
 
+import Seo from "../components/seo/Seo";
 import jubilacionesImg from '../assets/images/jubilaciones.webp';
 
 export const Jubilaciones = () => {
   return (
-     <main> 
-      <h1>JUBILACIÓN</h1>
-      <img className="pages__img" src={jubilacionesImg}/>
+    <>
+      <Seo
+        title="Jubilaciones – Trámite y asesoramiento"
+        description="Análisis de requisitos, moratorias vigentes y estrategia para obtener la mejor jubilación posible."
+        path="/jubilaciones"
+      />
+     <main>
+        <h1>JUBILACIÓN</h1>
+        <img
+          className="pages__img"
+          src={jubilacionesImg}
+          alt="Asesoramiento y trámite de jubilaciones"
+        />
       <p className="bigFontSize">Tramitamos la mejor jubilación posible para nuestros clientes, brindándoles un servicio integral, donde se analizan requisitos de edad y aportes realizados; también posibilitamos el acceso a la jubilación utilizando las moratorias vigentes en caso de no contar con los aportes requeridos por ley.</p>
       <p className="bigFontSize">Nuestro enfoque se basa en analizar minuciosamente la situación de cada individuo de manera anticipada, permitiéndonos diseñar la estrategia correcta para obtener el mejor resultado en el proceso de la jubilación.</p><br />
           <h3 className="h3__subtitle">Requisitos necesarios para que puedas jubilarte</h3>
@@ -110,6 +121,7 @@ export const Jubilaciones = () => {
 
         <h4>Metalúrgicos</h4>
         <p>Personas expuestas a la radiación del calor afectado a procesos de producción en tareas de laminación, acería y fundición realizadas en forma manual o semimanual desarrolladas en ambientes de alta temperatura, con 50 años los hombres, y con 25 años de servicios.</p>
-    </main>
+      </main>
+    </>
   );
 };

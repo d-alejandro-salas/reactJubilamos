@@ -1,10 +1,16 @@
 // src/pages/Nosotros.jsx
 
 import { Link } from 'react-router-dom';
-import { ContactForm } from '../components/organism/Form'; // 👈 IMPORTACIÓN
+import Seo from "../components/seo/Seo";
 
 export const Nosotros = () => {
   return (
+    <>
+      <Seo
+        title="Nosotros – Jubilamos"
+        description="Escribínos o agendá tu entrevista virtual. Resolvemos consultas previsionales en todo el país."
+        path="/nosotros"
+      />
     <main className="nosotros-page">
       <h1>NOSOTROS</h1>
       <p>
@@ -18,7 +24,7 @@ export const Nosotros = () => {
       </p>
       <ul>
         <li><Link to="/jubilaciones">✅ Jubilaciones</Link></li>
-        <li><Link to="/pensionesPorFallecimiento">✅ Pensiones</Link></li>
+<li><Link to="/pensionesporfallecimiento">✅ Pensiones</Link></li>
         <li><Link to="/rentaVitalicia">✅ Rentas Vitalicias</Link></li>
         <li><Link to="/reajustedehaberes">✅ Reajuste de Haberes</Link></li>
         <li><Link to="/sucesiones">✅ Sucesiones</Link></li>
@@ -28,9 +34,7 @@ export const Nosotros = () => {
       </p>
       <p>
         <u>ENTREVISTAS VIRTUALES</u>: En nuestro estudio jurídico, realizamos entrevistas de forma remota, ofreciéndote la comodidad de evitar desplazamientos a nuestras oficinas. Podés comunicarte con nosotros a través de <a href="https://api.whatsapp.com/send/?phone=5491132140614">WhatsApp</a>, teléfono o <a href="mailto:jubilamosinf@hotmail.com">correo electrónico</a>. Tu tranquilidad es nuestra prioridad, y nuestro compromiso es brindarte el respaldo que necesites.
-      </p>
-      {/* Aquí va tu formulario */}
-      
-    </main>
+      </p>      
+    </main></>
   );
 };
