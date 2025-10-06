@@ -1,5 +1,10 @@
 [
   {
+    "titulo": "Reajuste de haberes",
+    "imagen": "reajustes.webp",
+    "descripcion": "En nuestro país, 1 de cada 5 personas cobra menos de lo que le corresponde. Recordá siempre que es tu dinero el cual aportaste a lo largo de la vida y es tu derecho reclamarlo."
+  },
+  {
     "titulo": "Jubilaciones",
     "imagen": "jubilaciones.jpg",
     "descripcion": "Tramitamos la mejor jubilación posible para nuestros clientes, brindándoles un servicio integral, analizando requisitos de edad y aportes realizados; también brindamos la posibilidad de que accedan a la jubilación utilizando las moratorias vigentes en caso de no contar con los aportes requeridos por ley."
@@ -8,11 +13,6 @@
     "titulo": "Pensiones por fallecimiento",
     "imagen": "pension.webp",
     "descripcion": "Ante el fallecimiento de un trabajador en actividad o jubilado, tendrán derecho a solicitar el beneficio de Pensión los cónyuges/convivientes o sus hijos menores e hijos mayores discapacitados."
-  },
-  {
-    "titulo": "Reajuste de haberes",
-    "imagen": "reajustes.webp",
-    "descripcion": "En nuestro país, 1 de cada 5 personas cobra menos de lo que le corresponde. Recordá siempre que es tu dinero el cual aportaste a lo largo de la vida y es tu derecho reclamarlo."
   },
   {
     "titulo": "Retiros por invalidez",

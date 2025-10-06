@@ -10,14 +10,12 @@ export const ReajusteDeHaberes = () => {
       <Seo
         title="Reajuste de haberes – Jubilamos"
         description="Revisamos tu haber previsional, calculamos el monto correcto y promovemos el reclamo administrativo o judicial para actualizarlo."
-        path="/reajustedehaberes"
-      />
+        path="/reajustedehaberes"/>
   <main>
     <h1>Reajuste de haberes</h1><img
   className="pages__img"
   src={ReajustesPhoto}
-  alt="Reajuste de haberes previsionales"
-/>
+  alt="Reajuste de haberes previsionales"/>
     <p>En nuestro país, 1 de cada 5 personas cobra menos de lo que le corresponde. Recordá siempre que es tu dinero, el cual aportaste a lo largo de la vida, y es tu derecho reclamarlo.
     </p><p>
 Numerosos fallos de la Justicia Federal en distintas jurisdicciones del país vienen declarando la inconstitucionalidad de la fórmula de movilidad vigente, por considerar que ha provocado una pérdida significativa del poder adquisitivo en los haberes previsionales. En muchos casos, las sentencias reconocen que las personas jubiladas cobran hasta un 50% menos de lo que deberían percibir.
