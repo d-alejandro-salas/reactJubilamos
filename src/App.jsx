@@ -6,14 +6,12 @@ import { Footer } from './components/Footer';
 import AppRoutes from './routes/Routes';
 import Buttons from './components/Buttons';
 import ScrollComponent from './components/atoms/ScrollComponent';
-import DefaultSeo from './components/seo/DefaultSeo'; // ✅ Nuevo import
+import DefaultSeo from './components/seo/DefaultSeo'; 
 
 const App = () => (
   <Router>
     {/* SEO global por defecto */}
     <DefaultSeo />
-
-    {/* Mantiene tu estructura */}
     <ScrollComponent />
     <Header />
     <AppRoutes />

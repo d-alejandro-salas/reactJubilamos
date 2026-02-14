@@ -2,6 +2,7 @@
 
 import Seo from "../components/seo/Seo";
 import { HomePageCard } from "../components/molecules/HomePageCard";
+import WellnessSection from "../components/organism/WellnessSection";
 
 export const HomePage = () => {
   return (
@@ -9,8 +10,7 @@ export const HomePage = () => {
       <Seo
         title="Jubilamos – Derecho Previsional y Sucesiones"
         description="Estudio jurídico especializado en jubilaciones, pensiones y sucesiones. Atención remota en todo el país."
-        path="/"
-      />
+        path="/"/>
 
       <section id="introduction">
         <h1>Estudio Jurídico especializado en Derecho Previsional y Sucesiones</h1>
@@ -44,10 +44,11 @@ export const HomePage = () => {
           el respaldo que necesites.
         </p>
       </section>
-
+      
       <main>
         <br />
         <HomePageCard />
+        <WellnessSection/>
       </main>
     </>
   );
