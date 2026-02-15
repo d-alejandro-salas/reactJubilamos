@@ -2,7 +2,7 @@
 
 import Seo from "../components/seo/Seo";
 import { HomePageCard } from "../components/molecules/HomePageCard";
-import WellnessSection from "../components/organism/WellnessSection";
+import WellnessSectionBanner from "../components/organism/WellnessSectionBanner";
 
 export const HomePage = () => {
   return (
@@ -48,7 +48,7 @@ export const HomePage = () => {
       <main>
         <br />
         <HomePageCard />
-        <WellnessSection/>
+        <WellnessSectionBanner/>
       </main>
     </>
   );
