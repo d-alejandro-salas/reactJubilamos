@@ -1,4 +1,4 @@
-// src/components/organisms/WellnessSection.jsx
+// src/components/organisms/WellnessSectionBanner.jsx
 
 import { Link } from 'react-router-dom';
 
@@ -28,7 +28,7 @@ const DumbbellIcon = () => (
   </svg>
 );
 
-export const WellnessSection = () => {
+export const WellnessSectionBanner = () => {
   return (
     <>
       {/* Estilos CSS encapsulados aquí para facilitar el Copy-Paste */}
@@ -117,7 +117,7 @@ export const WellnessSection = () => {
         }
       `}</style>
 
-      <section className="wellnessSection">
+      <section className="wellnessSectionBanner">
         <div className="wellnessContainer">
           <h2 className="wellnessTitle">Salud y Bienestar para la Tercera Edad</h2>
           <p className="wellnessSubtitle">
@@ -125,7 +125,7 @@ export const WellnessSection = () => {
           </p>
           
           <Link to="/articulos" className="wellnessBtn">
-            Ver artículos
+            VER ARTÍCULOS
           </Link>
         </div>
 
@@ -138,4 +138,4 @@ export const WellnessSection = () => {
   );
 };
 
-export default WellnessSection;
+export default WellnessSectionBanner;
