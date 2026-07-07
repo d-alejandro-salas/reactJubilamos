@@ -1,10 +1,30 @@
 // src/pages/HomePage.jsx
+import { useState, useEffect } from "react"; // IMPORTANTE: Agregamos los hooks de React
 
 import Seo from "../components/seo/Seo";
 import { HomePageCard } from "../components/molecules/HomePageCard";
 import WellnessSectionBanner from "../components/organism/WellnessSectionBanner";
 
+// Importación correcta de ambas imágenes
+import datosX from "../assets/images/datosY.png"; // Vertical (Celular)
+import datosY from "../assets/images/datosX.png"; // Horizontal (Escritorio)
+
 export const HomePage = () => {
+  // 1. Creamos el booleano. Empieza en true si la pantalla es menor o igual a 768px (tamaño estándar de tablet/celular)
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+
+  // 2. Escuchamos activamente si el usuario cambia el tamaño de la ventana o gira el celular
+  useEffect(() => {
+    const handleResize = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    window.addEventListener("resize", handleResize);
+    
+    // Limpiamos el evento cuando el componente se desmonta para que no consuma memoria de más
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
   return (
     <>
       <Seo
@@ -43,6 +63,22 @@ export const HomePage = () => {
           tranquilidad es nuestra prioridad, y nuestro compromiso es brindarte
           el respaldo que necesites.
         </p>
+        
+        {/* MODIFICACIÓN: Imagen inteligente basada en el booleano 'isMobile' */}
+        <img 
+          src={isMobile ? datosY : datosX} // Si es móvil usa datosY, si no usa datosX
+          alt="Alerta de estafas virtuales de ANSES" 
+          style={{
+            display: "block",
+            // ACÁ ESTÁ LA CLAVE: Bajamos los topes máximos para que no se agrande tanto
+            maxWidth: isMobile ? "300px" : "800px", 
+            width: "100%",
+            height: "auto",
+            margin: "2rem auto 0 auto",
+            borderRadius: "8px",
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
+          }}
+        />
       </section>
       
       <main>
