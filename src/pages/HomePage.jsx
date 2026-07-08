@@ -6,8 +6,8 @@ import { HomePageCard } from "../components/molecules/HomePageCard";
 import WellnessSectionBanner from "../components/organism/WellnessSectionBanner";
 
 // Importación correcta de ambas imágenes
-import datosX from "../assets/images/datosY.png"; // Vertical (Celular)
-import datosY from "../assets/images/datosX.png"; // Horizontal (Escritorio)
+import datosX from "../assets/images/datosCelular.png"; // Vertical (Celular)
+import datosY from "../assets/images/datosEscritorio.png"; // Horizontal (Escritorio)
 
 export const HomePage = () => {
   // 1. Creamos el booleano. Empieza en true si la pantalla es menor o igual a 768px (tamaño estándar de tablet/celular)
@@ -66,17 +66,16 @@ export const HomePage = () => {
         
         {/* MODIFICACIÓN: Imagen inteligente basada en el booleano 'isMobile' */}
         <img 
-          src={isMobile ? datosY : datosX} // Si es móvil usa datosY, si no usa datosX
+          src={!isMobile ? datosY : datosX} // Si es móvil usa datosY, si no usa datosX
           alt="Alerta de estafas virtuales de ANSES" 
           style={{
             display: "block",
-            // ACÁ ESTÁ LA CLAVE: Bajamos los topes máximos para que no se agrande tanto
-            maxWidth: isMobile ? "300px" : "800px", 
             width: "100%",
             height: "auto",
             margin: "2rem auto 0 auto",
             borderRadius: "8px",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)"
+            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
+            transform: isMobile ? "scale(0.8)" : "none" // Aplica el escalado solo en mobile
           }}
         />
       </section>
