@@ -107,8 +107,7 @@
   padding: 40px 20px;
   text-align: center;
   position: relative;
-  overflow: hidden;
-  
+  overflow: hidden;  
 
   @media (min-width: 768px) {
     padding: 45px 20px;
@@ -191,6 +190,6 @@
    ========================================= */
 .ansesBannerImg {
   height: auto; /* Para que la proporción de la foto se mantenga intacta */
-  margin-top: 40px; /* Separación con el hermano de arriba */
-  margin-bottom: 60px; /* Separación con el footer */
+  margin-top: 20px; /* Separación con el hermano de arriba */
+  margin-bottom: 25px; /* Separación con el footer */
 }
