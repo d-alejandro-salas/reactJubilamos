@@ -73,9 +73,23 @@
 }
 
 /* =========================================
-   ESTILOS NUEVOS: SECCIÓN SALUD (Wellness)
+   UNIFICACIÓN DE TAMAÑOS (Salud y ANSES)
    ========================================= */
+/* Agrupamos las dos clases para que copien EXACTAMENTE el mismo ancho y alineación */
+.wellnessSectionBanner,
+.ansesBannerImg {
+  display: block;
+  width: 95%; /* 95% para que no pegue contra los bordes en el celular */
+  max-width: 1000px; /* El tope máximo para que no se estiren al infinito en PC */
+  margin-left: auto; /* Centrado automático izquierdo */
+  margin-right: auto; /* Centrado automático derecho */
+  border-radius: 8px; /* Mismas esquinas redondeadas para los dos */
+  box-sizing: border-box;
+}
 
+/* =========================================
+   ESTILOS ESPECÍFICOS: SECCIÓN SALUD (Wellness)
+   ========================================= */
 .wellnessSectionBanner {
   background-color: #E8F5E9; /* Verde suave */
   margin-top: 60px;
@@ -83,7 +97,6 @@
   text-align: center;
   position: relative;
   overflow: hidden;
-  border-radius: 4px;
 
   @media (min-width: 768px) {
     padding: 45px 20px;
@@ -116,13 +129,12 @@
   margin-bottom: 25px;
   line-height: 1.5;
   
-  /* CORRECCIÓN DE ALINEACIÓN */
   display: block;
-  width: 100%;           /* Ocupar el ancho disponible... */
-  max-width: 600px;      /* ...pero hasta cierto punto para que se lea bien */
-  margin-left: auto;     /* Centrado automático a la izquierda */
-  margin-right: auto;    /* Centrado automático a la derecha */
-  text-align: center!important;    /* Asegurar que el texto interno esté centrado */
+  width: 100%;           
+  max-width: 600px;      
+  margin-left: auto;     
+  margin-right: auto;    
+  text-align: center!important;    
 
   @media (min-width: 768px) {
     font-size: 1.1rem;
@@ -148,7 +160,6 @@
   }
 }
 
-/* Decoraciones (Iconos de fondo) */
 .decoration-icon {
   position: absolute;
   opacity: 0.3;
@@ -157,10 +168,19 @@
 
   @media (min-width: 768px) {
     display: block;
-    
-    /* Ubicación específica de cada ícono */
     &.icon-heart { left: 10%; top: 50%; transform: translateY(-50%); }
     &.icon-apple { right: 15%; top: 25%; }
     &.icon-dumbbell { right: 8%; top: 65%; }
   }
+}
+
+/* =========================================
+   ESTILOS ESPECÍFICOS: IMAGEN BANNER ANSES
+   ========================================= */
+.ansesBannerImg {
+  height: auto; /* Para que la proporción de la foto se mantenga intacta */
+  margin-top: 40px; /* Separación con el hermano de arriba */
+  margin-bottom: 60px; /* Separación con el footer */
+  border: 2px solid #0a7a83; 
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
 }

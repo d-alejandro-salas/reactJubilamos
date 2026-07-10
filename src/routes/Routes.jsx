@@ -8,8 +8,6 @@ import { Jubilaciones } from '../pages/Jubilaciones';
 import { PensionesPorFallecimiento } from '../pages/PensionesPorFallecimiento';
 import { ReajusteDeHaberes } from '../pages/ReajusteDeHaberes';
 import { DetailService } from '../pages/DetailService';
-
-// 1. Importamos tu nueva página (asegurate que la ruta '../pages/...' sea correcta)
 import { WellnessSectionPage } from '../pages/WellnessSectionPage'; 
 
 const AppRoutes = () => (
@@ -20,8 +18,6 @@ const AppRoutes = () => (
     <Route path="/nosotros" element={<Nosotros />} />
     <Route path="/pensionesporfallecimiento" element={<PensionesPorFallecimiento />} />
     <Route path="/reajustedehaberes" element={<ReajusteDeHaberes />} />
-    
-    {/* 2. Agregamos la ruta nueva aquí */}
     <Route path="/articulos" element={<WellnessSectionPage />} />
     
     <Route path="/:productId" element={<DetailService />} />

@@ -63,27 +63,17 @@ export const HomePage = () => {
           tranquilidad es nuestra prioridad, y nuestro compromiso es brindarte
           el respaldo que necesites.
         </p>
-        
-        {/* MODIFICACIÓN: Imagen inteligente basada en el booleano 'isMobile' */}
-        <img 
-          src={!isMobile ? datosY : datosX} // Si es móvil usa datosY, si no usa datosX
-          alt="Alerta de estafas virtuales de ANSES" 
-          style={{
-            display: "block",
-            width: "100%",
-            height: "auto",
-            margin: "2rem auto 0 auto",
-            borderRadius: "8px",
-            boxShadow: "0px 4px 10px rgba(0, 0, 0, 0.1)",
-            transform: isMobile ? "scale(0.8)" : "none" // Aplica el escalado solo en mobile
-          }}
-        />
       </section>
       
       <main>
         <br />
         <HomePageCard />
-        <WellnessSectionBanner/>
+        <WellnessSectionBanner />        
+        <img
+          src={!isMobile ? datosY : datosX} // Mantenemos el cambio de asset si son proporciones distintas
+          alt="Alerta de estafas virtuales de ANSES"
+          className="ansesBannerImg"
+        />
       </main>
     </>
   );
