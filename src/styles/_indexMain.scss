@@ -2,15 +2,15 @@
 
 #mainGrid {
   display: grid;
-  gap: 2rem; /* 20px */
+  gap: 2rem;
   justify-content: center;
 
   div {
     background-color: white;
     color: black;
-    border: 0.1rem solid #ccc; /* 1px */
+    border: 0.1rem solid #ccc;
     text-align: center;
-    border-radius: 0.8rem; /* 8px */
+    border-radius: 0.8rem;
     transition: transform 0.3s ease;
     cursor: pointer;
 
@@ -42,7 +42,7 @@
       margin-bottom: 1rem;
       text-transform: uppercase;
       text-align: center;
-      height: 7.5rem; /* 75px */
+      height: 7.5rem;
     }
 
     img {
@@ -57,7 +57,7 @@
   }
 }
 
-/* Diseño para tabletas */
+/* 📱 -> 💻 TABLETS: Pantallas medianas (desde 600px de ancho en adelante) */
 @media screen and (min-width: 600px) {
   #mainGrid {
     grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -68,7 +68,7 @@
   }
 }
 
-/* Diseño para escritorio */
+/* 💻 -> 🖥️ ESCRITORIO: Monitores y pantallas grandes (desde 1024px de ancho en adelante) */
 @media screen and (min-width: 1024px) {
   #mainGrid {
     grid-template-columns: repeat(4, 1fr);
@@ -78,12 +78,12 @@
 /* =========================================
    UNIFICACIÓN DE TAMAÑOS MAESTROS
    ========================================= */
-.wellnessSectionBanner,
+.wellnessSectionBanner, .ansesBannerImg,
 .ansesImgContainer {
   display: block;
-  width: 95%; 
+  width: 100%; 
   max-width: 100%; 
-  margin-left: auto; /* Corrección de compatibilidad */
+  margin-left: auto;
   margin-right: auto;
   border-radius: 8px;
   border: 2px solid #0a7a83; 
@@ -96,9 +96,10 @@
     transform: scale(1.02);
   }
 
+  /* 💻 -> 🖥️ ESCRITORIO: Fuerza el ancho al 100% del grid y fija la altura compartida */
   @media screen and (min-width: 1024px) {
-    width: 100%; /* Toma el 100% del contenedor padre */
-    height: 23.4rem !important; /* 👈 FIJAMOS LA MISMA ALTURA EXACTA PARA AMBOS */
+    width: 100%; 
+    height: 23.4rem !important; 
   }
 }
 
@@ -111,19 +112,20 @@
   text-align: center;
   position: relative;
   font-family: "Playfair Display", serif;
-  /* Flexbox para centrar verticalmente */
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
   padding: 30px 20px; 
 
+  /* 📱 -> 💻 TABLETS Y NOTEBOOKS: (desde 768px de ancho en adelante) */
   @media (min-width: 768px) {
     margin-top: 80px;
   }
   
+  /* 💻 -> 🖥️ ESCRITORIO: Saca el padding para que el flexbox centre exacto en los 23.4rem */
   @media (min-width: 1024px) {
-     padding: 0; /* Al tener height fijo, sacamos el padding para centrar con flexbox */
+     padding: 0;
   }
 }
 
@@ -141,13 +143,14 @@
   margin-bottom: 10px;
   line-height: 1.2;
 
+  /* 📱 -> 💻 TABLETS Y NOTEBOOKS: (desde 768px de ancho en adelante) */
   @media (min-width: 768px) {
     font-size: 2.2rem;
   }
 }
 
 .wellnessSubtitle {
-     font-family: Arial,sans-serif;
+    font-family: Arial,sans-serif;
     box-sizing: border-box;
     margin: 0;
     padding: 0;
@@ -162,6 +165,7 @@
     line-height: 1.5;
     margin-bottom: 30px;
 
+  /* 📱 -> 💻 TABLETS Y NOTEBOOKS: (desde 768px de ancho en adelante) */
   @media (min-width: 768px) {
     font-size: 1.1rem;
     margin-bottom: 30px;
@@ -169,7 +173,7 @@
 }
 
 .wellnessBtn {
-     font-family: Arial,sans-serif;
+    font-family: Arial,sans-serif;
     line-height: 3rem;
     text-align: center;
     box-sizing: border-box;
@@ -198,6 +202,7 @@
   pointer-events: none;
   display: none;
 
+  /* 📱 -> 💻 TABLETS Y NOTEBOOKS: Muestra los íconos de fondo si hay espacio */
   @media (min-width: 768px) {
     display: block;
     &.icon-heart { left: 10%; top: 50%; transform: translateY(-50%); }
@@ -206,18 +211,25 @@
   }
 }
 
-/* 1. ASEGURAR EL COMPORTAMIENTO DEL CONTENEDOR PADRE */
+.ansesBannerImg {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
 .ansesImgContainer {
   display: flex; 
   justify-content: center;
   align-items: center;
   background-color: #ffffff;
   padding: 1.5rem; 
-}
+
+
+
+
 .ansesBannerImgX {
-  /* Le decimos que intente ocupar todo el espacio que el padding le deje */
   width: 100%;
   height: 100%;
   object-fit: contain;
-  transform: scale(1.15);
-}
+  transform: scale(1.15); /* ⚠️ Ojo con esto */
+}}

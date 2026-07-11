@@ -1,29 +1,16 @@
 ﻿// src/pages/HomePage.jsx
-import { useState, useEffect } from "react"; // IMPORTANTE: Agregamos los hooks de React
-
 import Seo from "../components/seo/Seo";
 import { HomePageCard } from "../components/molecules/HomePageCard";
 import WellnessSectionBanner from "../components/organism/WellnessSectionBanner";
+import { useIsMobile } from "../hooks/useIsMobile"; // Importamos tu nuevo hook
 
 // Importación correcta de ambas imágenes
 import datosY from "../assets/images/datosCelular.png";
 import datosX from "../assets/images/datosEscritorio.png";
 
 export const HomePage = () => {
-  // 1. Creamos el booleano. Empieza en true si la pantalla es menor o igual a 768px (tamaño estándar de tablet/celular)
-  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
-
-  // 2. Escuchamos activamente si el usuario cambia el tamaño de la ventana o gira el celular
-  useEffect(() => {
-    const handleResize = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    window.addEventListener("resize", handleResize);
-    
-    // Limpiamos el evento cuando el componente se desmonta para que no consuma memoria de más
-    return () => window.removeEventListener("resize", handleResize);
-  }, []);
+  // Toda la lógica de "escuchar" el tamaño de la pantalla ahora vive mágicamente acá adentro
+  const isMobile = useIsMobile();
 
   return (
     <>
