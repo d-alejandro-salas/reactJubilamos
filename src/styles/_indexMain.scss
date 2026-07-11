@@ -1,4 +1,4 @@
-@use './variables' as v;
+﻿@use './variables' as v;
 
 #mainGrid {
   display: grid;
@@ -76,25 +76,29 @@
 }
 
 /* =========================================
-   UNIFICACIÓN DE TAMAÑOS (Salud y ANSES)
+   UNIFICACIÓN DE TAMAÑOS MAESTROS
    ========================================= */
 .wellnessSectionBanner,
-.ansesBannerImg {
+.ansesImgContainer {
   display: block;
-  width: 95%; /* Mantiene el aire en las esquinas para celulares */
-  max-width: 100%; /* Permitimos que crezca en pantallas grandes */
-  margin-inline: auto; 
+  width: 95%; 
+  max-width: 100%; 
+  margin-left: auto; /* Corrección de compatibilidad */
+  margin-right: auto;
   border-radius: 8px;
   border: 2px solid #0a7a83; 
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
   box-sizing: border-box;
   transition: transform 0.3s ease;
-  &:hover {
-      transform: scale(1.02);}
+  overflow: hidden;
 
-  /* Cuando la pantalla es de escritorio (igual que tu breakpoint del grid) */
+  &:hover {
+    transform: scale(1.02);
+  }
+
   @media screen and (min-width: 1024px) {
-    width: 100%; /* Toma el 100% del contenedor padre, alineándose milimétricamente con el grid */
+    width: 100%; /* Toma el 100% del contenedor padre */
+    height: 23.4rem !important; /* 👈 FIJAMOS LA MISMA ALTURA EXACTA PARA AMBOS */
   }
 }
 
@@ -102,16 +106,24 @@
    ESTILOS ESPECÍFICOS: SECCIÓN SALUD (Wellness)
    ========================================= */
 .wellnessSectionBanner {
-  background-color: #E8F5E9; /* Verde suave */
-  margin-top: 30px;
-  padding: 40px 20px;
+  background-color: #E8F5E9;
+  margin-bottom: 1.5rem;
   text-align: center;
   position: relative;
-  overflow: hidden;  
+  font-family: "Playfair Display", serif;
+  /* Flexbox para centrar verticalmente */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 30px 20px; 
 
   @media (min-width: 768px) {
-    padding: 45px 20px;
     margin-top: 80px;
+  }
+  
+  @media (min-width: 1024px) {
+     padding: 0; /* Al tener height fijo, sacamos el padding para centrar con flexbox */
   }
 }
 
@@ -124,7 +136,7 @@
 
 .wellnessTitle {
   color: #1a3c34;
-  font-size: 3.6rem!important;
+  font-size: 3.6rem !important;
   font-weight: 600;
   margin-bottom: 10px;
   line-height: 1.2;
@@ -135,17 +147,20 @@
 }
 
 .wellnessSubtitle {
-  color: #4a5568;
-  font-size: 1.5rem!important;
-  margin-bottom: 25px;
-  line-height: 1.5;
-  
-  display: block;
-  width: 100%;           
-  max-width: 600px;      
-  margin-left: auto;     
-  margin-right: auto;    
-  text-align: center!important;    
+     font-family: Arial,sans-serif;
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-size: 1.5rem!important;
+    display: block;
+    width: 100%;
+    max-width: 600px;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: center!important;
+    color: #4a5568;
+    line-height: 1.5;
+    margin-bottom: 30px;
 
   @media (min-width: 768px) {
     font-size: 1.1rem;
@@ -154,16 +169,22 @@
 }
 
 .wellnessBtn {
-  background-color: #2E5C55;
-  color: white;
-  padding: 10px 24px;
-  border-radius: 5px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 1.8rem!important;
-  transition: background 0.3s ease, transform 0.2s;
-  display: inline-block;
-  box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+     font-family: Arial,sans-serif;
+    line-height: 3rem;
+    text-align: center;
+    box-sizing: border-box;
+    margin: 0;
+    font-size: 1.8rem!important;
+    color: white;
+    padding: 10px 24px;
+    border-radius: 5px;
+    font-weight: bold;
+    transition: background 0.3s ease, transform 0.2s;
+    display: inline-block;
+    box-shadow: 0 3px 5px rgba(0,0,0,0.1);
+    text-decoration: none;
+    background-color: #234a44;
+    transform: translateY(-2px);
 
   &:hover {
     background-color: #234a44;
@@ -185,11 +206,18 @@
   }
 }
 
-/* =========================================
-   ESTILOS ESPECÍFICOS: IMAGEN BANNER ANSES
-   ========================================= */
-.ansesBannerImg {
-  height: auto; /* Para que la proporción de la foto se mantenga intacta */
-  margin-top: 20px; /* Separación con el hermano de arriba */
-  margin-bottom: 25px; /* Separación con el footer */
+/* 1. ASEGURAR EL COMPORTAMIENTO DEL CONTENEDOR PADRE */
+.ansesImgContainer {
+  display: flex; 
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 1.5rem; 
+}
+.ansesBannerImgX {
+  /* Le decimos que intente ocupar todo el espacio que el padding le deje */
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  transform: scale(1.15);
 }

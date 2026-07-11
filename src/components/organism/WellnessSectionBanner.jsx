@@ -1,4 +1,4 @@
-// src/components/organisms/WellnessSectionBanner.jsx
+// src/components/organism/WellnessSectionBanner.jsx
 
 import { Link } from 'react-router-dom';
 
@@ -30,111 +30,23 @@ const DumbbellIcon = () => (
 
 export const WellnessSectionBanner = () => {
   return (
-    <>
-      {/* Estilos CSS encapsulados aquí para facilitar el Copy-Paste */}
-      <style>{`
-        .wellnessSection {
-          background-color: #E8F5E9; /* Un verde muy suave ("leve fondo verdecito") */
-          margin-top: 60px;          /* Separación superior (mt) */
-          padding: 40px 20px;        /* Padding base (Mobile First) */
-          text-align: center;
-          position: relative;
-          overflow: hidden;
-          /* Opcional: Borde redondeado suave si te gusta */
-          border-radius: 4px; 
-        }
+    <section className="wellnessSectionBanner">
+      <div className="wellnessContainer">
+        <h2 className="wellnessTitle">Salud y Bienestar para la Tercera Edad</h2>
+        <p className="wellnessSubtitle">
+          Pequeños consejos para vivir mejor, con información clara y confiable.
+        </p>
+        
+        <Link to="/articulos" className="wellnessBtn">
+          VER ARTÍCULOS
+        </Link>
+      </div>
 
-        .wellnessContainer {
-          max-width: 800px;
-          margin: 0 auto;
-          position: relative;
-          z-index: 2;
-        }
-
-        .wellnessTitle {
-          color: #1a3c34;
-          font-size: 1.8rem; /* Tamaño más chico para celular */
-          font-weight: 600;
-          margin-bottom: 10px;
-          font-family: "Playfair Display", serif;
-          line-height: 1.2;
-        }
-
-        .wellnessSubtitle {
-          color: #4a5568;
-          font-size: 1rem;
-          margin-bottom: 25px;
-          line-height: 1.5;
-        }
-
-        .wellnessBtn {
-          background-color: #2E5C55;
-          color: white;
-          padding: 10px 24px;
-          border-radius: 5px;
-          text-decoration: none;
-          font-weight: bold;
-          font-size: 0.95rem;
-          transition: background 0.3s ease, transform 0.2s;
-          display: inline-block;
-          box-shadow: 0 3px 5px rgba(0,0,0,0.1);
-        }
-
-        .wellnessBtn:hover {
-          background-color: #234a44;
-          transform: translateY(-2px);
-        }
-
-        /* --- DECORACIONES (ÍCONOS) --- */
-        .decoration-icon {
-          position: absolute;
-          opacity: 0.3; /* Un poco más sutil */
-          pointer-events: none;
-          display: none; /* Ocultos en celular para no molestar */
-        }
-
-        /* --- MEDIA QUERIES (ESCRITORIO) --- */
-        @media (min-width: 768px) {
-          .wellnessSection {
-            padding: 45px 20px; /* Menos altura que antes (antes era 80px) */
-            margin-top: 80px;
-          }
-
-          .wellnessTitle {
-            font-size: 2.2rem; /* Crece el título en PC */
-          }
-
-          .wellnessSubtitle {
-            font-size: 1.1rem;
-            margin-bottom: 30px;
-          }
-
-          /* Mostrar y posicionar íconos solo en escritorio */
-          .decoration-icon { display: block; }
-          .icon-heart { left: 10%; top: 50%; transform: translateY(-50%); }
-          .icon-apple { right: 15%; top: 25%; }
-          .icon-dumbbell { right: 8%; top: 65%; }
-        }
-      `}</style>
-
-      <section className="wellnessSectionBanner">
-        <div className="wellnessContainer">
-          <h2 className="wellnessTitle">Salud y Bienestar para la Tercera Edad</h2>
-          <p className="wellnessSubtitle">
-            Pequeños consejos para vivir mejor, con información clara y confiable.
-          </p>
-          
-          <Link to="/articulos" className="wellnessBtn">
-            VER ARTÍCULOS
-          </Link>
-        </div>
-
-        {/* Decoraciones */}
-        <div className="decoration-icon icon-heart"><HeartIcon /></div>
-        <div className="decoration-icon icon-apple"><AppleIcon /></div>
-        <div className="decoration-icon icon-dumbbell"><DumbbellIcon /></div>
-      </section>
-    </>
+      {/* Decoraciones */}
+      <div className="decoration-icon icon-heart"><HeartIcon /></div>
+      <div className="decoration-icon icon-apple"><AppleIcon /></div>
+      <div className="decoration-icon icon-dumbbell"><DumbbellIcon /></div>
+    </section>
   );
 };
 

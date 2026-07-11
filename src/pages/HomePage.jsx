@@ -1,4 +1,4 @@
-// src/pages/HomePage.jsx
+﻿// src/pages/HomePage.jsx
 import { useState, useEffect } from "react"; // IMPORTANTE: Agregamos los hooks de React
 
 import Seo from "../components/seo/Seo";
@@ -6,8 +6,8 @@ import { HomePageCard } from "../components/molecules/HomePageCard";
 import WellnessSectionBanner from "../components/organism/WellnessSectionBanner";
 
 // Importación correcta de ambas imágenes
-import datosX from "../assets/images/datosCelular.png"; // Vertical (Celular)
-import datosY from "../assets/images/datosEscritorio.png"; // Horizontal (Escritorio)
+import datosY from "../assets/images/datosCelular.png";
+import datosX from "../assets/images/datosEscritorio.png";
 
 export const HomePage = () => {
   // 1. Creamos el booleano. Empieza en true si la pantalla es menor o igual a 768px (tamaño estándar de tablet/celular)
@@ -69,11 +69,21 @@ export const HomePage = () => {
         <br />
         <HomePageCard />
         <WellnessSectionBanner />        
-        <img
-          src={!isMobile ? datosY : datosX} // Mantenemos el cambio de asset si son proporciones distintas
-          alt="Alerta de estafas virtuales de ANSES"
-          className="ansesBannerImg"
-        />
+          {!isMobile ? (
+            <div className="ansesImgContainer">
+              <img
+                src={datosX}
+                alt="Alerta de estafas virtuales de ANSES"
+                className="ansesBannerImgX"
+              />
+            </div>
+          ) : (
+            <img
+              src={datosY}
+              alt="Alerta de estafas virtuales de ANSES"
+              className="ansesBannerImg"
+            />
+          )}
       </main>
     </>
   );
