@@ -1,25 +1,52 @@
-﻿// src/pages/HomePage.jsx
+﻿import { useState, useEffect, useRef } from "react"; 
+
 import Seo from "../components/seo/Seo";
 import { HomePageCard } from "../components/molecules/HomePageCard";
 import WellnessSectionBanner from "../components/organism/WellnessSectionBanner";
-import { useIsMobile } from "../hooks/useIsMobile"; // Importamos tu nuevo hook
 
-// Importación correcta de ambas imágenes
-import datosY from "../assets/images/datosCelular.png";
-import datosX from "../assets/images/datosEscritorio.png";
+// ⚠️ Recordá: datosX = Celular | datosY = Escritorio
+import datosX from "../assets/images/datosCelular.png"; 
+import datosY from "../assets/images/datosEscritorio.png"; 
 
 export const HomePage = () => {
-  // Toda la lógica de "escuchar" el tamaño de la pantalla ahora vive mágicamente acá adentro
-  const isMobile = useIsMobile();
+  const [isMobile, setIsMobile] = useState(window.innerWidth <= 768);
+  const [syncedHeight, setSyncedHeight] = useState("auto");
+  const ansesImageRef = useRef(null);
+
+  useEffect(() => {
+    const handleResize = () => setIsMobile(window.innerWidth <= 768);
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    if (!isMobile || !ansesImageRef.current) {
+      setSyncedHeight("auto");
+      return;
+    }
+
+    const imgElement = ansesImageRef.current;
+
+    const resizeObserver = new ResizeObserver((entries) => {
+      for (let entry of entries) {
+        setSyncedHeight(`${entry.borderBoxSize[0].blockSize}px`);
+      }
+    });
+
+    resizeObserver.observe(imgElement);
+
+    return () => resizeObserver.disconnect();
+  }, [isMobile]);
 
   return (
     <>
       <Seo
         title="Jubilamos – Derecho Previsional y Sucesiones"
-        description="Estudio jurídico especializado en jubilaciones, pensiones y sucesiones. Atención remota en todo el país."
-        path="/"/>
+        description="Estudio jurídico especializado en jubilaciones..."
+        path="/"
+      />
 
-      <section id="introduction">
+       <section id="introduction">
         <h1>Estudio Jurídico especializado en Derecho Previsional y Sucesiones</h1>
         <p className="bigFontSize">
           En <span className="enterprise">Jubilamos</span> nos especializamos en
@@ -50,27 +77,41 @@ export const HomePage = () => {
           tranquilidad es nuestra prioridad, y nuestro compromiso es brindarte
           el respaldo que necesites.
         </p>
-      </section>
+      </section>	
       
       <main>
         <br />
         <HomePageCard />
-        <WellnessSectionBanner />        
-          {!isMobile ? (
-            <div className="ansesImgContainer">
-              <img
-                src={datosX}
-                alt="Alerta de estafas virtuales de ANSES"
-                className="ansesBannerImgX"
-              />
-            </div>
-          ) : (
+        
+        {/* EL ENVOLTORIO: Con flexbox para que el hijo obedezca la altura */}
+        <div style={{ 
+          height: isMobile ? syncedHeight : "auto", 
+          transition: "height 0.1s ease",
+          display: "flex", 
+          flexDirection: "column",
+          width: "100%"
+        }}>
+          <WellnessSectionBanner />        
+        </div>
+
+        {/* LÓGICA CORREGIDA: Si es móvil muestra X, si no muestra Y */}
+        {isMobile ? (
+          <img
+            ref={ansesImageRef} 
+            src={datosX} 
+            alt="Alerta de estafas virtuales de ANSES"
+            className="ansesBannerImg"
+            onLoad={(e) => setSyncedHeight(`${e.target.offsetHeight}px`)} 
+          />
+        ) : (
+          <div className="ansesImgContainer">
             <img
               src={datosY}
               alt="Alerta de estafas virtuales de ANSES"
-              className="ansesBannerImg"
+              className="ansesBannerImgX"
             />
-          )}
+          </div>
+        )}
       </main>
     </>
   );
