@@ -1,3 +1,4 @@
+﻿/* src/styles/Index.scss */
 @use './variables' as v;
 @use './header';
 @use './footer';
@@ -40,20 +41,20 @@ main, #introduction {
   justify-content: center;
 
   .pages__img {
-    width: 30rem; /* Ajusta el tamaño según tus necesidades */
+    width: 30rem; 
     height: 20rem;
     margin-bottom: 2rem;
-    margin-left: auto; /* Centra la imagen horizontalmente */
-    margin-right: auto; /* Centra la imagen horizontalmente */
+    margin-left: auto; 
+    margin-right: auto; 
   }
 
   a {
-    text-decoration: none; /* Elimina el subrayado predeterminado */
-    color: inherit; /* Utiliza el color del texto del elemento padre */
+    text-decoration: none; 
+    color: inherit; 
   }
 
   a:hover {
-    text-decoration: none; /* También elimina el subrayado en el estado de hover (si lo deseas) */
+    text-decoration: none; 
   }
 
   .bigFontSize {
@@ -62,7 +63,7 @@ main, #introduction {
   }
 
   p, h3, h4 {
-    text-align: left!important; /* este  funciona perfectamente */ 
+    text-align: left!important;  
   }
 
   p {margin-bottom: 2rem;}
@@ -71,13 +72,12 @@ main, #introduction {
     margin-bottom: 4rem;
     text-align: center;
     text-transform: uppercase;
-    line-height: 1.25; /* Agrega espacio óptimo entre renglones */
+    line-height: 1.25; 
   }
-
 
   h3 {
     text-transform: uppercase;
-    margin-top: 3.5rem; /* Este valor puede ajustarse según la cantidad de espacio que desees */
+    margin-top: 3.5rem; 
   }
 
   h4 {
@@ -176,7 +176,7 @@ main, #introduction {
   .socialNetworks__ul {
     display: flex;
     justify-content: center;
-    gap: 2rem; // criterio unificado para separación
+    gap: 2rem; 
     transform: scale(1.2);
     flex-wrap: wrap;
     li {
@@ -205,6 +205,7 @@ main, #introduction {
       &.fa-instagram {
         background-image: linear-gradient(to bottom, #e4405f, #8a2be2) !important;
         -webkit-background-clip: text;
+        background-clip: text;
         color: transparent;
       }
     }
@@ -217,11 +218,83 @@ main, #introduction {
   }
 }
 
-@media (min-width: 768px) { // 768px es un punto de quiebre común para tablets
+@media (min-width: 768px) { 
   main, #introduction {
-    padding: 6rem; // Restauramos el padding grande solo en pantallas anchas
+    padding: 6rem; 
   }
   .socialNetworks .socialNetworks__ul {
     transform: scale(1.5);
   }
+}
+
+/* =========================================
+   LLAMADO A LA ACCIÓN (CTA - Entrevistas)
+   ========================================= */
+.ctaContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.2rem;
+  margin-top: 2.5rem;
+  justify-content: center;
+  align-items: center;
+
+  /* 📱 -> 💻 TABLET Y PC */
+  @media (min-width: 600px) {
+    flex-direction: row;
+  }
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 1.2rem 2rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  border-radius: 8px;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.08);
+  text-align: center;
+
+  @media (min-width: 600px) {
+    width: auto;
+    font-size: 1.7rem;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+  }
+
+  &--left {
+    color: #1a3c34; 
+    background-color: #8acfa2;
+    border: 2px solid #8acfa2;
+
+    &:hover {
+      background-color: white; 
+      border-color: #79be91;
+      color: #1a3c34!important;
+    }
+  }
+
+  /* ⚪ BOTÓN SECUNDARIO: Estilo Outline/Ghost con borde #8acfa2 */
+  &--right {
+    background-color: #1a3c34;
+    color: #ffffff;
+    border: 2px solid #8acfa2;
+
+    &:hover {
+      background-color: #f2f9f4; 
+      border-color: #79be91;
+      color: #1a3c34!important;
+    }
+  }
+}
+
+.ctaIcon {
+  font-size: 1.8rem;
 }

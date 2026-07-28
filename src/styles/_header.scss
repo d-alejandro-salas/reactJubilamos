@@ -1,3 +1,4 @@
+﻿/* Path: src\styles\_header.scss */
 @use './variables' as v;
 
 header {
@@ -9,7 +10,7 @@ header {
   /* Estado al hacer scroll */
   &.scrolled {
     padding: 0.1rem 1rem;                       // padding vertical reducido
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);    // elevación sutil
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);    // elevaciÃ³n sutil
   }
 
   #logo {

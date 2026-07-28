@@ -1,5 +1,4 @@
 // src/pages/Contacto.jsx
-import { ContactForm } from "../components/organism/Form";
 import { SocialNetworks } from "../components/atoms/SocialNetworks";
 import Seo from "../components/seo/Seo";
 

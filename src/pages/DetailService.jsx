@@ -1,5 +1,7 @@
-import { useParams } from "react-router-dom";
+// src/pages/DetailService.jsx
+
 import Seo from "../components/seo/Seo";           // ✅ nuevo
+import { useParams } from "react-router-dom";
 import dataPages from "../utils/dataPages.json";
 import images from "../assets/images/imagesIndex.js";
 
@@ -9,7 +11,6 @@ export const DetailService = () => {
   const { productId } = useParams();
   const pageData = dataPages.find(item => normalizeString(item.title) === normalizeString(productId));
 
-  // ✅ metas derivadas del contenido
   const title = pageData ? `${pageData.title} – Jubilamos` : "Servicio – Jubilamos";
   const description = pageData?.paragraphs?.[0]?.slice(0, 155) || "Asesoramiento previsional y sucesorio en todo el país.";
   const image = pageData ? images[pageData.image] : undefined;

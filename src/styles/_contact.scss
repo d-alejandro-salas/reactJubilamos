@@ -1,3 +1,4 @@
+﻿/* Path: src\styles\_contact.scss */
 /* src/styles/_contact.scss */
 @use "sass:color";
 @use "./variables" as v;
@@ -12,10 +13,10 @@ $focus: v.$mainGreen; // Color de enfoque (verde)
 $ring: rgba($focus, .25); // Sombra de enfoque
 
 /* ===========================
-   ESTRUCTURA GENERAL DE LA PÁGINA
+   ESTRUCTURA GENERAL DE LA PÃGINA
    =========================== */
 .contactPage {
-  // Variable para unificar el ancho máximo de los contenedores
+  // Variable para unificar el ancho mÃ¡ximo de los contenedores
   --container-width: min(820px, 92%);
 
   // Aplica el ancho y centrado a todos los hijos directos de .contactPage
@@ -28,7 +29,7 @@ $ring: rgba($focus, .25); // Sombra de enfoque
 
   // Estilo para el mapa de Google Maps
   iframe {
-    aspect-ratio: 16 / 9; // Mantiene la proporción del video
+    aspect-ratio: 16 / 9; // Mantiene la proporciÃ³n del video
     height: auto;
     margin-top: 2rem;
     border: none; // Sin borde
@@ -102,7 +103,7 @@ form {
     min-height: 160px;
   }
 
-  // Botón de envío
+  // BotÃ³n de envÃ­o
   button {
     display: block;
     margin: 1.5rem auto 0;
@@ -139,7 +140,7 @@ form {
   border-radius: .8rem;
   border: 1px solid #ddd;
   padding: 2.5rem 2rem;
-  text-align: center; // Mantenemos centrado para el H3 y los íconos
+  text-align: center; // Mantenemos centrado para el H3 y los Ã­conos
   margin-top: 2rem;
   box-shadow: 0 4px 12px rgba(0,0,0,.08);
 
@@ -152,8 +153,8 @@ form {
   p {
     text-align: justify!important;
     margin-bottom: 2.5rem;
-    max-width: 50ch; // Mantenemos esto para que las líneas no sean muy largas
-    margin-left: auto;  // Esto asegura que el bloque del párrafo esté centrado
+    max-width: 50ch; // Mantenemos esto para que las lÃ­neas no sean muy largas
+    margin-left: auto;  // Esto asegura que el bloque del pÃ¡rrafo estÃ© centrado
     margin-right: auto; // si su max-width es menor que el contenedor.
   }
 }

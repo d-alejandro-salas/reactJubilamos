@@ -1,6 +1,7 @@
+﻿/* Path: src\styles\_footer.scss */
 @use './variables' as v;
 
-/* Diseño mobile-first */
+/* DiseÃ±o mobile-first */
 
 footer {
   background-color: v.$headerFooterBackground;
@@ -20,7 +21,7 @@ footer {
 
   .footer__container {
     display: flex; /* Cambiado a flex para tener filas en lugar de columnas */
-    flex-direction: column; /* Filas en lugar de columnas en el diseño mobile-first */
+    flex-direction: column; /* Filas en lugar de columnas en el diseÃ±o mobile-first */
     gap: 2rem;
 
     section {
@@ -30,7 +31,7 @@ footer {
   }
 
   #links {
-    text-align: center; /* Centra el contenido horizontalmente en la sección "links" */
+    text-align: center; /* Centra el contenido horizontalmente en la secciÃ³n "links" */
 
     a {
       display: block;
@@ -51,8 +52,8 @@ footer {
 
     iframe {
       margin: 0 auto; // Establece el margen izquierdo a 0
-      display: block; // Para ajustar automáticamente el margen horizontal
-      max-width: 100%; // Establece el ancho máximo al 100% del contenedor
+      display: block; // Para ajustar automÃ¡ticamente el margen horizontal
+      max-width: 100%; // Establece el ancho mÃ¡ximo al 100% del contenedor
     }
 
     .addressMap {
@@ -99,15 +100,15 @@ footer {
 
     .reactLogoContainer {
       text-align: center;
-      margin-top: 2rem; // Ajusta el espacio según sea necesario
-      transition: 0.3s; // Transición de color al hacer hover
+      margin-top: 2rem; // Ajusta el espacio segÃºn sea necesario
+      transition: 0.3s; // TransiciÃ³n de color al hacer hover
 
       &:hover {
         transform: scale(1.4)!important;
       }
 
     .reactLogo {
-      width: 4rem; // Ajusta el tamaño del logotipo según tus preferencias
+      width: 4rem; // Ajusta el tamaÃ±o del logotipo segÃºn tus preferencias
       height: auto;
       animation: reactLogo-spin 20s linear infinite;
 
@@ -128,7 +129,7 @@ footer {
   }    
 }
 
-/* Diseño para tabletas */
+/* DiseÃ±o para tabletas */
 @media screen and (min-width: 60rem) {
   footer {
     padding: 2rem;

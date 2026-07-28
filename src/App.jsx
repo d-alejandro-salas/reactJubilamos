@@ -10,7 +10,6 @@ import DefaultSeo from './components/seo/DefaultSeo';
 
 const App = () => (
   <Router>
-    {/* SEO global por defecto */}
     <DefaultSeo />
     <ScrollComponent />
     <Header />
