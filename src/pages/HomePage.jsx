@@ -1,7 +1,7 @@
 ﻿// src/pages/HomePage.jsx
 
 import { useState, useEffect, useRef } from "react"; 
-import { ConsultationCTA } from "../components/molecules/ConsultationCTA"; // 👈 Importás la molécula
+import ConsultationCTA from "../components/molecules/ConsultationCta";
 import Seo from "../components/seo/Seo";
 import { HomePageCard } from "../components/molecules/HomePageCard";
 import WellnessSectionBanner from "../components/organism/WellnessSectionBanner";
