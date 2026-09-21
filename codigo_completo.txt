@@ -42,6 +42,7 @@
                 FooterSections.jsx
                 HeaderNav.jsx
                 HomePageCard.jsx
+                PageCTA.jsx
             organism/
                 AnsesAlertBanner.jsx
                 WellnessSectionBanner.jsx
@@ -226,24 +227,36 @@ import FooterDeveloperSection from './molecules/FooterDeveloperSection';
 import FooterSections from './molecules/FooterSections';
 
 export const Footer = () => {
-
   return (
     <footer>
-
       <div className="footer__container">
         <FooterSections />
         <section id="mapa">
-          <h3>NUESTRAS OFICINAS</h3><br />
+          <h3>NUESTRAS OFICINAS</h3>
           <p>
-            <span className="addressMap" onClick={() => document.getElementById('mapa').classList.toggle('activo')}>Av. Santa Fe 1845</span><span id="verMapa" style={{ display: 'none' }}> (hacé click para visualizar el mapa)</span>, Ciudad Autónoma de Buenos Aires.<br />(Atención únicamente con cita previa).</p>
-          <br /><p>
-          *Realizamos trámites en todo el país. Contamos con personal y delegados en distintas provincias.
-          Con nosotros podés avanzar sin importar dónde vivas.
-          </p><br />
-          <iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.3349961380827!2d-58.3938796!3d-34.5956896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccabdfb5e76a9%3A0x47006ce9bde4a929!2sAv.%20Sta.%20Fe%201845%2C%20C1123AAA%20CABA!5e0!3m2!1ses-419!2sar!4v1705924921762!5m2!1ses-419!2sar" width="600" height="450" style={{ border: 0 }} allowFullScreen="" loading="lazy" referrerPolicy="no-referrer-when-downgrade"></iframe>
+            <span 
+              className="addressMap" 
+              onClick={() => document.getElementById('mapa').classList.toggle('activo')}
+            >
+              Av. Santa Fe 1845
+            </span>
+            <span id="verMapa" style={{ display: 'none' }}> (hacé click para visualizar el mapa)</span>, Ciudad Autónoma de Buenos Aires.<br />
+            (Atención únicamente con cita previa).
+          </p>
+          <p>
+            *Realizamos trámites en todo el país. Contamos con personal y delegados en distintas provincias. 
+            Con nosotros podés avanzar sin importar dónde vivas.
+          </p>
+          <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.3349961380827!2d-58.3938796!3d-34.5956896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccabdfb5e76a9%3A0x47006ce9bde4a929!2sAv.%20Sta.%20Fe%201845%2C%20C1123AAA%20CABA!5e0!3m2!1ses-419!2sar!4v1705924921762!5m2!1ses-419!2sar" 
+            title="Mapa de oficinas"
+            allowFullScreen="" 
+            loading="lazy" 
+            referrerPolicy="no-referrer-when-downgrade">
+          </iframe>
         </section>
       </div>
-      <hr /><br/>
+      <hr />
       <FooterDeveloperSection />
     </footer>
   );
@@ -634,30 +647,29 @@ import { useEffect } from 'react';
 import ReactLogo from '../../assets/images/react.svg';
 
 function FooterDeveloperSection() {
-
-    useEffect(() => {
-        const yearPlaceholder = document.getElementById('yearPlaceholder');
-        const currentYear = new Date().getFullYear();
-        if (yearPlaceholder) {
-          yearPlaceholder.textContent = currentYear;
-        }
-      }, []);
+  useEffect(() => {
+    const yearPlaceholder = document.getElementById('yearPlaceholder');
+    const currentYear = new Date().getFullYear();
+    if (yearPlaceholder) {
+      yearPlaceholder.textContent = currentYear;
+    }
+  }, []);
 
   return (
     <section className="developerSection">
       <p>
-        Web Developer <a className="copyright__a" href="https://drive.google.com/file/d/1JvKXVXbLuJM6whTgIW7sI9gLW1nE9W_H/view?usp=drive_link">Daniel Alejandro</a>,
-        contrataciones: <a href="mailto:daniel.salas@bue.edu.ar">daniel.salas@bue.edu.ar</a>.
+        Web Developer <a className="copyright__a" href="https://drive.google.com/file/d/1JvKXVXbLuJM6whTgIW7sI9gLW1nE9W_H/view?usp=drive_link" target="_blank" rel="noopener noreferrer">Daniel Alejandro</a>, 
+        contrataciones: <a href="mailto:daniel.salas@bue.edu.ar">daniel.salas@bue.edu.ar</a>. 
         © All rights reserved <span id="yearPlaceholder"></span>.
       </p>
-      <a className="reactLogoContainer" href="https://reactjs.org" target="_blank" rel="noopener noreferrer">
+      <a className="reactLogoContainer" href="https://reactjs.org" target="_blank" rel="noopener noreferrer" aria-label="ReactJS">
         <img src={ReactLogo} alt="React logo" className="reactLogo" />
       </a>
     </section>
-  )
+  );
 }
 
-export default FooterDeveloperSection
+export default FooterDeveloperSection;
 
 
 ================================================================================
@@ -670,49 +682,54 @@ import { useLocation } from 'react-router-dom';
 import { useEffect, useState } from 'react';
 import { SocialNetworks } from '../atoms/SocialNetworks';
 
-
 function FooterSections() {
+  const location = useLocation();
+  const [highlightedSection, setHighlightedSection] = useState('');
 
-    const location = useLocation();
-    const [highlightedSection, setHighlightedSection] = useState('');
-  
-    useEffect(() => {
-      // Función para actualizar la sección destacada basada en el hash actual
-      const updateHighlightedSection = () => {
-        const currentHash = window.location.hash;
-        if (currentHash === '#socialNetworks') {
-          setHighlightedSection('socialNetworks');
-        } else if (currentHash === '#links') {
-          setHighlightedSection('links');
-        } else {
-          setHighlightedSection('');
-        }
-      };
-  
-      updateHighlightedSection(); // Actualiza cuando el componente se monta
-      window.addEventListener('hashchange', updateHighlightedSection); // Escucha cambios en el hash
-  
-      // Limpia el evento cuando el componente se desmonta
-      return () => {
-        window.removeEventListener('hashchange', updateHighlightedSection);
-      };
-    }, [location]);
+  useEffect(() => {
+    const updateHighlightedSection = () => {
+      const currentHash = window.location.hash;
+      if (currentHash === '#socialNetworks') {
+        setHighlightedSection('socialNetworks');
+      } else if (currentHash === '#links') {
+        setHighlightedSection('links');
+      } else {
+        setHighlightedSection('');
+      }
+    };
+
+    updateHighlightedSection();
+    window.addEventListener('hashchange', updateHighlightedSection);
+
+    return () => {
+      window.removeEventListener('hashchange', updateHighlightedSection);
+    };
+  }, [location]);
 
   return (
     <>
-        <section id="socialNetworks" className={highlightedSection === 'socialNetworks' ? 'destacado' : ''}>
-          <SocialNetworks />
-        </section>
-        <section id="links" className={highlightedSection === 'links' ? 'destacado' : ''}>
-          <h3>SITIOS DE INTERÉS</h3><br />
-          <ul>
-            <li><a href="https://www.pjn.gov.ar/" target="_blank" rel="noopener noreferrer">PODER JUDICIAL</a></li>
-            <li><a href="https://www.anses.gob.ar/" target="_blank" rel="noopener noreferrer">ANSES</a></li>
-            <li><a href="https://www.pami.org.ar/" target="_blank" rel="noopener noreferrer">PAMI</a></li>
-          </ul>
-        </section>
+      <section id="socialNetworks" className={highlightedSection === 'socialNetworks' ? 'destacado' : ''}>
+        <h3>CONTACTO - REDES SOCIALES</h3>
+        <SocialNetworks />
+        <p>
+          Puedes contactarnos a través de <a href="#!">Facebook</a>, <a href="#!">Instagram</a>, <a href="#!">WhatsApp</a>, 
+          ☎ <a href="tel:+5491132140614">llamada directa al +54 9 11 3214-0614</a> o por <a href="mailto:tuemail@dominio.com">correo electrónico</a>.
+        </p>
+        <p style={{ fontSize: '1.2rem', marginTop: '1rem' }}>
+          <a href="#!">Política de Privacidad y Aviso Legal</a>
+        </p>
+      </section>
+
+      <section id="links" className={highlightedSection === 'links' ? 'destacado' : ''}>
+        <h3>SITIOS DE INTERÉS</h3>
+        <ul>
+          <li><a href="https://www.pjn.gov.ar/" target="_blank" rel="noopener noreferrer">PODER JUDICIAL</a></li>
+          <li><a href="https://www.anses.gob.ar/" target="_blank" rel="noopener noreferrer">ANSES</a></li>
+          <li><a href="https://www.pami.org.ar/" target="_blank" rel="noopener noreferrer">PAMI</a></li>
+        </ul>
+      </section>
     </>
-  )
+  );
 }
 
 export default FooterSections;
@@ -754,25 +771,76 @@ export const Nav = () => {
 // FILE: src/components/molecules/HomePageCard.jsx
 --------------------------------------------------
 // src/components/molecules/HomePageCard.jsx
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import data from '../../utils/dataHomePageCard.json';
 import images from '../../assets/images/imagesIndex.js';
 
+// Mapeo de categorías y etiquetas para cada servicio
+const serviceMetadata = {
+  "Reajuste de haberes": { tag: "Reclamo Judicial", category: "reclamos" },
+  "Jubilaciones": { tag: "Trámite ANSES", category: "previsional" },
+  "Pensiones por fallecimiento": { tag: "Beneficio Familiar", category: "previsional" },
+  "Retiros por invalidez": { tag: "Junta Médica", category: "previsional" },
+  "Renta vitalicia": { tag: "Ex AFJP", category: "reclamos" },
+  "Moratorias": { tag: "Sin Aportes", category: "previsional" },
+  "PUAM": { tag: "Adulto Mayor", category: "previsional" },
+  "Sucesiones": { tag: "Derecho Civil", category: "civil" }
+};
+
 export function HomePageCard() {
+  const [activeFilter, setActiveFilter] = useState('todos');
+
+  // Filtrado reactivo en tiempo real
+  const filteredData = activeFilter === 'todos' 
+    ? data 
+    : data.filter(item => serviceMetadata[item.titulo]?.category === activeFilter);
+
   return (
     <section className="servicesSection">
+      {/* Cabecera */}
       <div className="servicesHeader">
         <span className="servicesBadge">ÁREAS DE PRÁCTICA</span>
         <h2 className="servicesTitle">Nuestros Servicios Previsionales</h2>
         <p className="servicesSubtitle">
-          Acompañamiento legal integral para garantizar el cobro justo de tus derechos.
+          Seleccioná el trámite de tu interés para conocer requisitos y cómo podemos asistirte.
         </p>
+
+        {/* Pestañas de Filtro Interactivas */}
+        <div className="servicesFilters">
+          <button 
+            className={`filterBtn ${activeFilter === 'todos' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('todos')}
+          >
+            Todos los servicios ({data.length})
+          </button>
+          <button 
+            className={`filterBtn ${activeFilter === 'previsional' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('previsional')}
+          >
+            Jubilaciones y Pensiones
+          </button>
+          <button 
+            className={`filterBtn ${activeFilter === 'reclamos' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('reclamos')}
+          >
+            Reajustes y Reclamos
+          </button>
+          <button 
+            className={`filterBtn ${activeFilter === 'civil' ? 'active' : ''}`}
+            onClick={() => setActiveFilter('civil')}
+          >
+            Sucesiones
+          </button>
+        </div>
       </div>
 
+      {/* Grilla de Tarjetas */}
       <div id="mainGrid">
-        {data.map((item) => {
+        {filteredData.map((item) => {
           const imageKey = item.imagen.replace(/\.(jpg|jpeg|png|webp)$/, '');
           const route = `/${item.titulo.toLowerCase().replace(/ /g, '')}`;
+          const meta = serviceMetadata[item.titulo] || { tag: "Especialidad" };
 
           return (
             <article key={item.titulo} className="serviceCard">
@@ -786,20 +854,22 @@ export function HomePageCard() {
                     alt={item.titulo}
                     className="serviceCard__img"
                   />
-                  <span className="serviceCard__overlayTag">Especialidad</span>
+                  <span className="serviceCard__overlayTag">{meta.tag}</span>
                 </div>
 
                 <div className="serviceCard__content">
                   <h3 className="serviceCard__title">{item.titulo}</h3>
                   <p className="serviceCard__description">{item.descripcion}</p>
                   
-                  <span className="serviceCard__action">
-                    Ver requisitos y trámite
-                    <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-                      <line x1="5" y1="12" x2="19" y2="12"></line>
-                      <polyline points="12 5 19 12 12 19"></polyline>
-                    </svg>
-                  </span>
+                  <div className="serviceCard__footer">
+                    <span className="serviceCard__action">
+                      Ver trámite
+                      <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5" strokeLinecap="round" strokeLinejoin="round">
+                        <line x1="5" y1="12" x2="19" y2="12"></line>
+                        <polyline points="12 5 19 12 12 19"></polyline>
+                      </svg>
+                    </span>
+                  </div>
                 </div>
               </Link>
             </article>
@@ -809,6 +879,59 @@ export function HomePageCard() {
     </section>
   );
 }
+
+
+================================================================================
+
+// FILE: src/components/molecules/PageCTA.jsx
+--------------------------------------------------
+// src/components/molecules/PageCTA.jsx
+import React from 'react';
+
+export const PageCTA = ({ title = "¿Tenés dudas sobre este trámite?" }) => {
+  const whatsappMessage = encodeURIComponent(
+    "Hola, estuve leyendo la información en su web y quisiera hacer una consulta sobre mi trámite."
+  );
+
+  return (
+    <div style={{
+      marginTop: '4.5rem',
+      padding: '3rem 2rem',
+      backgroundColor: '#ffffff',
+      borderRadius: '16px',
+      border: '1px solid rgba(10, 122, 131, 0.2)',
+      boxShadow: '0 8px 24px rgba(0, 0, 0, 0.05)',
+      textAlign: 'center'
+    }}>
+      <h3 style={{ margin: '0 0 1rem 0', color: '#0f172a', fontSize: '2.2rem', border: 'none', padding: 0 }}>
+        {title}
+      </h3>
+      <p style={{ color: '#475569', fontSize: '1.6rem', marginBottom: '2rem', textAlign: 'center' }}>
+        Analizamos tu situación de manera anticipada para diseñar la mejor estrategia legal.
+      </p>
+      <div style={{ display: 'flex', justifyContent: 'center', gap: '1.5rem', flexWrap: 'wrap' }}>
+        <a
+          href={`https://api.whatsapp.com/send/?phone=5491132140614&text=${whatsappMessage}`}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ctaBtn ctaBtn--left"
+          style={{ width: 'auto', padding: '1.2rem 2.4rem' }}
+        >
+          💬 Consultar por WhatsApp
+        </a>
+        <a
+          href="tel:+541132140614"
+          className="ctaBtn ctaBtn--right"
+          style={{ width: 'auto', padding: '1.2rem 2.4rem', color: '#0f172a', borderColor: '#0f172a' }}
+        >
+          📞 Llamar ahora
+        </a>
+      </div>
+    </div>
+  );
+};
+
+export default PageCTA;
 
 
 ================================================================================
@@ -1123,6 +1246,7 @@ export const Contacto = () => {
 
 // FILE: src/pages/DetailService.jsx
 --------------------------------------------------
+import PageCTA from '../components/molecules/PageCTA';
 // src/pages/DetailService.jsx
 
 import Seo from "../components/seo/Seo";           // ✅ nuevo
@@ -1158,6 +1282,7 @@ return (
           <p>La página solicitada no existe o fue movida.</p>
         </>
       )}
+      <PageCTA />
     </main>
   </>
 );
@@ -1313,6 +1438,7 @@ export default HomePage;
 --------------------------------------------------
 // src/pages/Jubilaciones.jsx
 
+import PageCTA from '../components/molecules/PageCTA';
 import Seo from "../components/seo/Seo";
 import jubilacionesImg from '../assets/images/jubilaciones.webp';
 
@@ -1415,7 +1541,8 @@ export const Jubilaciones = () => {
 
         <h4>Metalúrgicos</h4>
         <p>Personas expuestas a la radiación del calor afectado a procesos de producción en tareas de laminación, acería y fundición realizadas en forma manual o semimanual desarrolladas en ambientes de alta temperatura, con 50 años los hombres, y con 25 años de servicios.</p>
-      </main>
+        <PageCTA />
+    </main>
     </>
   );
 };
@@ -1425,6 +1552,7 @@ export const Jubilaciones = () => {
 
 // FILE: src/pages/Nosotros.jsx
 --------------------------------------------------
+import PageCTA from '../components/molecules/PageCTA';
 // src/pages/Nosotros.jsx
 
 import { Link } from 'react-router-dom';
@@ -1462,6 +1590,7 @@ export const Nosotros = () => {
       <p>
         <u>ENTREVISTAS VIRTUALES</u>: En nuestro estudio jurídico, realizamos entrevistas de forma remota, ofreciéndote la comodidad de evitar desplazamientos a nuestras oficinas. Podés comunicarte con nosotros a través de <a href="https://api.whatsapp.com/send/?phone=5491132140614">WhatsApp</a>, teléfono o <a href="mailto:jubilamosinf@hotmail.com">correo electrónico</a>. Tu tranquilidad es nuestra prioridad, y nuestro compromiso es brindarte el respaldo que necesites.
       </p>      
+      <PageCTA />
     </main></>
   );
 };
@@ -1472,6 +1601,7 @@ export const Nosotros = () => {
 
 // FILE: src/pages/PensionesPorFallecimiento.jsx
 --------------------------------------------------
+import PageCTA from '../components/molecules/PageCTA';
 // src/pages/PensionesPorFallecimiento.jsx
 
 // 🔹 Nuevo: importamos el componente Seo
@@ -1532,7 +1662,8 @@ export const PensionesPorFallecimiento = () => {
           real con pruebas concretas. La convivencia debe tener una duración
           mínima de 5 años, reduciéndose a 2 años si hay hijos en común.
         </p>
-      </main>
+        <PageCTA />
+    </main>
     </>
   );
 };
@@ -1605,6 +1736,7 @@ export default PoliticaDePrivacidad;
 
 // FILE: src/pages/ReajusteDeHaberes.jsx
 --------------------------------------------------
+import PageCTA from '../components/molecules/PageCTA';
 // src/pages/ReajusteDeHaberes.jsx
 
 import Seo from "../components/seo/Seo";
@@ -1637,7 +1769,8 @@ El proceso se lleva a cabo mediante el análisis de la viabilidad del reclamo de
     <p>Al no cumplir ANSES con las órdenes judiciales, muchas veces las liquidaciones que se ponen al pago dan cuantías que no son las correctas, estableciendo así pagos más bajos de los que corresponden, incumpliendo con dichas mandas y calculando mal los desembolsos, dejando montos pendientes.</p><p>
     Es por ello que, en el caso de que hayas cobrado un juicio de reajuste contra ANSES o dicho organismo no haya cumplido con la sentencia, realizamos el control y la revisión, exigiendo el cumplimiento y el correcto pago.</p><p>
     Recordá que ANSES tiene, una vez firme la sentencia, 120 días hábiles para cumplir con la misma. Pasado dicho plazo, podes ejecutar la sentencia y exigir el pago mediante la “Ejecución de Sentencia”.</p>
-  </main></>
+    <PageCTA />
+    </main></>
   );
 };
 
@@ -1647,6 +1780,7 @@ El proceso se lleva a cabo mediante el análisis de la viabilidad del reclamo de
 
 // FILE: src/pages/Retiros.jsx
 --------------------------------------------------
+import PageCTA from '../components/molecules/PageCTA';
 // src/pages/Retiros.jsx
 import Invalidez from "../assets/images/invalidez.webp";
 import Seo from "../components/seo/Seo";
@@ -1666,6 +1800,7 @@ export const Retiros = () => {
         
       <p>Hombres y mujeres que no alcanzaron la edad para acceder a la jubilación ordinaria, que tengan una incapacidad laboral del 66% determinada por junta médica y que cumplan con la condición de "aportante regular" o "aportante irregular con derecho" podrán acceder a este beneficio.</p>
       <p>No te demores, hace tu consulta. Contáctanos para que podamos evaluar tu situación y brindarte la asistencia necesaria, el tiempo es muy importante para que accedas a este beneficio.</p>
+      <PageCTA />
     </main></>
   );
 };
@@ -1839,82 +1974,82 @@ ul, ol {
 }
 
 /* ========================================================
-   ESTILOS GENERALES PARA PÁGINAS INTERNAS (Jubilaciones, Nosotros, etc.)
+   ESTILOS GENERALES PARA PÁGINAS INTERNAS
    ======================================================== */
 main {
-  padding: 3rem 1.5rem;
+  padding: 4rem 2rem 6rem 2rem;
   background-color: #f8fafc;
   color: #1e293b;
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  align-items: center; // Centra el contenedor de lectura
 
-  .pages__img {
+  // Ancho óptimo de lectura para no cansar la vista
+  & > * {
     width: 100%;
-    max-width: 48rem;
-    height: auto;
-    max-height: 32rem;
-    object-fit: cover;
-    border-radius: 12px;
-    margin: 2rem auto;
-    display: block;
-    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.08);
+    max-width: 900px;
   }
 
-  a {
-    text-decoration: none; 
-    color: inherit; 
-  }
-
-  .bigFontSize {
-    font-size: 1.8rem;
-    line-height: 1.7;
-    color: #334155;
-    margin-bottom: 2rem;
-  }
-
-  p, h3, h4 {
-    text-align: left !important;  
-  }
-
-  p {
-    font-size: 1.6rem;
-    line-height: 1.7;
-    margin-bottom: 1.8rem;
-    color: #334155;
-  }
-
+  // Título de la página
   h1 {
-    font-size: 3.2rem;
-    margin-bottom: 3rem;
+    font-size: 3.4rem;
+    margin-bottom: 2rem;
     text-align: center;
     text-transform: uppercase;
     line-height: 1.25; 
     color: #0f172a;
     font-weight: 800;
+    letter-spacing: -0.5px;
   }
 
+  // Foto principal de la página
+  .pages__img {
+    width: 100%;
+    max-width: 65rem;
+    height: auto;
+    max-height: 36rem;
+    object-fit: cover;
+    border-radius: 16px;
+    margin: 1.5rem auto 3.5rem auto;
+    display: block;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+
+  .bigFontSize {
+    font-size: 1.85rem;
+    line-height: 1.75;
+    color: #334155;
+    margin-bottom: 2.2rem;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: 1.6rem;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+    color: #475569;
+    text-align: left;
+  }
+
+  // Subtítulos principales (Requisitos, Moratorias, etc.)
   h3 {
     font-size: 2.2rem;
-    text-transform: uppercase;
-    margin-top: 3.5rem;
-    margin-bottom: 1.2rem;
     color: #0f172a;
     font-weight: 700;
+    margin-top: 4rem;
+    margin-bottom: 1.2rem;
+    border-left: 4px solid #0a7a83; // Línea decorativa que da porte legal
+    padding-left: 1.2rem;
   }
 
+  // Subtítulos de casos especiales (Malvinas, Salud, etc.)
   h4 {
     font-size: 1.8rem;
-    margin-top: 2.5rem;
-    margin-bottom: 1rem;
-    color: #0f172a;
-    font-weight: 600;
-  }
-}
-
-@media (min-width: 768px) { 
-  main {
-    padding: 5rem 3rem; 
+    margin-top: 3rem;
+    margin-bottom: 0.8rem;
+    color: #0a7a83;
+    font-weight: 700;
+    text-decoration: none !important; // Eliminamos el subrayado rígido
   }
 }
 
@@ -1949,10 +2084,10 @@ main {
 
 .scrollTopBtn {
   position: fixed;
-  bottom: 2.5rem;
-  left: 2.5rem;
-  width: 4.6rem;
-  height: 4.6rem;
+  bottom: 9.5rem; /* Ubicado justo arriba de WhatsApp */
+  right: 3.2rem;   /* Mismo eje vertical que WhatsApp */
+  width: 4.4rem;
+  height: 4.4rem;
   border-radius: 50%;
   background-color: #1e293b;
   color: #ffffff;
@@ -1962,7 +2097,7 @@ main {
   align-items: center;
   justify-content: center;
   cursor: pointer;
-  z-index: 999;
+  z-index: 998;
   transition: all 0.25s ease;
 
   &:hover {
@@ -1972,9 +2107,6 @@ main {
   }
 }
 
-/* ========================================================
-   LLAMADO A LA ACCIÓN (CTA - Entrevistas)
-   ======================================================== */
 .ctaContainer {
   display: flex;
   flex-direction: column;
@@ -2215,189 +2347,295 @@ form {
 --------------------------------------------------
 ﻿/* ========================================================
    Path: src/styles/_footer.scss
-   Footer moderno, espacioso y con tipografía legible
+   Footer Corporativo Premium (Responsive & Animated)
    ======================================================== */
 @use './variables' as v;
 
 footer {
-  background-color: v.$headerFooterBackground;
-  color: #f1f5f9;
-  padding: 5rem 2rem 3rem 2rem;
-  font-size: 1.5rem; /* Tamaño base cómodo (15px) */
-  line-height: 1.6;
+  /* Fondo degradado profundo (Azul oscuro a Verde oscuro) */
+  background: linear-gradient(135deg, #07101e 0%, #032b26 100%);
+  color: #cbd5e1;
+  padding: 5rem 2rem 2rem;
+  font-size: 1.5rem;
+  line-height: 1.7;
+  border-top: 1px solid rgba(255, 255, 255, 0.1);
+  position: relative;
+  overflow: hidden;
 
-  a {
-    color: #f1f5f9;
-    text-decoration: none;
-    transition: color 0.2s ease;
-
-    &:hover {
-      color: v.$mainGreen;
-    }
+  // Brillo decorativo de fondo
+  &::before {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: -10%;
+    width: 60%;
+    height: 100%;
+    background: radial-gradient(circle, rgba(10, 122, 131, 0.1) 0%, transparent 70%);
+    pointer-events: none;
   }
 
+  // Contenedor principal responsive
   .footer__container {
     max-width: 1280px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    gap: 3.5rem;
+    display: grid;
+    grid-template-columns: 1fr; /* Móvil: 1 columna */
+    gap: 3rem;
+    position: relative;
+    z-index: 1;
 
     @media screen and (min-width: 768px) {
-      flex-direction: row;
-      justify-content: space-between;
-      align-items: flex-start;
-      gap: 4rem;
+      grid-template-columns: 1fr 1fr; /* Tablet: 2 columnas */
+    }
+
+    @media screen and (min-width: 992px) {
+      grid-template-columns: 1.25fr 0.85fr 1.15fr; /* Desktop: 3 columnas */
+      gap: 5rem;
     }
 
     section {
-      flex: 1;
+      display: flex;
+      flex-direction: column;
 
       h3 {
         color: #ffffff;
-        font-size: 1.8rem;
-        font-weight: 700;
-        letter-spacing: 0.5px;
-        margin-bottom: 1.5rem;
+        font-size: 1.6rem;
+        font-weight: 600;
+        letter-spacing: 1px;
+        margin-bottom: 2rem;
         text-transform: uppercase;
+        position: relative;
+        padding-bottom: 0.8rem;
+
+        // Línea debajo del título
+        &::after {
+          content: '';
+          position: absolute;
+          bottom: 0;
+          left: 0;
+          width: 40px;
+          height: 3px;
+          background-color: v.$mainGreen; // Usa tu verde
+          border-radius: 2px;
+        }
       }
 
       p {
         font-size: 1.45rem;
-        color: #cbd5e1;
-        line-height: 1.6;
-        margin-bottom: 1.2rem;
-
-        a {
-          color: #ffffff;
-          text-decoration: underline;
-
-          &:hover {
-            color: v.$mainGreen;
-          }
-        }
+        color: #94a3b8;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        text-align: left !important;
       }
     }
   }
 
-  /* Redes Sociales */
-  .socialNetworks {
-    h3 {
-      font-size: 1.8rem;
-    }
-
+  /* ========================================================
+     COLUMNA 1: CONTACTO Y REDES SOCIALES
+     ======================================================== */
+  #socialNetworks {
     .socialNetworks__ul {
       display: flex;
-      gap: 1.8rem;
-      margin: 1.5rem 0;
+      gap: 1.2rem;
+      margin: 1.2rem 0 2rem 0;
+      flex-wrap: wrap;
+      list-style: none;
+      padding: 0;
 
+      li { margin: 0; }
+
+      // Botones sociales
       a {
-        color: #fff;
-        font-size: 2.2rem;
-        display: inline-block;
-        transition: transform 0.25s ease, color 0.25s ease;
+        width: 45px;
+        height: 45px;
+        border-radius: 50%;
+        background-color: rgba(255, 255, 255, 0.05);
+        border: 1px solid rgba(255, 255, 255, 0.1);
+        display: inline-flex;
+        align-items: center;
+        justify-content: center;
+        color: #cbd5e1;
+        font-size: 1.8rem;
+        text-decoration: none;
+        transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
 
         &:hover {
-          transform: scale(1.2);
-          color: v.$mainGreen;
+          transform: translateY(-5px) scale(1.1);
+          color: #ffffff !important;
+          box-shadow: 0 10px 20px rgba(0, 0, 0, 0.4);
         }
 
-        &.fb:hover { color: #3b5998 !important; }
-        &.wsp:hover { color: #25d366 !important; }
-        &.envelope:hover,
-        &.youTube:hover { color: #ef4444 !important; }
-        &.instagram:hover { color: #e1306c !important; }
+        // Colores de marca exactos al pasar el mouse
+        &.fb:hover { background-color: #1877f2; border-color: #1877f2; }
+        &.instagram:hover { 
+          background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); 
+          border-color: transparent; 
+        }
+        &.envelope:hover { background-color: #0a7a83; border-color: #0a7a83; }
+        &.wsp:hover { background-color: #25d366; border-color: #25d366; }
+        &.youTube:hover { background-color: #ff0000; border-color: #ff0000; }
+      }
+    }
+
+    // Estilo para los links de texto en contacto
+    p a {
+      color: #ffffff;
+      font-weight: 500;
+      text-decoration: none;
+      position: relative;
+      transition: color 0.3s;
+
+      &::after {
+        content: '';
+        position: absolute;
+        width: 100%;
+        transform: scaleX(0);
+        height: 1px;
+        bottom: 0;
+        left: 0;
+        background-color: v.$mainGreen;
+        transform-origin: bottom right;
+        transition: transform 0.25s ease-out;
+      }
+
+      &:hover {
+        color: v.$mainGreen;
+        &::after {
+          transform: scaleX(1);
+          transform-origin: bottom left;
+        }
       }
     }
   }
 
-  /* Sitios de interés */
+  /* ========================================================
+     COLUMNA 2: SITIOS DE INTERÉS (Animación premium)
+     ======================================================== */
   #links {
     ul {
-      li {
-        margin-bottom: 1rem;
+      display: flex;
+      flex-direction: column;
+      gap: 1.2rem;
+      list-style: none;
+      padding: 0;
 
-        a {
-          display: inline-block;
-          font-size: 1.5rem;
-          color: #cbd5e1;
-          transition: transform 0.2s ease, color 0.2s ease;
+      li a {
+        display: inline-flex;
+        align-items: center;
+        gap: 0.8rem;
+        font-size: 1.5rem;
+        font-weight: 500;
+        color: #94a3b8;
+        text-decoration: none;
+        padding: 0.4rem 0;
+        transition: all 0.3s ease;
 
-          &:hover {
-            color: #ffffff;
-            transform: translateX(4px);
+        &::before {
+          content: '→';
+          color: v.$mainGreen;
+          font-weight: bold;
+          opacity: 0;
+          transform: translateX(-10px);
+          transition: all 0.3s ease;
+        }
+
+        &:hover {
+          color: #ffffff;
+          transform: translateX(5px);
+          &::before {
+            opacity: 1;
+            transform: translateX(0);
           }
         }
       }
     }
   }
 
-  /* Sección Oficinas y Mapa */
+  /* ========================================================
+     COLUMNA 3: OFICINAS Y MAPA
+     ======================================================== */
   #mapa {
     .addressMap {
       cursor: pointer;
       color: #ffffff;
       font-weight: 600;
-      text-decoration: underline;
+      text-decoration: none;
+      border-bottom: 1px dashed rgba(255,255,255,0.4);
+      transition: all 0.3s ease;
 
       &:hover {
         color: v.$mainGreen;
+        border-bottom-color: v.$mainGreen;
       }
     }
 
     #verMapa {
-      color: #94a3b8;
+      color: v.$mainGreen;
       font-size: 1.3rem;
+      cursor: pointer;
     }
 
     iframe {
       width: 100%;
       height: 200px;
       border-radius: 12px;
-      border: 1px solid rgba(255, 255, 255, 0.15) !important;
-      margin-top: 1.2rem;
+      border: 1px solid rgba(255, 255, 255, 0.1) !important;
+      margin-top: 1.5rem;
       display: block;
+      box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+      filter: grayscale(100%) opacity(0.8);
+      transition: all 0.5s ease;
+
+      &:hover {
+        filter: grayscale(0%) opacity(1);
+        box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+      }
     }
 
-    /* En pantallas grandes el mapa se puede desplegar al hacer click */
+    // Lógica original de ocultar el mapa en escritorio salvo que esté "activo"
     @media screen and (min-width: 992px) {
       iframe {
         display: none;
       }
-
       &.activo iframe {
         display: block;
+        animation: fadeIn 0.4s ease forwards;
       }
     }
   }
 
-  /* Animación al hacer clic desde el Header (Destacado) */
+  @keyframes fadeIn {
+    from { opacity: 0; transform: translateY(-10px); }
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  /* ========================================================
+     ANIMACIÓN DESTACADO (Efecto Resplandor Suave)
+     ======================================================== */
   .destacado {
-    outline: 2px solid v.$mainGreen;
-    outline-offset: 12px;
-    border-radius: 10px;
-    animation: resaltar 0.8s ease 2 alternate;
-    background-color: rgba(255, 255, 255, 0.05);
-    padding: 1rem;
+    background: rgba(255, 255, 255, 0.03);
+    border-radius: 16px;
+    padding: 1.8rem;
+    box-shadow: 0 0 0 1px rgba(255,255,255,0.1);
+    animation: premiumGlow 2s ease-in-out infinite alternate;
   }
 
-  @keyframes resaltar {
-    0% {
-      transform: scale(1);
-    }
-    100% {
-      transform: scale(1.02);
-    }
+  @keyframes premiumGlow {
+    0% { box-shadow: 0 0 0 1px rgba(255,255,255,0.1), 0 0 15px rgba(10, 122, 131, 0.1); }
+    100% { box-shadow: 0 0 0 1px v.$mainGreen, 0 0 25px rgba(10, 122, 131, 0.3); }
   }
 
+  /* Línea divisoria */
   hr {
     border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    border-top: 1px solid rgba(255, 255, 255, 0.08);
     max-width: 1280px;
     margin: 4rem auto 2rem auto;
   }
 
-  /* Créditos del desarrollador */
+  /* ========================================================
+     BARRA INFERIOR DE CRÉDITOS Y DERECHOS
+     ======================================================== */
   .developerSection {
     max-width: 1280px;
     margin: 0 auto;
@@ -2407,7 +2645,9 @@ footer {
     justify-content: space-between;
     gap: 1.5rem;
     font-size: 1.35rem;
-    color: #94a3b8;
+    color: #64748b;
+    position: relative;
+    z-index: 1;
 
     @media (min-width: 640px) {
       flex-direction: row;
@@ -2415,15 +2655,17 @@ footer {
 
     p {
       margin: 0;
-      font-size: 1.35rem;
+      text-align: center;
+      @media (min-width: 640px) { text-align: left; }
     }
 
     a {
-      color: #e2e8f0;
+      color: #94a3b8;
+      text-decoration: none;
+      transition: color 0.2s;
 
       &:hover {
         color: #ffffff;
-        text-decoration: underline;
       }
     }
 
@@ -2432,17 +2674,20 @@ footer {
       align-items: center;
 
       .reactLogo {
-        width: 3.2rem;
+        width: 2.8rem;
         height: auto;
+        opacity: 0.5;
+        transition: all 0.3s ease;
         animation: reactLogo-spin 20s linear infinite;
+
+        &:hover {
+          opacity: 1;
+          filter: drop-shadow(0 0 8px rgba(97, 218, 251, 0.6));
+        }
 
         @keyframes reactLogo-spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
-        }
-
-        @media (prefers-reduced-motion: reduce) {
-          animation: none;
         }
       }
     }
@@ -3107,28 +3352,124 @@ main {
   object-fit: contain;
 }
 
+/* ========================================================
+   PESTAÑAS DE FILTRO INTERACTIVAS
+   ======================================================== */
+.servicesFilters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+
+  .filterBtn {
+    background-color: #ffffff;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    font-size: 1.35rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+
+    &:hover {
+      border-color: #0a7a83;
+      color: #0a7a83;
+      background-color: #f0fdfa;
+      transform: translateY(-2px);
+    }
+
+    &.active {
+      background-color: #0a7a83;
+      color: #ffffff;
+      border-color: #0a7a83;
+      box-shadow: 0 4px 12px rgba(10, 122, 131, 0.3);
+    }
+  }
+}
+
+/* ========================================================
+   PULIDO DEL BOTÓN EN LAS CARDS
+   ======================================================== */
+.serviceCard {
+  &__footer {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(226, 232, 240, 0.7);
+  }
+
+  &__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0a7a83;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    background-color: #f0fdfa;
+    transition: all 0.25s ease;
+
+    svg {
+      transition: transform 0.25s ease;
+    }
+  }
+
+  &:hover {
+    .serviceCard__action {
+      background-color: #0a7a83;
+      color: #ffffff;
+
+      svg {
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
 
 ================================================================================
 
 // FILE: src/styles/_nosotros.scss
 --------------------------------------------------
-﻿/* Path: src\styles\_nosotros.scss */
+﻿/* Path: src/styles/_nosotros.scss */
 @use './variables' as v;
 
-ul {
-  list-style-type: none; 
-  padding-left: 0; 
-  text-transform: uppercase;
+.nosotros-page {
+  ul {
+    list-style-type: none; 
+    padding: 1.5rem;
+    margin: 2rem 0;
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
 
-  li {
-    cursor: pointer;
+    li {
+      margin-bottom: 1rem;
+      font-size: 1.6rem;
+      font-weight: 600;
 
-    &:hover {
-      color: white;
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      a {
+        color: #0f172a !important; // Evita el blanco sobre blanco
+        text-decoration: none;
+        display: inline-block;
+        transition: color 0.2s ease, transform 0.2s ease;
+
+        &:hover {
+          color: #0a7a83 !important;
+          transform: translateX(4px);
+        }
+      }
     }
   }
 }
-
 
 
 ================================================================================

@@ -1,30 +1,24 @@
-﻿/* ========================================================
-   Path: src/styles/_footer.scss
-   Footer Ultra-Moderno, Elegante e Institucional
-   ======================================================== */
+﻿/* Path: src/styles/_footer.scss */
 @use './variables' as v;
 
 footer {
-  background-color: #0f172a; /* Azul marino / grafito profundo (mucho más moderno que el gris plano) */
-  color: #94a3b8;
-  padding: 6rem 2rem 3rem 2rem;
+  background: linear-gradient(135deg, #020617 0%, #064e3b 100%);
+  color: #cbd5e1;
+  padding: 6rem 2rem 0 2rem;
   font-size: 1.5rem;
-  line-height: 1.7;
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  position: relative;
+  line-height: 1.6;
+  box-shadow: inset 0 20px 40px -20px rgba(0, 0, 0, 0.5);
 
-  // Enlaces generales dentro del footer
   a {
-    color: #e2e8f0;
+    color: #34d399;
     text-decoration: none;
-    transition: color 0.2s ease;
+    transition: all 0.2s ease;
 
     &:hover {
-      color: v.$mainGreen;
+      text-decoration: underline;
     }
   }
 
-  // Contenedor principal de las 3 columnas
   .footer__container {
     max-width: 1280px;
     margin: 0 auto;
@@ -33,302 +27,182 @@ footer {
     gap: 4rem;
 
     @media screen and (min-width: 768px) {
-      grid-template-columns: 1.25fr 0.85fr 1.15fr; /* Proporción áurea entre las 3 columnas */
+      grid-template-columns: 1.25fr 0.8fr 1.2fr;
       gap: 5rem;
     }
 
     section {
-      display: flex;
-      flex-direction: column;
-
       h3 {
-        color: #ffffff;
-        font-size: 1.75rem;
-        font-weight: 700;
-        letter-spacing: 1px;
+        color: #f8fafc;
+        font-size: 1.65rem;
+        font-weight: 600;
+        letter-spacing: 2px;
         margin-bottom: 2rem;
         text-transform: uppercase;
-        position: relative;
-        padding-bottom: 0.8rem;
-
-        // Línea sutil decorativa debajo de cada título
-        &::after {
-          content: '';
-          position: absolute;
-          bottom: 0;
-          left: 0;
-          width: 35px;
-          height: 2px;
-          background-color: v.$mainGreen;
-          border-radius: 2px;
-        }
+        opacity: 0.95;
       }
 
       p {
         font-size: 1.45rem;
-        color: #94a3b8;
+        color: #cbd5e1;
         line-height: 1.7;
         margin-bottom: 1.5rem;
-        text-align: left !important; // Elimina el justificado con huecos
+        text-align: left !important;
+      }
 
-        a {
-          color: #ffffff;
-          font-weight: 500;
-          text-decoration: underline;
-          text-underline-offset: 3px;
-
-          &:hover {
-            color: v.$mainGreen;
-          }
-        }
+      .privacyNotice a {
+        font-size: 1.25rem;
+        color: #94a3b8;
+        &:hover { color: #34d399; }
       }
     }
   }
 
-  /* ========================================================
-     COLUMNA 1: CONTACTO Y REDES SOCIALES
-     ======================================================== */
-  .socialNetworks {
-    h3 {
-      font-size: 1.75rem;
+  /* Iconos sociales */
+  .socialNetworks__ul {
+    display: flex;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+    padding: 0;
+    list-style: none;
+
+    a {
+      width: 42px;
+      height: 42px;
+      background: #1e293b;
+      color: #f8fafc !important;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: all 0.25s ease;
+
+      &.fb:hover { background: #1877f2; transform: scale(1.12); }
+      &.ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); transform: scale(1.12); }
+      &.mail:hover { background: #ea4335; transform: scale(1.12); }
+      &.wa:hover { background: #25d366; transform: scale(1.12); }
+      &.yt:hover { background: #ff0000; transform: scale(1.12); }
     }
+  }
 
-    .socialNetworks__ul {
-      display: flex;
-      gap: 1.2rem;
-      margin: 1.2rem 0 2rem 0;
-      flex-wrap: wrap;
+  /* Sitios de Interés (Subrayado animado y flechita verde) */
+  #links ul {
+    list-style: none;
+    padding: 0;
 
-      li {
-        margin: 0;
-      }
+    li {
+      margin-bottom: 1.4rem;
 
-      // Cápsulas circulares para cada icono
       a {
-        width: 44px;
-        height: 44px;
-        border-radius: 50%;
-        background-color: rgba(255, 255, 255, 0.05);
-        border: 1px solid rgba(255, 255, 255, 0.1);
-        display: inline-flex;
-        align-items: center;
-        justify-content: center;
-        color: #cbd5e1;
-        font-size: 1.8rem;
-        transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
-
-        &:hover {
-          transform: translateY(-4px);
-          color: #ffffff !important;
-          box-shadow: 0 8px 18px rgba(0, 0, 0, 0.3);
-        }
-
-        // Colores de marca al pasar el mouse
-        &.fb:hover {
-          background-color: #1877f2;
-          border-color: #1877f2;
-        }
-
-        &.instagram:hover {
-          background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888);
-          border-color: transparent;
-        }
-
-        &.envelope:hover {
-          background-color: #0a7a83;
-          border-color: #0a7a83;
-        }
-
-        &.wsp:hover {
-          background-color: #25d366;
-          border-color: #25d366;
-        }
-
-        &.youTube:hover {
-          background-color: #ff0000;
-          border-color: #ff0000;
-        }
-      }
-    }
-
-    p {
-      text-align: left !important;
-    }
-  }
-
-  /* ========================================================
-     COLUMNA 2: SITIOS DE INTERÉS
-     ======================================================== */
-  #links {
-    ul {
-      display: flex;
-      flex-direction: column;
-      gap: 1.2rem;
-
-      li a {
-        display: inline-flex;
-        align-items: center;
-        gap: 0.8rem;
+        color: #e2e8f0;
         font-size: 1.5rem;
         font-weight: 500;
-        color: #cbd5e1;
-        padding: 0.4rem 0;
-        transition: all 0.25s ease;
+        position: relative;
+        padding-bottom: 3px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none !important;
 
-        &::before {
-          content: '→';
-          color: v.$mainGreen;
-          font-weight: bold;
+        .linkArrow {
+          color: #34d399;
+          font-size: 1.2rem;
           transition: transform 0.25s ease;
         }
 
+        &::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: 0;
+          left: 0;
+          background-color: #34d399;
+          transition: width 0.3s ease;
+        }
+
         &:hover {
           color: #ffffff;
-          transform: translateX(4px);
-
-          &::before {
-            transform: translateX(3px);
-          }
+          &::after { width: 100%; }
+          .linkArrow { transform: translateX(5px); }
         }
       }
     }
   }
 
-  /* ========================================================
-     COLUMNA 3: OFICINAS Y MAPA
-     ======================================================== */
+  /* Mapa y Oficinas */
   #mapa {
     .addressMap {
-      cursor: pointer;
-      color: #ffffff;
+      color: #34d399;
       font-weight: 600;
-      text-decoration: underline;
-      text-underline-offset: 3px;
-      transition: color 0.2s ease;
-
-      &:hover {
-        color: v.$mainGreen;
-      }
-    }
-
-    #verMapa {
-      color: v.$mainGreen;
-      font-size: 1.3rem;
       cursor: pointer;
     }
 
     iframe {
       width: 100%;
       height: 190px;
-      border-radius: 14px;
-      border: 1px solid rgba(255, 255, 255, 0.12) !important;
+      border-radius: 8px;
       margin-top: 1.5rem;
-      display: block;
-      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.25);
-    }
+      border: 2px solid rgba(255, 255, 255, 0.1) !important;
+      filter: grayscale(80%) contrast(1.2);
+      transition: filter 0.4s ease;
 
-    @media screen and (min-width: 992px) {
-      iframe {
-        display: none;
-      }
-
-      &.activo iframe {
-        display: block;
+      &:hover {
+        filter: grayscale(0%) contrast(1);
       }
     }
   }
 
-  /* ========================================================
-     ANIMACIÓN DESTACADO (PULSO ELEGANTE SIN CAJA RÍGIDA)
-     ======================================================== */
-  .destacado {
-    background: rgba(255, 255, 255, 0.03);
-    border-radius: 16px;
-    padding: 1.8rem;
-    box-shadow: 0 0 0 2px v.$mainGreen, 0 8px 30px rgba(10, 122, 131, 0.25);
-    animation: glowEffect 1s ease-in-out 2 alternate;
-  }
-
-  @keyframes glowEffect {
-    0% {
-      box-shadow: 0 0 0 2px v.$mainGreen, 0 4px 15px rgba(10, 122, 131, 0.15);
-    }
-    100% {
-      box-shadow: 0 0 0 2px v.$mainGreen, 0 10px 35px rgba(10, 122, 131, 0.4);
-    }
-  }
-
-  /* Línea divisoria */
   hr {
     border: none;
-    border-top: 1px solid rgba(255, 255, 255, 0.08);
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
     max-width: 1280px;
-    margin: 4.5rem auto 2.5rem auto;
+    margin: 4rem auto 0 auto;
   }
 
-  /* ========================================================
-     BARRA INFERIOR DE CRÉDITOS Y DERECHOS
-     ======================================================== */
+  /* Barra inferior */
   .developerSection {
+    padding: 2.2rem 1.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
     max-width: 1280px;
     margin: 0 auto;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-between;
-    gap: 1.5rem;
-    font-size: 1.35rem;
-    color: #64748b;
-
-    @media (min-width: 640px) {
-      flex-direction: row;
-    }
 
     p {
       margin: 0;
       font-size: 1.35rem;
-      text-align: center;
-
-      @media (min-width: 640px) {
-        text-align: left;
-      }
-    }
-
-    a {
       color: #94a3b8;
-      transition: color 0.2s;
-
-      &:hover {
-        color: #ffffff;
-        text-decoration: underline;
-      }
+      a { color: #34d399; }
     }
 
     .reactLogoContainer {
-      display: flex;
+      color: #61DBFB;
+      display: inline-flex;
       align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 1.4rem;
+      text-decoration: none !important;
 
       .reactLogo {
-        width: 3rem;
-        height: auto;
-        opacity: 0.75;
-        transition: opacity 0.3s ease, transform 0.3s ease;
+        font-size: 2.2rem;
         animation: reactLogo-spin 20s linear infinite;
-
-        &:hover {
-          opacity: 1;
-          transform: scale(1.15);
-        }
 
         @keyframes reactLogo-spin {
           0% { transform: rotate(0deg); }
           100% { transform: rotate(360deg); }
         }
-
-        @media (prefers-reduced-motion: reduce) {
-          animation: none;
-        }
       }
     }
+  }
+
+  .destacado {
+    outline: 2px solid #34d399;
+    outline-offset: 12px;
+    border-radius: 8px;
+    background: rgba(52, 211, 153, 0.05);
   }
 }
