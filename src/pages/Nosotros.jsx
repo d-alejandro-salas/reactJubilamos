@@ -1,3 +1,4 @@
+import PageCTA from '../components/molecules/PageCTA';
 // src/pages/Nosotros.jsx
 
 import { Link } from 'react-router-dom';
@@ -35,6 +36,7 @@ export const Nosotros = () => {
       <p>
         <u>ENTREVISTAS VIRTUALES</u>: En nuestro estudio jurídico, realizamos entrevistas de forma remota, ofreciéndote la comodidad de evitar desplazamientos a nuestras oficinas. Podés comunicarte con nosotros a través de <a href="https://api.whatsapp.com/send/?phone=5491132140614">WhatsApp</a>, teléfono o <a href="mailto:jubilamosinf@hotmail.com">correo electrónico</a>. Tu tranquilidad es nuestra prioridad, y nuestro compromiso es brindarte el respaldo que necesites.
       </p>      
+      <PageCTA />
     </main></>
   );
 };

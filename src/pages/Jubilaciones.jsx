@@ -1,5 +1,6 @@
 // src/pages/Jubilaciones.jsx
 
+import PageCTA from '../components/molecules/PageCTA';
 import Seo from "../components/seo/Seo";
 import jubilacionesImg from '../assets/images/jubilaciones.webp';
 
@@ -102,7 +103,8 @@ export const Jubilaciones = () => {
 
         <h4>Metalúrgicos</h4>
         <p>Personas expuestas a la radiación del calor afectado a procesos de producción en tareas de laminación, acería y fundición realizadas en forma manual o semimanual desarrolladas en ambientes de alta temperatura, con 50 años los hombres, y con 25 años de servicios.</p>
-      </main>
+        <PageCTA />
+    </main>
     </>
   );
 };

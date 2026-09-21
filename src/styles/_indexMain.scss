@@ -1,129 +1,242 @@
-﻿/* src\styles\_indexMain.scss */
+﻿/* ========================================================
+   src/styles/_indexMain.scss
+   ======================================================== */
 @use './variables' as v;
+@use './hero'; 
 
+main {
+  background-color: #f8fafc; /* Fondo neutro, elegante y descansado */
+  padding: 3rem 1.5rem;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.servicesSection {
+  width: 100%;
+  margin: 0 auto 4rem auto;
+}
+
+.servicesHeader {
+  text-align: center;
+  margin-bottom: 3.5rem;
+
+  .servicesBadge {
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #1a3c34;
+    background-color: #e2ece9;
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .servicesTitle {
+    font-size: 2.8rem;
+    color: #0f172a;
+    font-weight: 700;
+    margin: 0 0 0.8rem 0;
+    line-height: 1.2;
+
+    @media (max-width: 768px) {
+      font-size: 2.2rem;
+    }
+  }
+
+  .servicesSubtitle {
+    font-size: 1.6rem;
+    color: #475569;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+}
+
+/* Grilla Responsiva de 4 Columnas */
 #mainGrid {
   display: grid;
-  gap: 2rem;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
   justify-content: center;
 
-  div {
-    background-color: white;
-    color: black;
-    border: 0.1rem solid #ccc;
-    text-align: center;
-    border-radius: 0.8rem;
-    transition: transform 0.3s ease;
-    cursor: pointer;
-
-    &:hover {
-      transform: scale(1.05);
-    }
-
-    .mainGrid__link {
-      display: flex;
-      flex-direction: column; 
-      height: 100%;
-      padding: 2rem;
-      border-radius: 8px;
-      border: 1.5px solid #0a7a83; 
-      box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
-
-      .linkDescription__container {
-        align-self: flex-end; 
-        border: none;
-      }
-
-      .linkDescription__container:hover {
-        transform: scale(1);
-      }
-    }
-
-    h2 {
-      font-size: 2rem;
-      margin-bottom: 1rem;
-      text-transform: uppercase;
-      text-align: center;
-      height: 7.5rem;
-    }
-
-    img {
-      width: 100%;
-      height: auto;
-    }
-
-    p {
-      font-size: 1.75rem;
-      margin-top: 1rem;
-    }
-  }
-}
-
-/* 📱 -> 💻 TABLETS: Pantallas medianas (desde 600px de ancho en adelante) */
-@media screen and (min-width: 600px) {
-  #mainGrid {
-    grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  @media screen and (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
   }
 
-  p {
-    font-size: 2rem;
-  }
-}
-
-/* 💻 -> 🖥️ ESCRITORIO: Monitores y pantallas grandes (desde 1024px de ancho en adelante) */
-@media screen and (min-width: 1024px) {
-  #mainGrid {
+  @media screen and (min-width: 1100px) {
     grid-template-columns: repeat(4, 1fr);
   }
 }
 
-/* =========================================
-   UNIFICACIÓN DE TAMAÑOS MAESTROS
-   ========================================= */
-.wellnessSectionBanner, .ansesBannerImg,
+/* ========================================================
+   2. LA TARJETA INDIVIDUAL (SERVICE CARD)
+   ======================================================== */
+.serviceCard {
+  background-color: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  display: flex;
+
+  .mainGrid__link {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+    border: none;       /* Se elimina el borde secundario viejo */
+    box-shadow: none;   /* Se elimina la sombra duplicada */
+    padding: 0;
+    border-radius: 0;
+  }
+
+  /* Hover prémium: la card flota y gana profundidad */
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 30px -10px rgba(15, 23, 42, 0.12);
+    border-color: rgba(10, 122, 131, 0.3);
+
+    .serviceCard__img {
+      transform: scale(1.06);
+    }
+
+    .serviceCard__action {
+      color: #0a7a83;
+      svg {
+        transform: translateX(5px);
+      }
+    }
+  }
+
+  /* Foto superior a sangre */
+  &__imageWrapper {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+    background-color: #e2e8f0;
+
+    .serviceCard__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+
+    .serviceCard__overlayTag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      color: #ffffff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  /* Contenido interno */
+  &__content {
+    padding: 2rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  &__title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.3;
+    margin: 0 0 1rem 0;
+    min-height: 4.8rem; /* Alinea los títulos entre tarjetas sin desfasarse */
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  &__description {
+    font-size: 1.45rem;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0 0 1.8rem 0;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Llamada a la acción al pie de la tarjeta */
+  &__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-top: auto;
+    transition: color 0.2s ease;
+
+    svg {
+      transition: transform 0.2s ease;
+    }
+  }
+}
+
+/* ========================================================
+   3. BANNERS: SALUD (WELLNESS) Y ANSES
+   ======================================================== */
+.wellnessSectionBanner, 
+.ansesBannerImg,
 .ansesImgContainer {
   display: block;
   margin-left: auto;
   margin-right: auto;
-  border-radius: 8px;
-  border: 2px solid #0a7a83; 
-  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  border: 1px solid rgba(10, 122, 131, 0.25);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06);
   box-sizing: border-box;
-  transition: transform 0.3s ease;
   overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
 
-  /* 💻 -> 🖥️ ESCRITORIO: Fuerza el ancho al 100% y altura compartida */
   @media screen and (min-width: 1024px) {
-    width: 100%; 
-    height: 23.4rem !important; 
+    width: 100%;
+    height: 23.4rem !important;
   }
 }
 
-/* =========================================
-   ESTILOS ESPECÍFICOS: SECCIÓN SALUD (Wellness)
-   ========================================= */
+/* SECCIÓN SALUD (Wellness) */
 .wellnessSectionBanner {
-  background-color: #E8F5E9;
-  margin-bottom: 1.5rem;
+  background-color: #edf7ed;
+  margin-bottom: 2.5rem;
   text-align: center;
   position: relative;
   font-family: "Playfair Display", serif;
-  
-  /* LA MAGIA PARA QUE TOME LA ALTURA DE REACT: */
-  height: 100%; 
+  height: 100%;
   width: 100%;
-  
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  padding: 30px 20px; 
+  padding: 3.5rem 2rem;
 
   @media (min-width: 768px) {
-    margin-top: 80px;
+    margin-top: 5rem;
   }
-  
+
   @media (min-width: 1024px) {
-     padding: 0;
+    padding: 0;
   }
 }
 
@@ -136,101 +249,156 @@
 
 .wellnessTitle {
   color: #1a3c34;
-  font-size: 3.6rem !important;
-  font-weight: 600;
-  margin-bottom: 10px;
-  line-height: 1.2;
+  font-size: 3.2rem !important;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.25;
 
-  /* 📱 -> 💻 TABLETS Y NOTEBOOKS: (desde 768px de ancho en adelante) */
   @media (min-width: 768px) {
-    font-size: 2.2rem;
+    font-size: 2.6rem;
   }
 }
 
 .wellnessSubtitle {
-    font-family: Arial,sans-serif;
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    font-size: 1.5rem!important;
-    display: block;
-    width: 100%;
-    max-width: 600px;
-    margin-left: auto;
-    margin-right: auto;
-    text-align: center!important;
-    color: #4a5568;
-    line-height: 1.5;
-    margin-bottom: 30px;
-
-  /* 📱 -> 💻 TABLETS Y NOTEBOOKS: (desde 768px de ancho en adelante) */
-  @media (min-width: 768px) {
-    font-size: 1.1rem;
-    margin-bottom: 30px;
-  }
+  font-family: Arial, sans-serif;
+  margin: 0 auto 2.5rem auto;
+  font-size: 1.5rem !important;
+  width: 100%;
+  max-width: 600px;
+  text-align: center !important;
+  color: #4a5568;
+  line-height: 1.6;
 }
 
 .wellnessBtn {
-    font-family: Arial,sans-serif;
-    line-height: 3rem;
-    text-align: center;
-    box-sizing: border-box;
-    margin: 0;
-    font-size: 1.8rem!important;
-    color: white;
-    padding: 10px 24px;
-    border-radius: 5px;
-    font-weight: bold;
-    transition: background 0.3s ease, transform 0.2s;
-    display: inline-block;
-    box-shadow: 0 3px 5px rgba(0,0,0,0.1);
-    text-decoration: none;
-    background-color: #234a44;
-    transform: translateY(-2px);
+  font-family: Arial, sans-serif;
+  display: inline-block;
+  font-size: 1.4rem !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  background-color: #1a3c34;
+  padding: 1.2rem 2.8rem;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(26, 60, 52, 0.25);
+  transition: all 0.25s ease;
 
   &:hover {
-    background-color: #234a44;
-    transform: translateY(-2px);
+    background-color: #122923;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(26, 60, 52, 0.35);
   }
 }
 
 .decoration-icon {
   position: absolute;
-  opacity: 0.3;
+  opacity: 0.22;
   pointer-events: none;
   display: none;
 
-  /* 📱 -> 💻 TABLETS Y NOTEBOOKS: Muestra los íconos de fondo si hay espacio */
   @media (min-width: 768px) {
     display: block;
-    &.icon-heart { left: 10%; top: 50%; transform: translateY(-50%); }
-    &.icon-apple { right: 15%; top: 25%; }
+    &.icon-heart { left: 8%; top: 50%; transform: translateY(-50%); }
+    &.icon-apple { right: 12%; top: 25%; }
     &.icon-dumbbell { right: 8%; top: 65%; }
   }
 }
 
-/* =========================================
-   ESTILOS ESPECÍFICOS: IMÁGENES ANSES
-   ========================================= */
-
-/* Imagen suelta en móvil */
+/* SECCIÓN ALERTA ANSES */
 .ansesBannerImg {
   width: 100%;
   height: auto;
   object-fit: contain;
 }
 
-/* Contenedor en escritorio */
 .ansesImgContainer {
-  display: flex; 
+  display: flex;
   justify-content: center;
   align-items: center;
   background-color: #ffffff;
-  padding: 1.5rem; 
+  padding: 1.5rem;
 }
 
 .ansesBannerImgX {
   width: 100%;
   height: 100%;
   object-fit: contain;
+}
+
+/* ========================================================
+   PESTAÑAS DE FILTRO INTERACTIVAS
+   ======================================================== */
+.servicesFilters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+
+  .filterBtn {
+    background-color: #ffffff;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    font-size: 1.35rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+
+    &:hover {
+      border-color: #0a7a83;
+      color: #0a7a83;
+      background-color: #f0fdfa;
+      transform: translateY(-2px);
+    }
+
+    &.active {
+      background-color: #0a7a83;
+      color: #ffffff;
+      border-color: #0a7a83;
+      box-shadow: 0 4px 12px rgba(10, 122, 131, 0.3);
+    }
+  }
+}
+
+/* ========================================================
+   PULIDO DEL BOTÓN EN LAS CARDS
+   ======================================================== */
+.serviceCard {
+  &__footer {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(226, 232, 240, 0.7);
+  }
+
+  &__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0a7a83;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    background-color: #f0fdfa;
+    transition: all 0.25s ease;
+
+    svg {
+      transition: transform 0.25s ease;
+    }
+  }
+
+  &:hover {
+    .serviceCard__action {
+      background-color: #0a7a83;
+      color: #ffffff;
+
+      svg {
+        transform: translateX(4px);
+      }
+    }
+  }
 }

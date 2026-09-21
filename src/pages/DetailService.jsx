@@ -1,3 +1,4 @@
+import PageCTA from '../components/molecules/PageCTA';
 // src/pages/DetailService.jsx
 
 import Seo from "../components/seo/Seo";           // ✅ nuevo
@@ -33,6 +34,7 @@ return (
           <p>La página solicitada no existe o fue movida.</p>
         </>
       )}
+      <PageCTA />
     </main>
   </>
 );

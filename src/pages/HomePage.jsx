@@ -42,49 +42,65 @@ export const HomePage = () => {
     <>
       <Seo
         title="Jubilamos – Derecho Previsional y Sucesiones"
-        description="Estudio jurídico especializado en jubilaciones..."
-        path="/"/>
+        description="Estudio jurídico especializado en jubilaciones, pensiones, reajustes y sucesiones. Atención remota en todo el país."
+        path="/"
+      />
 
-       <section id="introduction">
-  <h1>Estudio Jurídico especializado en Derecho Previsional y Sucesiones</h1>
-  <p className="bigFontSize">
-    En <span className="enterprise">Jubilamos</span> nos especializamos en
-    ofrecerte asesoramiento y la mejor orientación en tus trámites frente
-    al <u>ANSES</u>, protegiendo y resguardando tus derechos tanto en sede
-    administrativa como judicial, proporcionándote así la máxima seguridad
-    jurídica y defensa a lo largo de este camino. Nuestro compromiso es
-    garantizar la más alta calidad en la asistencia.
-  </p>
+      {/* ========================================================
+          HERO SECTION REDISEÑADO (Conserva todo el contenido)
+          ======================================================== */}
+      <section id="introduction" className="heroSection">
+        <div className="heroContainer">
+          
+          {/* Badge institucional */}
+          <div className="heroBadge">
+            <span className="heroBadgeDot"></span>
+            Dres. Monti & Ferrara • Estudio Jurídico Previsional
+          </div>
 
-  <p>
-    Con calidez, celeridad y una amplia experiencia en el campo,
-    trabajamos incansablemente para asegurar que cada cliente reciba el
-    apoyo necesario de manera oportuna y eficiente. Creemos firmemente en
-    la importancia de proteger tus derechos en cada paso del proceso.
-  </p>
+          {/* Título Principal */}
+          <h1 className="heroTitle">
+            Estudio Jurídico Especializado en <span className="heroHighlight">Derecho Previsional</span> y Sucesiones
+          </h1>
 
-  <p>
-    <u>ENTREVISTAS VIRTUALES</u>: En nuestro estudio jurídico, realizamos
-    entrevistas de forma remota, ofreciéndote la comodidad de evitar
-    desplazamientos a nuestras oficinas. Podés comunicarte con nosotros a
-    través de{" "}
-    <a href="https://api.whatsapp.com/send/?phone=5491132140614" target="_blank" rel="noopener noreferrer">
-      WhatsApp
-    </a>
-    ,{" "}
-    <a href="tel:+541132140614">
-      teléfono
-    </a>
-    {" "}o{" "}
-    <a href="mailto:jubilamosinf@hotmail.com">correo electrónico</a>. Tu
-    tranquilidad es nuestra prioridad, y nuestro compromiso es brindarte
-    el respaldo que necesites.
-  </p><ConsultationCTA />
-</section>	
+          {/* Párrafo Principal */}
+          <p className="heroDescription">
+            En <strong>Jubilamos</strong> nos especializamos en brindarte la mejor orientación y resguardo en tus trámites frente a <strong>ANSES</strong>, tanto en sede administrativa como judicial, garantizándote máxima seguridad jurídica, calidez y celeridad a lo largo de todo el proceso.
+          </p>
+
+          {/* Puntos clave / Entrevistas Virtuales */}
+          <div className="heroFeatures">
+            <div className="heroFeatureItem">
+              <span className="heroCheck">✓</span> <strong>Entrevistas Virtuales:</strong> Asesoramiento remoto sin necesidad de desplazarte
+            </div>
+            <div className="heroFeatureItem">
+              <span className="heroCheck">✓</span> <strong>Alcance Nacional:</strong> Gestionamos trámites en todo el país
+            </div>
+            <div className="heroFeatureItem">
+              <span className="heroCheck">✓</span> <strong>Defensa Integral:</strong> Protección de tus derechos en sede administrativa y judicial
+            </div>
+          </div>
+
+          {/* Botones de Acción (WhatsApp / Llamada directa) */}
+          <div className="heroCtaWrapper">
+            <ConsultationCTA />
+          </div>
+
+          {/* Vías de contacto secundarias */}
+          <p className="heroContactNote">
+            Podés comunicarte también por teléfono al <a href="tel:+541132140614">+54 11 3214-0614</a> o vía mail a <a href="mailto:jubilamosinf@hotmail.com">jubilamosinf@hotmail.com</a>. Tu tranquilidad es nuestra prioridad.
+          </p>
+
+        </div>
+      </section>	
       
+      {/* ========================================================
+          CONTENIDO PRINCIPAL
+          ======================================================== */}
       <main>
         <br />
         <HomePageCard />
+        
         <div style={{ 
           height: isMobile ? syncedHeight : "auto", 
           transition: "height 0.1s ease",
@@ -116,3 +132,5 @@ export const HomePage = () => {
     </>
   );
 };
+
+export default HomePage;

@@ -1,3 +1,4 @@
+import PageCTA from '../components/molecules/PageCTA';
 // src/pages/PensionesPorFallecimiento.jsx
 
 // 🔹 Nuevo: importamos el componente Seo
@@ -58,7 +59,8 @@ export const PensionesPorFallecimiento = () => {
           real con pruebas concretas. La convivencia debe tener una duración
           mínima de 5 años, reduciéndose a 2 años si hay hijos en común.
         </p>
-      </main>
+        <PageCTA />
+    </main>
     </>
   );
 };

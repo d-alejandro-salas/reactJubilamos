@@ -1,0 +1,146 @@
+/* ========================================================
+   Path: src/styles/_hero.scss
+   HERO SECTION MODERNO
+   ======================================================== */
+
+.heroSection {
+  background: linear-gradient(145deg, #093b3f 0%, #032124 100%);
+  color: #ffffff;
+  padding: 6rem 1.5rem 5rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 -20px 30px -15px rgba(0, 0, 0, 0.4);
+
+  /* Destello sutil de fondo */
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(10, 122, 131, 0.35) 0%, rgba(0, 0, 0, 0) 70%);
+    pointer-events: none;
+  }
+}
+
+.heroContainer {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e2e8f0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0.5rem 1.4rem;
+  border-radius: 50px;
+  margin-bottom: 2rem;
+
+  .heroBadgeDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #4ade80; /* Verde brillante de estado activo */
+    box-shadow: 0 0 8px #4ade80;
+  }
+}
+
+.heroTitle {
+  font-size: 3.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  letter-spacing: -0.5px;
+
+  .heroHighlight {
+    background: linear-gradient(120deg, #6ee7b7 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 2.8rem;
+  }
+}
+
+.heroDescription {
+  font-size: 1.7rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+  text-align: center;
+
+  strong {
+    color: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+}
+
+/* Píldoras de Confianza */
+.heroFeatures {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 3.5rem;
+
+  .heroFeatureItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 30px;
+    padding: 0.6rem 1.4rem;
+    font-size: 1.35rem;
+    color: #f1f5f9;
+    font-weight: 500;
+
+    .heroCheck {
+      color: #4ade80;
+      font-weight: 800;
+    }
+  }
+}
+
+.heroCtaWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* Canales de contacto secundarios */
+.heroContactNote {
+  margin-top: 2.2rem;
+  font-size: 1.35rem;
+  color: #94a3b8;
+  line-height: 1.5;
+
+  a {
+    color: #e2e8f0;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+}

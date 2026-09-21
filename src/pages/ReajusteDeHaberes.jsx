@@ -1,3 +1,4 @@
+import PageCTA from '../components/molecules/PageCTA';
 // src/pages/ReajusteDeHaberes.jsx
 
 import Seo from "../components/seo/Seo";
@@ -30,6 +31,7 @@ El proceso se lleva a cabo mediante el análisis de la viabilidad del reclamo de
     <p>Al no cumplir ANSES con las órdenes judiciales, muchas veces las liquidaciones que se ponen al pago dan cuantías que no son las correctas, estableciendo así pagos más bajos de los que corresponden, incumpliendo con dichas mandas y calculando mal los desembolsos, dejando montos pendientes.</p><p>
     Es por ello que, en el caso de que hayas cobrado un juicio de reajuste contra ANSES o dicho organismo no haya cumplido con la sentencia, realizamos el control y la revisión, exigiendo el cumplimiento y el correcto pago.</p><p>
     Recordá que ANSES tiene, una vez firme la sentencia, 120 días hábiles para cumplir con la misma. Pasado dicho plazo, podes ejecutar la sentencia y exigir el pago mediante la “Ejecución de Sentencia”.</p>
-  </main></>
+    <PageCTA />
+    </main></>
   );
 };
