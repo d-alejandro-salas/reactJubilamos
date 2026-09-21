@@ -1,107 +1,165 @@
-﻿/* Path: src\styles\_header.scss */
+﻿/* Path: src/styles/_header.scss */
 @use './variables' as v;
 
 header {
   background-color: v.$headerFooterBackground;
-  padding: 1rem;
-  text-align: center;
-  transition: padding 0.3s ease, box-shadow 0.3s ease;
+  padding: 0.8rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
 
-  /* Estado al hacer scroll */
+  /* Reducción suave al scrollear */
   &.scrolled {
-    padding: 0.1rem 1rem;                       // padding vertical reducido
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);    // elevaciÃ³n sutil
+    padding: 0.4rem 1.5rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
   }
 
   #logo {
+    display: inline-flex;
+    align-items: center;
+
     img {
-      width: 12rem;
-      height: 12rem;
+      height: 52px;             /* Altura fija y elegante */
+      width: auto;
+      object-fit: contain;
+      border-radius: 8px;       /* Suaviza las esquinas del logo */
+      transition: transform 0.25s ease;
+
+      &:hover {
+        transform: scale(1.04);
+      }
     }
   }
 
   nav {
-    margin-top: 1rem;
+    margin-top: 0.8rem;
 
     ul {
       list-style: none;
       padding: 0;
       margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
 
       li {
-        margin-bottom: 2rem;
+        margin: 0;
 
-        a, .active {
-          display: block;
-          color: #fff;
-          transition: color 0.3s, transform 0.3s, border 0.3s;
+        a, 
+        .active {
+          display: inline-block;
+          color: #f1f5f9;
+          text-decoration: none !important; /* Elimina el subrayado rígido */
+          font-size: 1.5rem;               /* Tamaño legible */
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          padding: 0.3rem 0;
+          position: relative;
+          transition: color 0.25s ease;
+
+          /* Línea indicadora moderna al pasar el mouse */
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: v.$mainGreen;
+            transition: width 0.25s ease;
+          }
 
           &:hover {
             color: v.$mainGreen;
-            transform: scale(1.1);
+            transform: none; /* Quitamos el zoom brusco para un look más refinado */
+
+            &::after {
+              width: 100%;
+            }
           }
         }
+
+        /* Estilo para la página actual */
         .active {
-          transform: scale(1.2);
           color: v.$mainGreen;
-          text-decoration: none;
+          font-weight: 600;
+
+          &::after {
+            width: 100%;
+          }
         }
       }
     }
   }
 }
 
-/* Tablet en adelante: sticky + flex */
-@media screen and (min-width: 600px) {
+/* ========================================================
+   Tablet en adelante (horizontal, alineado y limpio)
+   ======================================================== */
+@media screen and (min-width: 768px) {
   header {
-    position: sticky;
-    top: 0;
-    z-index: 1000;
-    padding: 2rem;
+    padding: 0.8rem 2.5rem;
     display: flex;
-    justify-content: space-evenly;
+    justify-content: space-between;
+    align-items: center;
+
+    &.scrolled {
+      padding: 0.4rem 2.5rem;
+    }
 
     #logo {
       img {
-        width: 10rem;
-        height: 10rem;
+        height: 58px;
       }
     }
 
     nav {
-      margin-top: 2rem;
-      display: flex;
-      justify-content: space-between;
-      gap: 5rem;
+      margin-top: 0;
 
       ul {
-        display: flex;
+        flex-direction: row;
         gap: 2rem;
 
         li {
-          font-size: 1.8rem;
+          a, 
+          .active {
+            font-size: 1.5rem;
+          }
         }
       }
     }
   }
 }
 
-/* Escritorio: ajustes de espaciado */
+/* ========================================================
+   Escritorio grande
+   ======================================================== */
 @media screen and (min-width: 1024px) {
   header {
-    padding: 3rem;
+    padding: 1rem 4rem;
+
+    &.scrolled {
+      padding: 0.5rem 4rem;
+    }
+
+    #logo {
+      img {
+        height: 62px;
+      }
+    }
 
     nav {
-      margin-top: 3rem;
-      display: flex;
-      align-items: center;
-
       ul {
-        gap: 3rem;
+        gap: 2.8rem;
 
         li {
-          padding: 1.9rem;
-          font-size: 2rem;
+          a, 
+          .active {
+            font-size: 1.6rem;
+          }
         }
       }
     }

@@ -1,4 +1,3 @@
-
 import { Button } from '../atoms/Button';
 
 export const Nav = () => {
@@ -12,7 +11,7 @@ export const Nav = () => {
           <Button to="/reajustedehaberes">HABER MENSUAL</Button>
         </li>
         <li>
-          <Button to="/contacto">CONTACTANOS</Button>
+          <a href="#socialNetworks">CONTACTANOS</a>
         </li>
         <li>
           <Button to="/nosotros">NOSOTROS</Button>

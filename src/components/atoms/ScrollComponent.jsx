@@ -1,56 +1,50 @@
 // src/components/atoms/ScrollComponent.jsx
-
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useLocation } from 'react-router-dom';
 
 const ScrollComponent = () => {
   const { pathname } = useLocation();
+  const [visible, setVisible] = useState(false);
 
-  // Este useEffect asegura que el navegador se desplace hacia arriba
-  // cada vez que se cambie de ruta en la aplicación.
   useEffect(() => {
     window.scrollTo(0, 0);
   }, [pathname]);
 
   useEffect(() => {
     const handleScroll = () => {
-      const button = document.getElementById('scrollToTopButton');
-      if (window.scrollY > 300) {
-        button.style.display = 'block';
-      } else {
-        button.style.display = 'none';
-      }
+      setVisible(window.scrollY > 300);
     };
 
-    window.addEventListener('scroll', handleScroll);
-
-    return () => {
-      window.removeEventListener('scroll', handleScroll);
-    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
   }, []);
 
   const scrollToTop = () => {
-    const button = document.getElementById('scrollToTopButton');
-    button.classList.add('scaled');
-    setTimeout(() => {
-      button.classList.remove('scaled');
-    }, 300); // Duración de la animación de escala
     window.scrollTo({ top: 0, behavior: 'smooth' });
   };
 
+  if (!visible) return null;
+
   return (
-    <>
-      <button
-        id="scrollToTopButton"
-        onClick={scrollToTop}
-        aria-label="Scroll to top"
+    <button
+      id="scrollToTopButton"
+      onClick={scrollToTop}
+      aria-label="Volver arriba"
+      className="scrollTopBtn"
+    >
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
       >
-        <img
-          src="https://www.euroresidentes.com/tecnologia/trucos-diseno-web/wp-content/uploads/sites/7/2014/08/up1_azul1.png"
-          alt="Scroll to top"
-        />
-      </button>
-    </>
+        <path d="M18 15l-6-6-6 6" />
+      </svg>
+    </button>
   );
 };
 
