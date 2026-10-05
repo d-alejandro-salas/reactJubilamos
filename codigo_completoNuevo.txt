@@ -1,0 +1,3659 @@
+=== ESTRUCTURA DEL PROYECTO ===
+    .eslintrc.cjs
+    .gitignore
+    README.md
+    index.html
+    package.json
+    scripts/
+        generate-sitemap.js
+    src/
+        App.jsx
+        assets/
+            images/
+                datosCelular.png
+                datosEscritorio.png
+                gracias y amistad.jpg
+                hamburguer.png
+                imagebg.png
+                imagesIndex.js
+                invalidez.webp
+                jubilaciones.webp
+                logo.jpg
+                moratorias.webp
+                pension.webp
+                portada.jfif
+                puam.jpg
+                react.svg
+                reajustes.webp
+                rentaVitalicia.webp
+                sucesiones.jpg
+        components/
+            ErrorBoundary.jsx
+            contact/
+                ContactForm.jsx
+            home/
+                AnsesAlert.jsx
+                ServiceCard.jsx
+                ServicesSection.jsx
+                WellnessBanner.jsx
+            layout/
+                FloatingActions.jsx
+                Footer.jsx
+                FooterDeveloper.jsx
+                FooterSections.jsx
+                Header.jsx
+                HeaderNav.jsx
+                ScrollToTop.jsx
+            seo/
+                Seo.jsx
+            ui/
+                BackToTopButton.jsx
+                ConsultationCta.jsx
+                MapEmbed.jsx
+                PageCta.jsx
+                SocialNetworks.jsx
+                WhatsAppButton.jsx
+        config/
+            site.js
+        data/
+            services.js
+        hooks/
+            useElementHeight.js
+            useIsMobile.js
+            useMediaQuery.js
+            useScrolledPast.js
+        main.jsx
+        pages/
+            Contacto.jsx
+            HomePage.jsx
+            Nosotros.jsx
+            NotFound.jsx
+            PoliticaDePrivacidad.jsx
+            ServicePage.jsx
+            WellnessSectionPage.jsx
+        routes/
+            AppRoutes.jsx
+        styles/
+            Index.scss
+            _components.scss
+            _contact.scss
+            _footer.scss
+            _header.scss
+            _hero.scss
+            _indexMain.scss
+            _nosotros.scss
+            _variables.scss
+    vercel.json
+    vite.config.js
+
+=== CONTENIDO DE LOS ARCHIVOS ===
+
+// FILE: index.html
+--------------------------------------------------
+<!doctype html>
+<html lang="es-AR">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="robots" content="index, follow">
+    <meta name="theme-color" content="#333333">
+    <title>Jubilamos | Estudio Jurídico Especialista en Reajuste de Haberes y Sucesiones</title>
+    <meta name="description" content="Estudio Jurídico en CABA especializado en derecho previsional, reajuste de haberes, ejecución de sentencias contra ANSES, rentas vitalicias y sucesiones. Consultá con los Dres. Monti y Ferrara.">
+
+    <link rel="icon" href="./src/assets/images/logo.jpg" />
+
+    <!-- Fuentes que ya usa el CSS (Plus Jakarta Sans y Playfair Display) -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@700&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap">
+  </head>
+  <body>
+    <noscript>Para ver este sitio necesitás habilitar JavaScript. También podés contactarnos por WhatsApp al +54 9 11 3214-0614.</noscript>
+    <div id="root"></div>
+    <script type="module" src="/src/main.jsx"></script>
+  </body>
+</html>
+
+
+
+================================================================================
+
+// FILE: package.json
+--------------------------------------------------
+{
+  "name": "jubilamos",
+  "private": true,
+  "version": "1.0.0",
+  "type": "module",
+  "scripts": {
+    "dev": "vite",
+    "sitemap": "node scripts/generate-sitemap.js",
+    "prebuild": "npm run sitemap",
+    "build": "vite build",
+    "lint": "eslint . --ext js,jsx --report-unused-disable-directives --max-warnings 0",
+    "preview": "vite preview"
+  },
+  "dependencies": {
+    "react": "^18.2.0",
+    "react-dom": "^18.2.0",
+    "react-helmet-async": "^2.0.5",
+    "react-icons": "^5.3.0",
+    "react-router-dom": "^6.23.1",
+    "sass": "^1.85.1"
+  },
+  "devDependencies": {
+    "@types/react": "^18.2.66",
+    "@types/react-dom": "^18.2.22",
+    "@vitejs/plugin-react": "^4.2.1",
+    "eslint": "^8.57.0",
+    "eslint-plugin-react": "^7.34.1",
+    "eslint-plugin-react-hooks": "^4.6.0",
+    "eslint-plugin-react-refresh": "^0.4.6",
+    "vite": "^5.2.0"
+  }
+}
+
+
+
+================================================================================
+
+// FILE: scripts/generate-sitemap.js
+--------------------------------------------------
+// Genera public/sitemap.xml a partir de src/data/services.js y src/config/site.js.
+// Se ejecuta solo antes de cada `npm run build` (prebuild), así nunca queda desactualizado.
+import { writeFileSync } from 'node:fs';
+import { fileURLToPath } from 'node:url';
+import { SITE_URL, STATIC_PATHS } from '../src/config/site.js';
+import { SERVICES, servicePath } from '../src/data/services.js';
+
+const today = new Date().toISOString().slice(0, 10);
+
+const entries = [
+  ...STATIC_PATHS.map((path) => ({ path, priority: path === '/' ? '1.0' : '0.5' })),
+  ...SERVICES.map((service) => ({ path: servicePath(service), priority: '0.8' })),
+];
+
+const xml = `<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+${entries
+  .map(
+    ({ path, priority }) =>
+      `  <url>\n    <loc>${new URL(path, SITE_URL).href}</loc>\n    <lastmod>${today}</lastmod>\n    <priority>${priority}</priority>\n  </url>`,
+  )
+  .join('\n')}
+</urlset>
+`;
+
+const output = fileURLToPath(new URL('../public/sitemap.xml', import.meta.url));
+writeFileSync(output, xml);
+console.log(`sitemap.xml generado con ${entries.length} URLs`);
+
+
+
+================================================================================
+
+// FILE: src/App.jsx
+--------------------------------------------------
+import { BrowserRouter } from 'react-router-dom';
+import ErrorBoundary from './components/ErrorBoundary';
+import FloatingActions from './components/layout/FloatingActions';
+import Footer from './components/layout/Footer';
+import Header from './components/layout/Header';
+import ScrollToTop from './components/layout/ScrollToTop';
+import AppRoutes from './routes/AppRoutes';
+
+export default function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <Header />
+      <ErrorBoundary>
+        <AppRoutes />
+      </ErrorBoundary>
+      <Footer />
+      <FloatingActions />
+    </BrowserRouter>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/assets/images/imagesIndex.js
+--------------------------------------------------
+// src/assets/images/imagesIndex.js
+
+import jubilacionesImg from './jubilaciones.webp';
+import pensionImg from './pension.webp';
+import reajustesImg from './reajustes.webp';
+import invalidezImg from './invalidez.webp';
+import rentaVitaliciaImg from './rentaVitalicia.webp';
+import moratoriasImg from './moratorias.webp';
+import puamImg from './puam.jpg';
+import sucesionesImg from './sucesiones.jpg';
+
+const imagesArray = {
+  jubilaciones: jubilacionesImg,
+  pension: pensionImg,
+  reajustes: reajustesImg,
+  invalidez: invalidezImg,
+  rentaVitalicia: rentaVitaliciaImg,
+  moratorias: moratoriasImg,
+  puam: puamImg,
+  sucesiones: sucesionesImg
+};
+
+export default imagesArray;
+
+
+
+
+================================================================================
+
+// FILE: src/components/ErrorBoundary.jsx
+--------------------------------------------------
+import { Component } from 'react';
+
+export default class ErrorBoundary extends Component {
+  state = { hasError: false };
+
+  static getDerivedStateFromError() {
+    return { hasError: true };
+  }
+
+  componentDidCatch(error, info) {
+    console.error('Error de renderizado:', error, info.componentStack);
+  }
+
+  render() {
+    if (this.state.hasError) {
+      return (
+        <main>
+          <h1>Algo salió mal</h1>
+          <p>Ocurrió un error inesperado. Recargá la página o volvé a intentarlo en unos minutos.</p>
+          <p>
+            <a href="/">Volver al inicio</a>
+          </p>
+        </main>
+      );
+    }
+    return this.props.children;
+  }
+}
+
+
+
+================================================================================
+
+// FILE: src/components/contact/ContactForm.jsx
+--------------------------------------------------
+import { useState } from 'react';
+import { Link } from 'react-router-dom';
+import { whatsappUrl } from '../../config/site';
+import { SERVICES } from '../../data/services';
+
+const INITIAL_VALUES = { name: '', phone: '', service: '', message: '' };
+
+const buildMessage = ({ name, phone, service, message }) =>
+  [
+    `Hola, soy ${name.trim()}.`,
+    service && `Quisiera consultar por: ${service}.`,
+    message.trim(),
+    phone.trim() && `Mi teléfono de contacto: ${phone.trim()}`,
+  ]
+    .filter(Boolean)
+    .join('\n');
+
+/**
+ * Formulario sin backend: arma el mensaje y abre WhatsApp con el texto ya escrito.
+ * Si más adelante se quiere enviar por mail/API, solo cambia `handleSubmit`.
+ */
+export default function ContactForm() {
+  const [values, setValues] = useState(INITIAL_VALUES);
+  const [sent, setSent] = useState(false);
+
+  const handleChange = ({ target: { name, value } }) => {
+    setValues((previous) => ({ ...previous, [name]: value }));
+    setSent(false);
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    window.open(whatsappUrl(buildMessage(values)), '_blank', 'noopener,noreferrer');
+    setSent(true);
+  };
+
+  return (
+    <form onSubmit={handleSubmit} aria-labelledby="contactFormTitle">
+      <h2 id="contactFormTitle">Escribinos tu consulta</h2>
+      <p>Completá tus datos y te respondemos por WhatsApp a la brevedad.</p>
+
+      <div className="row-2">
+        <div className="form-group">
+          <label htmlFor="cf-name">Nombre y apellido</label>
+          <input
+            id="cf-name"
+            name="name"
+            type="text"
+            autoComplete="name"
+            maxLength={80}
+            required
+            value={values.name}
+            onChange={handleChange}
+          />
+        </div>
+        <div className="form-group">
+          <label htmlFor="cf-phone">Teléfono</label>
+          <input
+            id="cf-phone"
+            name="phone"
+            type="tel"
+            autoComplete="tel"
+            maxLength={30}
+            value={values.phone}
+            onChange={handleChange}
+          />
+        </div>
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="cf-service">¿Sobre qué trámite querés consultar?</label>
+        <select id="cf-service" name="service" value={values.service} onChange={handleChange}>
+          <option value="">Seleccionar (opcional)</option>
+          {SERVICES.map(({ slug, title }) => (
+            <option key={slug} value={title}>{title}</option>
+          ))}
+        </select>
+      </div>
+
+      <div className="form-group">
+        <label htmlFor="cf-message">Mensaje</label>
+        <textarea
+          id="cf-message"
+          name="message"
+          maxLength={1000}
+          required
+          value={values.message}
+          onChange={handleChange}
+        />
+      </div>
+
+      <button type="submit">Enviar por WhatsApp</button>
+
+      {sent && (
+        <p role="status" className="formNotice">
+          Se abrió WhatsApp con tu mensaje. Si no se abrió, revisá que tu navegador permita ventanas emergentes.
+        </p>
+      )}
+      <p className="formNotice formNotice--small">
+        Al enviar aceptás el tratamiento de tus datos según nuestra{' '}
+        <Link to="/politica-de-privacidad">Política de Privacidad</Link>.
+      </p>
+    </form>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/home/AnsesAlert.jsx
+--------------------------------------------------
+import { useRef } from 'react';
+import datosCelular from '../../assets/images/datosCelular.png';
+import datosEscritorio from '../../assets/images/datosEscritorio.png';
+import useElementHeight from '../../hooks/useElementHeight';
+import useIsMobile from '../../hooks/useIsMobile';
+import WellnessBanner from './WellnessBanner';
+
+const ALERT_ALT =
+  'Aviso de seguridad: ANSES nunca solicita por teléfono, WhatsApp, correo electrónico ni redes sociales claves de homebanking o Mi ANSES, datos de tarjetas, CBU o datos personales para otorgar un beneficio.';
+
+/**
+ * Banner de salud + aviso antifraude de ANSES.
+ * En mobile el banner de salud toma la altura de la imagen del aviso (misma altura visual).
+ */
+export default function AnsesAlert() {
+  const isMobile = useIsMobile();
+  const imageRef = useRef(null);
+  const imageHeight = useElementHeight(imageRef, isMobile);
+
+  return (
+    <>
+      <div className="wellnessSync" style={{ height: isMobile && imageHeight ? imageHeight : 'auto' }}>
+        <WellnessBanner />
+      </div>
+
+      {isMobile ? (
+        <img ref={imageRef} src={datosCelular} alt={ALERT_ALT} className="ansesBannerImg" />
+      ) : (
+        <div className="ansesImgContainer">
+          <img src={datosEscritorio} alt={ALERT_ALT} className="ansesBannerImgX" />
+        </div>
+      )}
+    </>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/home/ServiceCard.jsx
+--------------------------------------------------
+import { Link } from 'react-router-dom';
+import images from '../../assets/images/imagesIndex';
+import { servicePath } from '../../data/services';
+
+export default function ServiceCard({ service }) {
+  return (
+    <article className="serviceCard">
+      <Link className="mainGrid__link" to={servicePath(service)}>
+        <div className="serviceCard__imageWrapper">
+          <img
+            loading="lazy"
+            width="600"
+            height="400"
+            src={images[service.image]}
+            alt={service.title}
+            className="serviceCard__img"
+          />
+          <span className="serviceCard__overlayTag">{service.tag}</span>
+        </div>
+
+        <div className="serviceCard__content">
+          <h3 className="serviceCard__title">{service.title}</h3>
+          <p className="serviceCard__description">{service.summary}</p>
+
+          <div className="serviceCard__footer">
+            <span className="serviceCard__action">
+              Ver trámite
+              <svg
+                width="18"
+                height="18"
+                viewBox="0 0 24 24"
+                fill="none"
+                stroke="currentColor"
+                strokeWidth="2.5"
+                strokeLinecap="round"
+                strokeLinejoin="round"
+                aria-hidden="true"
+              >
+                <line x1="5" y1="12" x2="19" y2="12" />
+                <polyline points="12 5 19 12 12 19" />
+              </svg>
+            </span>
+          </div>
+        </div>
+      </Link>
+    </article>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/home/ServicesSection.jsx
+--------------------------------------------------
+import { useState } from 'react';
+import { CATEGORIES, SERVICES } from '../../data/services';
+import ServiceCard from './ServiceCard';
+
+export default function ServicesSection() {
+  const [activeFilter, setActiveFilter] = useState('todos');
+
+  const visibleServices =
+    activeFilter === 'todos' ? SERVICES : SERVICES.filter((service) => service.category === activeFilter);
+
+  return (
+    <section className="servicesSection">
+      <div className="servicesHeader">
+        <span className="servicesBadge">ÁREAS DE PRÁCTICA</span>
+        <h2 className="servicesTitle">Nuestros Servicios Previsionales</h2>
+        <p className="servicesSubtitle">
+          Seleccioná el trámite de tu interés para conocer requisitos y cómo podemos asistirte.
+        </p>
+
+        <div className="servicesFilters" role="group" aria-label="Filtrar servicios">
+          {CATEGORIES.map(({ id, label }) => (
+            <button
+              key={id}
+              type="button"
+              className={`filterBtn ${activeFilter === id ? 'active' : ''}`}
+              aria-pressed={activeFilter === id}
+              onClick={() => setActiveFilter(id)}
+            >
+              {id === 'todos' ? `${label} (${SERVICES.length})` : label}
+            </button>
+          ))}
+        </div>
+      </div>
+
+      <div id="mainGrid">
+        {visibleServices.map((service) => (
+          <ServiceCard key={service.slug} service={service} />
+        ))}
+      </div>
+    </section>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/home/WellnessBanner.jsx
+--------------------------------------------------
+import { Link } from 'react-router-dom';
+
+const iconProps = {
+  width: 50,
+  height: 50,
+  viewBox: '0 0 24 24',
+  fill: 'none',
+  stroke: '#6B8E23',
+  strokeWidth: 1.5,
+  strokeLinecap: 'round',
+  strokeLinejoin: 'round',
+  'aria-hidden': true,
+};
+
+const HeartIcon = () => (
+  <svg {...iconProps}>
+    <path d="M20.84 4.61a5.5 5.5 0 0 0-7.78 0L12 5.67l-1.06-1.06a5.5 5.5 0 0 0-7.78 7.78l1.06 1.06L12 21.23l7.78-7.78 1.06-1.06a5.5 5.5 0 0 0 0-7.78z" />
+  </svg>
+);
+
+const AppleIcon = () => (
+  <svg {...iconProps}>
+    <path d="M12 20.94c1.5 0 2.75 1.06 4 1.06 3 0 6-8 6-12.22A4.91 4.91 0 0 0 17 5c-2.22 0-4 1.44-5 2-1-.56-2.78-2-5-2a4.9 4.9 0 0 0-5 4.78C2 14 5 22 8 22c1.25 0 2.5-1.06 4-1.06Z" />
+    <path d="M10 2c1 .5 2 2 2 5" />
+  </svg>
+);
+
+const DumbbellIcon = () => (
+  <svg {...iconProps}>
+    <path d="m6.5 6.5 11 11" />
+    <path d="m21 21-1-1" />
+    <path d="m3 3 1 1" />
+    <path d="m18 22 4-4" />
+    <path d="m2 6 4-4" />
+    <path d="m3 10 7-7" />
+    <path d="m14 21 7-7" />
+  </svg>
+);
+
+export default function WellnessBanner() {
+  return (
+    <section className="wellnessSectionBanner">
+      <div className="wellnessContainer">
+        <h2 className="wellnessTitle">Salud y Bienestar para la Tercera Edad</h2>
+        <p className="wellnessSubtitle">
+          Pequeños consejos para vivir mejor, con información clara y confiable.
+        </p>
+        <Link to="/articulos" className="wellnessBtn">
+          VER ARTÍCULOS
+        </Link>
+      </div>
+
+      <div className="decoration-icon icon-heart"><HeartIcon /></div>
+      <div className="decoration-icon icon-apple"><AppleIcon /></div>
+      <div className="decoration-icon icon-dumbbell"><DumbbellIcon /></div>
+    </section>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/layout/FloatingActions.jsx
+--------------------------------------------------
+import BackToTopButton from '../ui/BackToTopButton';
+import WhatsAppButton from '../ui/WhatsAppButton';
+
+export default function FloatingActions() {
+  return (
+    <>
+      <WhatsAppButton />
+      <BackToTopButton />
+    </>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/layout/Footer.jsx
+--------------------------------------------------
+import { CONTACT, MAPS_LINK } from '../../config/site';
+import MapEmbed from '../ui/MapEmbed';
+import FooterDeveloper from './FooterDeveloper';
+import FooterSections from './FooterSections';
+
+export default function Footer() {
+  return (
+    <footer>
+      <div className="footer__container">
+        <FooterSections />
+
+        <section id="mapa">
+          <h3>NUESTRAS OFICINAS</h3>
+          <p>
+            <a className="addressMap" href={MAPS_LINK} target="_blank" rel="noopener noreferrer">
+              {CONTACT.street}
+            </a>
+            , {CONTACT.city}.
+            <br />
+            (Atención únicamente con cita previa).
+          </p>
+          <p>
+            *Realizamos trámites en todo el país. Contamos con personal y delegados en distintas provincias. Con
+            nosotros podés avanzar sin importar dónde vivas.
+          </p>
+          <MapEmbed title="Mapa de oficinas" />
+        </section>
+      </div>
+      <hr />
+      <FooterDeveloper />
+    </footer>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/layout/FooterDeveloper.jsx
+--------------------------------------------------
+import { FaReact } from 'react-icons/fa6';
+import { DEVELOPER } from '../../config/site';
+
+export default function FooterDeveloper() {
+  const year = new Date().getFullYear();
+  const mail = `mailto:${DEVELOPER.email}`;
+
+  return (
+    <section className="developerSection">
+      <p>
+        Web Developer <a href={mail}>{DEVELOPER.name}</a>, contrataciones: <a href={mail}>{DEVELOPER.email}</a>. ©
+        All rights reserved {year}.
+      </p>
+      <a
+        className="reactLogoContainer"
+        href="https://react.dev"
+        target="_blank"
+        rel="noopener noreferrer"
+        aria-label="React"
+      >
+        <FaReact className="reactLogo" aria-hidden="true" /> <span>React</span>
+      </a>
+    </section>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/layout/FooterSections.jsx
+--------------------------------------------------
+import { FaArrowRight } from 'react-icons/fa6';
+import { Link, useLocation } from 'react-router-dom';
+import { CONTACT, EXTERNAL_SITES, SOCIAL_LINKS, mailUrl, telUrl } from '../../config/site';
+import SocialNetworks from '../ui/SocialNetworks';
+
+const SECTION_IDS = ['socialNetworks', 'links'];
+const textLinks = SOCIAL_LINKS.filter(({ id }) => ['fb', 'ig', 'wa'].includes(id));
+
+export default function FooterSections() {
+  // Resalta la sección a la que apunta el #hash actual (Contactanos / Sitios de interés)
+  const { hash } = useLocation();
+  const highlighted = SECTION_IDS.find((id) => hash === `#${id}`);
+  const cls = (id) => (highlighted === id ? 'destacado' : undefined);
+
+  return (
+    <>
+      <section id="socialNetworks" className={cls('socialNetworks')}>
+        <h3>CONTACTO - REDES SOCIALES</h3>
+        <SocialNetworks />
+        <p>
+          Puedes contactarnos a través de{' '}
+          {textLinks.map(({ id, label, href }) => (
+            <span key={id}>
+              <a href={href} target="_blank" rel="noopener noreferrer">{label}</a>
+              {', '}
+            </span>
+          ))}
+          ☎️ <a href={telUrl}>llamada directa al {CONTACT.phoneDisplay}</a> o por{' '}
+          <a href={mailUrl}>correo electrónico</a>.
+        </p>
+        <div className="privacyNotice">
+          <Link to="/politica-de-privacidad">Política de Privacidad y Aviso Legal</Link>
+        </div>
+      </section>
+
+      <section id="links" className={cls('links')}>
+        <h3>SITIOS DE INTERÉS</h3>
+        <ul>
+          {EXTERNAL_SITES.map(({ label, href }) => (
+            <li key={label}>
+              <a href={href} target="_blank" rel="noopener noreferrer">
+                <FaArrowRight className="linkArrow" aria-hidden="true" /> {label}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </section>
+    </>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/layout/Header.jsx
+--------------------------------------------------
+import { Link } from 'react-router-dom';
+import logo from '../../assets/images/logo.jpg';
+import useScrolledPast from '../../hooks/useScrolledPast';
+import HeaderNav from './HeaderNav';
+
+export default function Header() {
+  const scrolled = useScrolledPast(50);
+
+  return (
+    <header className={scrolled ? 'scrolled' : ''}>
+      <Link id="logo" to="/" aria-label="Jubilamos – Inicio">
+        <img src={logo} alt="Jubilamos" />
+      </Link>
+      <HeaderNav />
+    </header>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/layout/HeaderNav.jsx
+--------------------------------------------------
+import { NavLink } from 'react-router-dom';
+
+// `to` = ruta interna (NavLink) · `href` = ancla dentro de la página (footer)
+const NAV_ITEMS = [
+  { label: 'JUBILATE', to: '/jubilaciones' },
+  { label: 'HABER MENSUAL', to: '/reajustedehaberes' },
+  { label: 'CONTACTANOS', href: '#socialNetworks' },
+  { label: 'NOSOTROS', to: '/nosotros' },
+  { label: 'SITIOS DE INTERÉS', href: '#links' },
+];
+
+export default function HeaderNav() {
+  return (
+    <nav aria-label="Principal">
+      <ul>
+        {NAV_ITEMS.map(({ label, to, href }) => (
+          <li key={label}>{to ? <NavLink to={to}>{label}</NavLink> : <a href={href}>{label}</a>}</li>
+        ))}
+      </ul>
+    </nav>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/layout/ScrollToTop.jsx
+--------------------------------------------------
+import { useEffect } from 'react';
+import { useLocation } from 'react-router-dom';
+
+/** Al cambiar de ruta: va al ancla (#hash) si existe, o arriba de todo. */
+export default function ScrollToTop() {
+  const { pathname } = useLocation();
+
+  useEffect(() => {
+    const { hash } = window.location;
+    const target = hash ? document.getElementById(hash.slice(1)) : null;
+    if (target) {
+      target.scrollIntoView();
+    } else {
+      window.scrollTo({ top: 0, left: 0, behavior: 'instant' });
+    }
+  }, [pathname]);
+
+  return null;
+}
+
+
+
+================================================================================
+
+// FILE: src/components/seo/Seo.jsx
+--------------------------------------------------
+import { Helmet } from 'react-helmet-async';
+import { DEFAULT_OG_IMAGE, SITE_NAME, SITE_URL } from '../../config/site';
+
+const toAbsolute = (url) => (url ? new URL(url, SITE_URL).href : DEFAULT_OG_IMAGE);
+
+export default function Seo({ title, description, path = '/', image, type = 'website', noindex = false, jsonLd }) {
+  const url = new URL(path, SITE_URL).href;
+  const ogImage = toAbsolute(image);
+
+  return (
+    <Helmet>
+      <title>{title}</title>
+      <meta name="description" content={description} />
+      {noindex && <meta name="robots" content="noindex, follow" />}
+
+      <meta property="og:site_name" content={SITE_NAME} />
+      <meta property="og:locale" content="es_AR" />
+      <meta property="og:title" content={title} />
+      <meta property="og:description" content={description} />
+      <meta property="og:type" content={type} />
+      <meta property="og:url" content={url} />
+      <meta property="og:image" content={ogImage} />
+
+      <meta name="twitter:card" content="summary_large_image" />
+      <meta name="twitter:title" content={title} />
+      <meta name="twitter:description" content={description} />
+      <meta name="twitter:image" content={ogImage} />
+
+      {!noindex && <link rel="canonical" href={url} />}
+      {jsonLd && <script type="application/ld+json">{JSON.stringify(jsonLd)}</script>}
+    </Helmet>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/ui/BackToTopButton.jsx
+--------------------------------------------------
+import useScrolledPast from '../../hooks/useScrolledPast';
+
+export default function BackToTopButton() {
+  const visible = useScrolledPast(300);
+  if (!visible) return null;
+
+  return (
+    <button
+      type="button"
+      id="scrollToTopButton"
+      className="scrollTopBtn"
+      aria-label="Volver arriba"
+      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
+    >
+      <svg
+        width="20"
+        height="20"
+        viewBox="0 0 24 24"
+        fill="none"
+        stroke="currentColor"
+        strokeWidth="2.5"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        aria-hidden="true"
+      >
+        <path d="M18 15l-6-6-6 6" />
+      </svg>
+    </button>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/ui/ConsultationCta.jsx
+--------------------------------------------------
+import { WHATSAPP_MESSAGES, telUrl, whatsappUrl } from '../../config/site';
+
+export default function ConsultationCTA() {
+  return (
+    <div className="ctaContainer">
+      <a
+        href={whatsappUrl(WHATSAPP_MESSAGES.interview)}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="ctaBtn ctaBtn--left"
+      >
+        <span className="ctaIcon" aria-hidden="true">📅</span> Agendá tu Entrevista Virtual
+      </a>
+
+      <a href={telUrl} className="ctaBtn ctaBtn--right">
+        <span className="ctaIcon" aria-hidden="true">📞</span> Llamanos Directamente
+      </a>
+    </div>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/ui/MapEmbed.jsx
+--------------------------------------------------
+import { MAPS_EMBED_URL } from '../../config/site';
+
+export default function MapEmbed({ title = 'Mapa: Av. Santa Fe 1845, CABA', ...props }) {
+  return (
+    <iframe
+      src={MAPS_EMBED_URL}
+      title={title}
+      loading="lazy"
+      allowFullScreen
+      referrerPolicy="no-referrer-when-downgrade"
+      {...props}
+    />
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/ui/PageCta.jsx
+--------------------------------------------------
+import { WHATSAPP_MESSAGES, telUrl, whatsappUrl } from '../../config/site';
+
+export default function PageCTA({ title = '¿Tenés dudas sobre este trámite?' }) {
+  return (
+    <aside className="pageCta">
+      <h3 className="pageCta__title">{title}</h3>
+      <p className="pageCta__text">
+        Analizamos tu situación de manera anticipada para diseñar la mejor estrategia legal.
+      </p>
+      <div className="pageCta__actions">
+        <a
+          href={whatsappUrl(WHATSAPP_MESSAGES.consult)}
+          target="_blank"
+          rel="noopener noreferrer"
+          className="ctaBtn ctaBtn--left"
+        >
+          <span aria-hidden="true">💬</span> Consultar por WhatsApp
+        </a>
+        <a href={telUrl} className="ctaBtn ctaBtn--right">
+          <span aria-hidden="true">📞</span> Llamar ahora
+        </a>
+      </div>
+    </aside>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/ui/SocialNetworks.jsx
+--------------------------------------------------
+import { FaEnvelope, FaFacebookF, FaInstagram, FaWhatsapp, FaYoutube } from 'react-icons/fa6';
+import { SOCIAL_LINKS } from '../../config/site';
+
+const ICONS = { fb: FaFacebookF, ig: FaInstagram, mail: FaEnvelope, wa: FaWhatsapp, yt: FaYoutube };
+
+export default function SocialNetworks() {
+  return (
+    <ul className="socialNetworks__ul">
+      {SOCIAL_LINKS.map(({ id, label, href }) => {
+        const Icon = ICONS[id];
+        const isMail = href.startsWith('mailto:');
+        return (
+          <li key={id}>
+            <a
+              href={href}
+              title={label}
+              aria-label={label}
+              className={id}
+              {...(isMail ? {} : { target: '_blank', rel: 'noopener noreferrer' })}
+            >
+              <Icon aria-hidden="true" />
+            </a>
+          </li>
+        );
+      })}
+    </ul>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/components/ui/WhatsAppButton.jsx
+--------------------------------------------------
+import { FaWhatsapp } from 'react-icons/fa6';
+import { whatsappUrl } from '../../config/site';
+
+export default function WhatsAppButton() {
+  return (
+    <a
+      href={whatsappUrl()}
+      className="wsp-btn"
+      target="_blank"
+      rel="noopener noreferrer"
+      aria-label="Escribinos por WhatsApp"
+    >
+      <FaWhatsapp className="icono" aria-hidden="true" />
+    </a>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/config/site.js
+--------------------------------------------------
+// Datos del sitio en un único lugar. Archivo "puro" (sin imports de assets)
+// para poder usarlo también desde scripts de Node (sitemap).
+
+export const SITE_URL = 'https://www.jubilamos.com.ar';
+export const SITE_NAME = 'Jubilamos';
+export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`; // TODO: subir esta imagen a /public
+
+export const CONTACT = {
+  /** Formato internacional sin "+" (WhatsApp / tel:). Móvil argentino: 54 + 9 + área + número. */
+  phone: '5491132140614',
+  phoneDisplay: '+54 9 11 3214-0614',
+  email: 'jubilamosinf@hotmail.com',
+  street: 'Av. Santa Fe 1845',
+  city: 'Ciudad Autónoma de Buenos Aires',
+};
+
+export const DEVELOPER = {
+  name: 'Daniel Alejandro',
+  email: 'daniel.salas@bue.edu.ar',
+};
+
+export const WHATSAPP_MESSAGES = {
+  interview: 'Hola, quisiera agendar una entrevista virtual para consultar por mi trámite.',
+  consult: 'Hola, estuve leyendo la información en su web y quisiera hacer una consulta sobre mi trámite.',
+};
+
+export const whatsappUrl = (text) =>
+  `https://api.whatsapp.com/send/?phone=${CONTACT.phone}${text ? `&text=${encodeURIComponent(text)}` : ''}`;
+
+export const telUrl = `tel:+${CONTACT.phone}`;
+export const mailUrl = `mailto:${CONTACT.email}`;
+
+export const MAPS_EMBED_URL =
+  'https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3284.3349961380827!2d-58.3938796!3d-34.5956896!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95bccabdfb5e76a9%3A0x47006ce9bde4a929!2sAv.%20Sta.%20Fe%201845%2C%20C1123AAA%20CABA!5e0!3m2!1ses-419!2sar!4v1705924921762!5m2!1ses-419!2sar';
+
+export const MAPS_LINK =
+  'https://www.google.com/maps/search/?api=1&query=Av.+Santa+Fe+1845,+Ciudad+Autonoma+de+Buenos+Aires';
+
+/** `id` coincide con las clases CSS existentes (.fb, .ig, .mail, .wa, .yt). */
+export const SOCIAL_LINKS = [
+  { id: 'fb', label: 'Facebook', href: 'https://www.facebook.com/jubilamosok' },
+  { id: 'ig', label: 'Instagram', href: 'https://www.instagram.com/jubilamos' },
+  { id: 'mail', label: 'Email', href: mailUrl },
+  { id: 'wa', label: 'WhatsApp', href: whatsappUrl() },
+  { id: 'yt', label: 'YouTube', href: 'https://www.youtube.com/@Jubilamos-Info' },
+];
+
+export const EXTERNAL_SITES = [
+  { label: 'PODER JUDICIAL', href: 'https://www.pjn.gov.ar/' },
+  { label: 'ANSES', href: 'https://www.anses.gob.ar/' },
+  { label: 'PAMI', href: 'https://www.pami.org.ar/' },
+];
+
+/** Rutas que no salen de SERVICES (se usan en el sitemap). */
+export const STATIC_PATHS = ['/', '/nosotros', '/contacto', '/articulos', '/politica-de-privacidad'];
+
+
+
+================================================================================
+
+// FILE: src/data/services.js
+--------------------------------------------------
+// Única fuente de verdad de los servicios: alimenta las cards del home, las rutas,
+// las páginas de detalle, el SEO y el sitemap.
+//
+// - `slug` conserva EXACTAMENTE las URLs históricas del sitio (minúsculas, sin espacios).
+// - `image` es la clave de src/assets/images/imagesIndex.js
+// - `lead`     -> párrafos destacados (clase .bigFontSize)
+// - `body`     -> párrafos normales
+// - `sections` -> bloques con subtítulo (level 3 = .h3__subtitle, por defecto h4)
+
+export const CATEGORIES = [
+  { id: 'todos', label: 'Todos los servicios' },
+  { id: 'previsional', label: 'Jubilaciones y Pensiones' },
+  { id: 'reclamos', label: 'Reajustes y Reclamos' },
+  { id: 'civil', label: 'Sucesiones' },
+];
+
+export const SERVICES = [
+  {
+    slug: 'reajustedehaberes',
+    title: 'Reajuste de haberes',
+    tag: 'Reclamo Judicial',
+    category: 'reclamos',
+    image: 'reajustes',
+    summary:
+      'En nuestro país, 1 de cada 5 personas cobra menos de lo que le corresponde. Recordá siempre que es tu dinero el cual aportaste a lo largo de la vida y es tu derecho reclamarlo.',
+    seoTitle: 'Reajuste de haberes – Jubilamos',
+    seoDescription:
+      'Revisamos tu haber previsional, calculamos el monto correcto y promovemos el reclamo administrativo o judicial para actualizarlo.',
+    imageAlt: 'Reajuste de haberes previsionales',
+    body: [
+      `En nuestro país, 1 de cada 5 personas cobra menos de lo que le corresponde. Recordá siempre que es tu dinero, el cual aportaste a lo largo de la vida, y es tu derecho reclamarlo.`,
+      `Numerosos fallos de la Justicia Federal en distintas jurisdicciones del país vienen declarando la inconstitucionalidad de la fórmula de movilidad vigente, por considerar que ha provocado una pérdida significativa del poder adquisitivo en los haberes previsionales. En muchos casos, las sentencias reconocen que las personas jubiladas cobran hasta un 50% menos de lo que deberían percibir.`,
+      `Estos pronunciamientos se apoyan, además, en antecedentes clave de la Corte Suprema de Justicia de la Nación, como los fallos Badaro y Elliff, que reafirmaron el carácter sustitutivo del haber previsional y la necesidad de que las jubilaciones mantengan su valor real en el tiempo. A la luz de estos principios, la justicia sigue amparando los reclamos cuando se acredita una pérdida injustificada en el haber jubilatorio.`,
+      `No se trata de un reajuste automático: es necesario presentar un reclamo judicial individual para que se analice tu situación y se reconozca el haber que realmente te corresponde. La Justicia está amparando estos reclamos cuando existen fundamentos legales, económicos y documentales suficientes. Revisamos el cálculo de tu Jubilación/Pensión para verificar si estás cobrando correctamente e iniciamos un reclamo judicial para lograr el reajuste de tu haber mensual.`,
+      `El proceso se lleva a cabo mediante el análisis de la viabilidad del reclamo de ajuste. Determinamos el monto aproximado del aumento que podrías obtener y luego procedemos a presentar el reclamo ante ANSES. Si el organismo deniega la solicitud o guarda silencio, nos habilita a iniciar una demanda ante la Justicia Federal.`,
+    ],
+    sections: [
+      {
+        level: 3,
+        heading: 'Ejecución de Sentencias y Liquidaciones',
+        paragraphs: [
+          `Al no cumplir ANSES con las órdenes judiciales, muchas veces las liquidaciones que se ponen al pago dan cuantías que no son las correctas, estableciendo así pagos más bajos de los que corresponden, incumpliendo con dichas mandas y calculando mal los desembolsos, dejando montos pendientes.`,
+          `Es por ello que, en el caso de que hayas cobrado un juicio de reajuste contra ANSES o dicho organismo no haya cumplido con la sentencia, realizamos el control y la revisión, exigiendo el cumplimiento y el correcto pago. Recordá que ANSES tiene, una vez firme la sentencia, 120 días hábiles para cumplir con la misma. Pasado dicho plazo, podés ejecutar la sentencia y exigir el pago mediante la “Ejecución de Sentencia”.`,
+        ],
+      },
+    ],
+  },
+
+  {
+    slug: 'jubilaciones',
+    title: 'Jubilaciones',
+    heading: 'Jubilación',
+    tag: 'Trámite ANSES',
+    category: 'previsional',
+    image: 'jubilaciones',
+    summary:
+      'Tramitamos la mejor jubilación posible para nuestros clientes, brindándoles un servicio integral, analizando requisitos de edad y aportes realizados; también brindamos la posibilidad de que accedan a la jubilación utilizando las moratorias vigentes en caso de no contar con los aportes requeridos por ley.',
+    seoTitle: 'Jubilaciones – Trámite y asesoramiento',
+    seoDescription:
+      'Análisis de requisitos, moratorias vigentes y estrategia para obtener la mejor jubilación posible.',
+    imageAlt: 'Asesoramiento y trámite de jubilaciones',
+    lead: [
+      `Tramitamos la mejor jubilación posible para nuestros clientes, brindándoles un servicio integral, donde se analizan requisitos de edad y aportes realizados; también posibilitamos el acceso a la jubilación utilizando las moratorias vigentes en caso de no contar con los aportes requeridos por ley.`,
+      `Nuestro enfoque se basa en analizar minuciosamente la situación de cada individuo de manera anticipada, permitiéndonos diseñar la estrategia correcta para obtener el mejor resultado en el proceso de la jubilación.`,
+    ],
+    sections: [
+      {
+        level: 3,
+        heading: 'Requisitos necesarios para que puedas jubilarte',
+        paragraphs: [
+          `Con 60 años de edad si sos mujer o 65 años si sos varón y 30 años de aportes registrados podés acceder a la jubilación ordinaria. Te recordamos que los requisitos pueden variar según el tipo de trabajo que hayas realizado.`,
+        ],
+      },
+      {
+        level: 3,
+        heading: 'En caso de que no tengas todos los aportes',
+        paragraphs: [
+          `Podés complementarlos con aportes que hagas como autónomo o monotributista; asimismo el exceso de edad es importante para compensarlos, con 1 año de aporte por cada 2 años de edad excedente. Y también, según la normativa, podés completarlos a través de las moratorias previsionales vigentes.`,
+        ],
+      },
+      {
+        level: 3,
+        heading: 'Reconocimiento de aportes por hijos - tareas de cuidado',
+        paragraphs: [
+          `Este es un beneficio que gozan las madres para que puedan jubilarse, reconociendo y valorando el tiempo que destinaron y destinan a la crianza de sus hijos. Las mujeres con hijos, en edad de jubilarse (60 años o más) que no cuenten con los años de aportes necesarios. Se computará 1 año de aportes por hijo y 2 años de aportes por hijo adoptado. Asimismo, se reconocerá de forma adicional 1 año por hijo con discapacidad y 2 años en caso de que haya sido beneficiario de la Asignación Universal por Hijo por al menos 12 meses. Además, se reconocerán los plazos de licencia por maternidad y de excedencia de maternidad a las mujeres que hayan hecho uso de estos períodos al momento del nacimiento de sus hijos.`,
+        ],
+      },
+      {
+        heading: 'Ex combatientes de Malvinas',
+        paragraphs: [
+          `Las personas que participaron en la Guerra de Malvinas como soldados conscriptos o civiles, ya sea que su participación se dio en Teatro de Operaciones de Malvinas o Teatro de Operaciones del Atlántico Sur. Con 53 años de edad o más y 10 años de aportes jubilatorios como trabajador. Si fuiste soldado conscripto se computarán 2 años de aportes. Es muy importante contar con la documentación que certifique la actividad como soldado conscripto; certificación actualizada al momento de pedir la jubilación (Art. 1 del Decreto 2634/90) con la situación de Revista: CONSCRIPTO o CIVIL, indicar que participó en el Teatro de Operaciones de Malvinas/Teatro de Operaciones del Atlántico Sur (no es necesario que figure explícitamente el período), suscripto por Departamento de Veteranos de la Guerra de Malvinas de la Fuerza, a su vez refrendado por el Ministerio de Defensa.`,
+        ],
+      },
+      {
+        heading: 'Jubilación especial para personas con VIH y/o Hepatitis B y/o C (Ley 27.675)',
+        paragraphs: [
+          `Las personas con VIH y/o Hepatitis B y/o C, podrán solicitar dicha jubilación en la medida en que éstas últimas condicionen o generen algún impedimento en su vida. Con 50 años de edad cumplidos y acreditando 20 años de servicios con aportes computables. También deberán certificar 10 años de antigüedad en el diagnóstico al momento de solicitar esta prestación. Diagnóstico de Hepatitis B y/o C: deberá contar con formulario único completo por el médico certificado en la oficina de la autoridad jurisdiccional designada por el Ministerio de Salud. Asimismo, se requerirá declaración jurada prestando consentimiento a fin de que el Ministerio de Salud de la Nación ceda la información relativa a su situación de salud, incluyendo diagnóstico de VIH o Hepatitis B y/o C y su fecha.`,
+        ],
+      },
+      {
+        heading: 'Jubilación Anticipada',
+        paragraphs: [
+          `Este beneficio está destinado a personas que cuenten con 30 años de aportes, le falten hasta 5 años para jubilarse y que estuvieran desempleadas al 30 de junio de 2023. Este garantiza el 80% del haber jubilatorio que te correspondería percibir cuando alcances la edad para jubilarte (mujeres 60 años y hombres 65 años). Al llegar a esa edad, comenzarás a cobrar el 100% del haber jubilatorio de manera automática. Requisitos: hasta 5 años menos de la edad requerida para jubilarse, hombres entre 60 y 64 años, y las mujeres entre 55 y 59 años. 30 años de aportes registrados y encontrarse desocupado al 30 de junio de 2023.`,
+        ],
+      },
+      {
+        heading: 'Poder Judicial y Ministerio Público de la Nación',
+        paragraphs: [
+          `Con 60 años de edad para hombres y mujeres, y 30 años de servicios y 20 años de servicios con aportes computables en uno o más regímenes incluidos en el Sistema de Reciprocidad Jubilatoria. Deben al menos haberse desempeñado como mínimo 15 años continuos o 20 años discontinuos en el Poder Judicial de la Nación o en el Ministerio Público de la Nación o de las provincias adheridas al Régimen de Reciprocidad Jubilatoria o en la Fiscalía Nacional de Investigaciones Administrativas, de los cuales 5 años como mínimo deben registrarse en el desempeño de los cargos indicados en el apartado "Personal Comprendido"; haberse desempeñado como mínimo durante los últimos 10 años de servicios en cargos de los indicados en el apartado "Personal Comprendido".`,
+        ],
+      },
+      {
+        heading: 'Trabajadores agrarios',
+        paragraphs: [
+          `Incluye las siguientes actividades, siempre que no se realicen en establecimientos industriales y aún cuando se desarrollen en centros urbanos: La manipulación y el almacenamiento de cereales, oleaginosos, legumbres, hortalizas, semillas u otros frutos o productos agrarios; Las que se prestaren en ferias y remates de hacienda; El empaque de frutos y productos agrarios propios; Cosecha y/o empaque de frutas en actividades reguladas por resoluciones de la Comisión Nacional de Trabajo Agrario (C.N.T.A.). Estarán incluidas hasta que se realice una Convención Colectiva de Trabajo que los comprenda y regule sus condiciones de trabajo y salarios (art. 3 del Decreto N° 301/13); Trabajadores que se desempeñen en las distintas etapas y tareas de la producción de una actividad agraria cíclica que se desarrolle dentro de un proceso temporal definido, siempre que las primeras tareas del proceso se enmarquen dentro de sus previsiones y no constituyan proceso industrial art. 4° del mencionado decreto. Requisitos: Tener 57 años, sin distinción de sexo y en Servicios 25 años con aportes como trabajador agrario en relación de dependencia.`,
+        ],
+      },
+      {
+        heading: 'Trabajadores de la construcción',
+        paragraphs: [
+          `Los trabajadores de la industria de la construcción de la Ley 22.250, gozarán de un régimen previsional diferencial. Requisitos: Los hombres, la edad requerida varía según el período trabajado. Del 1/5/2009 al 30/4/2010: 60 años; del 1/5/2010 al 30/4/2011: 57 años; del 1/5/2011 al 30/4/2012: 56 años y desde el 1/5/2012: 55 años. Las mujeres desde el 1/5/2009: 55 años. Y Servicios de 25 años con aportes, con al menos 12 años de los últimos 15 trabajados en la industria. Son esenciales las constancias de inscripción extendida por el Instituto de Estadística y Registro de la Industria de la Construcción del empleador como del trabajador a su cargo; los registros de afiliados a la Unión Obrera de la Construcción y de la Obra Social de la Construcción; la libreta de aportes al Fondo de Desempleo creado por la Ley 22.250 hasta el 31 de marzo de 2009 si corresponde y la credencial del registro laboral que extienda el Instituto de Estadística y Registro de la Industria de la Construcción (IERIC) a partir del 1º de abril de 2009.`,
+        ],
+      },
+      {
+        heading: 'Personal de la industria cárnica',
+        paragraphs: [
+          `Quienes hayan desempeñado tareas de matanza y faenamiento de reses; procesamiento de la carne y derivados de la res; control veterinario y en el tratamiento y destrucción de animales enfermos; trabajado en salas de máquina donde se superen los 85 decibeles y cuando no hubiere protección auditiva, o los 115 decibeles cuando la hubiere; tareas de mantenimiento, supervisión, administración y limpieza cuando se presten directa y permanentemente en los sectores donde se realizan los trabajos mencionados anteriormente; con 55 años los hombres y las mujeres 50 años, con 30 años de servicios y 27 años de servicios respectivamente.`,
+        ],
+      },
+      {
+        heading: 'Personal de Salud',
+        paragraphs: [
+          `Con tareas de contacto directo con los pacientes de leproserías, salas o servicios de enfermedades infecto-contagiosas, hospitales de alienados o establecimientos de asistencia de diferenciados mentales y personas que hayan trabajado en Sanatorios y Hospitales en tareas de radioscopia, los hombres con 55 años y las mujeres 52 años, con 30 años de servicios.`,
+        ],
+      },
+      {
+        heading: 'Personal de seguridad operativa industrial',
+        paragraphs: [
+          `Con función permanente en plantas de elaboración o fraccionamiento de combustibles líquidos de primer grado, hombres con 55 años y 30 años de servicios.`,
+        ],
+      },
+      {
+        heading: 'Personal de servicios eléctricos',
+        paragraphs: [
+          `Que hayan realizado tareas en balancines, silletas, escaleras a viento o soga a nudo u otro sistema que demande la colocación de esos elementos y se efectúe a más de 4 mts. de altura, vacío o profundidad; en celdas y barras de alta tensión o instalaciones no protegidas; en trabajos con tensión o postes; en constatación de medidores registradores, cambio y revisión de los mismos en domicilio del usuario; en lugares donde se supere los 85 decibeles cuando hubiere protección y cuando realice trabajo de mantenimiento, supervisión y de limpieza en forma directa y permanente en los lugares en las que se efectuaren las tareas anteriormente mencionadas, los hombres con 55 años y 30 años de servicios.`,
+        ],
+      },
+      {
+        heading: 'Personal de transporte de carga',
+        paragraphs: [
+          `Dedicado a la conducción de vehículos automotores de transporte de carga, en relación de dependencia. Los hombres con 55 años y mujeres con 52 años, con 30 años de servicios.`,
+        ],
+      },
+      {
+        heading: 'Mineros',
+        paragraphs: [
+          `Las mineras a cielo abierto, el personal que realice los labores de obtención directa de productos mineros, los hombres con 55 años y las mujeres con 52 años, con 30 años de servicio. Las tareas mineras subterráneas, conforme el Decreto 4257/68 - Art. 2° Inc. b., los hombres requerirán 50 años con 25 años de servicios.`,
+        ],
+      },
+      {
+        heading: 'Tareas de forja y fragua',
+        paragraphs: [`Conforme el decreto 182/74 - Vigencia 1/8/74, los hombres con 50 años y 25 años de servicios.`],
+      },
+      {
+        heading: 'Personal de la Antártida e Islas del Atlántico Sur',
+        paragraphs: [
+          `Las personas que hayan trabajado en la Antártida e Islas del Atlántico Sur. Decreto 4257/68 - Art. 4°, con 55 años de edad y 30 años de servicios.`,
+        ],
+      },
+      {
+        heading: 'Ferroviarios',
+        paragraphs: [
+          `Quienes hayan realizado tareas de maquinista o su equivalente, foguista o equivalente, cambista o capataz de cambista, aspirante de conducción o señaleros ferroviarios. Los hombres con 55 años y las mujeres con 52 años, y con 30 años de servicios.`,
+        ],
+      },
+      {
+        heading: 'Gráficos',
+        paragraphs: [`Los tipógrafos y linotipista, bajo relación de dependencia, con 55 años los hombres y 30 años de servicios.`],
+      },
+      {
+        heading: 'Personal del Teatro Colón',
+        paragraphs: [
+          `El Ballet estable y contratado en el Teatro Colón, ordenanza 29604, los hombres y mujeres con 40 años y 20 años de servicios. Los Cantantes líricos del Teatro Colón, ordenanza 29605, los hombres 65 años y las mujeres 60 años, con 25 años y 20 años de servicios respectivamente.`,
+        ],
+      },
+      {
+        heading: 'Petrolíferos y gasíferos',
+        paragraphs: [
+          `De la exploración petrolífera y gasífera llevada a cabo en campaña y en boca de pozo, a la perforación, terminación, mantenimiento y reparación de pozos, los hombres de 50 años con 25 años de servicios.`,
+        ],
+      },
+      {
+        heading: 'Recolectores de residuos',
+        paragraphs: [`Incluye a recolectores de la Administración General de Puertos. Los hombres con 55 años y 25 años de servicios.`],
+      },
+      {
+        heading: 'Telefónicos',
+        paragraphs: [
+          `Los operadores, telefonistas, operadores de reclamos, operadores de guía y supervisores, mujeres con 50 años y 25 años de servicios. Los telégrafos y radiotelégrafos: operadores afectados al sistema telegráfico Morse o similares y de teletipo con un mínimo 1.500 palabras por jornada de trabajo, hombres con 55 años y las mujeres de 50 años, con 30 años y con 25 años de servicios respectivamente.`,
+        ],
+      },
+      {
+        heading: 'Transportistas',
+        paragraphs: [
+          `Conductores de ómnibus o vehículos de transporte colectivo de personas pertenecientes a líneas urbanas, interurbanas o de larga distancia, hombres de 55 años y mujeres de 52 años, con 30 años de servicios.`,
+        ],
+      },
+      {
+        heading: 'Vidrieros',
+        paragraphs: [`Quienes se hayan desempeñado en la fabricación y composición de vidrio, decreto 3176/71, los hombres con 50 años y 25 años de servicios.`],
+      },
+      {
+        heading: 'Hiladores y dofeadores del rayón',
+        paragraphs: [`Conforme Decreto 1851/75, hombres y mujeres con 50 años, y 30 años de servicios.`],
+      },
+      {
+        heading: 'Metalúrgicos',
+        paragraphs: [
+          `Personas expuestas a la radiación del calor afectado a procesos de producción en tareas de laminación, acería y fundición realizadas en forma manual o semimanual desarrolladas en ambientes de alta temperatura, con 50 años los hombres, y con 25 años de servicios.`,
+        ],
+      },
+    ],
+  },
+
+  {
+    slug: 'pensionesporfallecimiento',
+    title: 'Pensiones por fallecimiento',
+    tag: 'Beneficio Familiar',
+    category: 'previsional',
+    image: 'pension',
+    summary:
+      'Ante el fallecimiento de un trabajador en actividad o jubilado, tendrán derecho a solicitar el beneficio de Pensión los cónyuges/convivientes o sus hijos menores e hijos mayores discapacitados.',
+    seoTitle: 'Pensiones por fallecimiento – Jubilamos',
+    seoDescription:
+      'Asesoramiento legal y previsional para acceder a pensiones por fallecimiento de trabajadores o jubilados. Gestión ante ANSES y reclamos judiciales.',
+    imageAlt: 'Asesoramiento en pensiones por fallecimiento',
+    lead: [
+      `Ante el fallecimiento de un trabajador en actividad o jubilado, tendrán derecho a solicitar el beneficio de Pensión los cónyuges/convivientes o sus hijos menores e hijos mayores discapacitados.`,
+      `En el estudio nos comprometemos a trabajar en tu nombre para asegurarte el reconocimiento de tu derecho a la pensión; evaluaremos en detalle la regularidad de los aportes necesarios para solicitar el beneficio ante ANSES, y en situaciones en las que tu derecho no sea reconocido, iniciaremos un reclamo judicial para obtener la compensación que te corresponde.`,
+    ],
+    sections: [
+      {
+        heading: 'En el caso de un trabajador fallecido',
+        paragraphs: [
+          `Se requieren 30 años de aportes para el régimen común. Un aportante regular debe haber contribuido durante 30 meses o más en los últimos 36 meses previos al fallecimiento.`,
+          `Para un aportante irregular, se exige un mínimo de 18 meses de aportes dentro de los últimos 36 meses, 12 meses dentro de los últimos 60 meses, y tener la mitad del total de años requeridos por el régimen común o diferencial.`,
+          `Se deberá establecer el vínculo familiar. En el caso de convivientes, la situación es más compleja, ya que se debe demostrar la convivencia real con pruebas concretas. La convivencia debe tener una duración mínima de 5 años, reduciéndose a 2 años si hay hijos en común.`,
+        ],
+      },
+    ],
+  },
+
+  {
+    slug: 'retirosporinvalidez',
+    title: 'Retiros por invalidez',
+    tag: 'Junta Médica',
+    category: 'previsional',
+    image: 'invalidez',
+    summary:
+      'Hombres y mujeres que no alcanzaron la edad para acceder a la jubilación ordinaria, que tengan una incapacidad laboral del 66% determinada por junta médica y que cumplan con la condición de «aportante regular» o «aportante irregular con derecho», podrán acceder a este beneficio.',
+    seoTitle: 'Retiros por invalidez – Jubilamos',
+    seoDescription:
+      'Te asesoramos para acceder al retiro por invalidez: requisitos médicos, condición de aportante y tramitación ante ANSES.',
+    imageAlt: 'Retiro por invalidez: asesoramiento y trámite',
+    body: [
+      `Hombres y mujeres que no alcanzaron la edad para acceder a la jubilación ordinaria, que tengan una incapacidad laboral del 66% determinada por junta médica y que cumplan con la condición de "aportante regular" o "aportante irregular con derecho" podrán acceder a este beneficio.`,
+      `No te demores, hacé tu consulta. Contactanos para que podamos evaluar tu situación y brindarte la asistencia necesaria, el tiempo es muy importante para que accedas a este beneficio.`,
+    ],
+  },
+
+  {
+    slug: 'rentavitalicia',
+    title: 'Renta vitalicia',
+    tag: 'Ex AFJP',
+    category: 'reclamos',
+    image: 'rentaVitalicia',
+    summary:
+      'Si tenés una Pensión / Renta Vitalicia de una Compañía de Seguro de Retiro –ex AFJP- y cobrás menos que la jubilación mínima, iniciamos el reclamo para lograr los aumentos y reajustar tu haber mensual con los fallos de la Corte Suprema de Justicia de la Nación.',
+    seoTitle: 'Renta vitalicia – Jubilamos',
+    seoDescription:
+      'Reclamo para que tu renta vitalicia de ex AFJP no sea inferior a la jubilación mínima. Asesoramiento y reclamo judicial.',
+    imageAlt: 'Renta vitalicia',
+    body: [
+      `Si tenés una Pensión / Renta Vitalicia de una Compañía de Seguro de Retiro –ex AFJP- y cobrás menos que la jubilación mínima, iniciamos el reclamo para que obtengas los aumentos y así reajustar tu haber mensual con los fallos de la Corte Suprema de Justicia de la Nación.`,
+      `Tu Pensión / Renta Vitalicia nunca puede ser menor a la jubilación mínima; es tu derecho tener los aumentos que otorga ANSES. Así, ante los bajísimos valores de quienes aún cobran una renta vitalicia privada, exigiremos mediante el reclamo judicial el complemento de las diferencias para que así puedas cobrar todos los meses lo que te corresponde.`,
+    ],
+  },
+
+  {
+    slug: 'moratorias',
+    title: 'Moratorias',
+    tag: 'Sin Aportes',
+    category: 'previsional',
+    image: 'moratorias',
+    summary:
+      'Toda persona que no cuente con los años de aportes necesarios, sean trabajadores autónomos o empleados en relación de dependencia, podrán acceder a una jubilación o pensión por fallecimiento de un trabajador mediante la adhesión a una moratoria.',
+    seoTitle: 'Moratorias – Jubilamos',
+    seoDescription:
+      'Te asesoramos para regularizar los aportes que te faltan y acceder a tu jubilación o pensión mediante una moratoria previsional.',
+    imageAlt: 'Moratorias previsionales',
+    body: [
+      `Para aquellos que se encuentren en edad de jubilarse y les falten aportes, podrán acceder a la jubilación utilizando la moratoria vigente.`,
+      `Este mecanismo brinda la oportunidad de regularizar la situación previsional y así avanzar hacia un futuro garantizado y tranquilo.`,
+    ],
+  },
+
+  {
+    slug: 'puam',
+    title: 'PUAM',
+    tag: 'Adulto Mayor',
+    category: 'previsional',
+    image: 'puam',
+    summary:
+      'En caso de que tengas 65 años de edad y no puedas jubilarte por falta de aportes, gestionamos la Pensión Universal al Adulto Mayor. Este beneficio es equivalente al 80% de una jubilación mínima y se actualiza por la Ley de Movilidad.',
+    seoTitle: 'PUAM – Jubilamos',
+    seoDescription:
+      'Gestionamos la Pensión Universal al Adulto Mayor (PUAM): requisitos, monto y cobertura de salud de PAMI. Consultá por tu caso.',
+    imageAlt: 'Pensión Universal al Adulto Mayor (PUAM)',
+    body: [
+      `En caso de que tengas 65 años de edad y no puedas jubilarte por falta de aportes, gestionamos la Pensión Universal al Adulto Mayor. Este beneficio es equivalente al 80% de una jubilación mínima y se actualiza por la Ley de Movilidad.`,
+      `PUAM es la cobertura previsional destinada a las personas mayores de 65 años, que no cuentan con ninguna jubilación o pensión. Deben ser argentinos o naturalizados con 10 años de residencia en el país (anteriores a la solicitud), o extranjero con una residencia mínima de 20 años y mantener la residencia en el país una vez solicitada la pensión.`,
+      `No deberán cobrar ni tener derecho a ninguna jubilación o pensión de un organismo nacional o de cajas o institutos provinciales o municipales, ni seguro de desempleo. El monto es equivalente al 80% de una jubilación mínima y se actualiza por la Ley de Movilidad. Las personas que cobran esta pensión cuentan con cobertura de salud y servicios de PAMI, pueden acceder al cobro de asignaciones familiares (por hijo/hijo con discapacidad, por cónyuge y ayuda escolar anual) y a los créditos ANSES.`,
+    ],
+  },
+
+  {
+    slug: 'sucesiones',
+    title: 'Sucesiones',
+    tag: 'Derecho Civil',
+    category: 'civil',
+    image: 'sucesiones',
+    summary:
+      'Te brindamos el respaldo y la orientación adecuada para gestionar los aspectos legales que conlleva una sucesión. En nuestro estudio jurídico, entendemos la complejidad y la sensibilidad que rodea este proceso, con años de experiencia y un equipo comprometido, estamos aquí para brindarle la asesoría que necesita para afrontar este camino con confianza y tranquilidad.',
+    seoTitle: 'Sucesiones – Jubilamos',
+    seoDescription:
+      'Asesoramiento integral en sucesiones: documentación, trámite judicial y distribución de bienes, con atención personalizada en todo el país.',
+    imageAlt: 'Asesoramiento en sucesiones',
+    body: [
+      `En momentos de duelo, enfrentar la burocracia y los trámites legales puede ser abrumador. En nuestro estudio jurídico especializado en sucesiones, comprendemos las dificultades y los desafíos que implica la gestión de los asuntos legales tras la pérdida de un ser querido.`,
+      `Nuestro equipo de abogados está dedicado a brindarle un servicio integral y personalizado en cada etapa del proceso sucesorio. Desde la obtención de los documentos necesarios hasta la distribución de los bienes, nos encargamos de todos los aspectos legales. Con años de experiencia en la materia, hemos asistido a numerosas familias en la resolución exitosa de sus sucesiones, por lo que nos comprometemos a ofrecerle una atención personalizada, escuchando sus necesidades y preocupaciones, y proporcionándole soluciones efectivas y adaptadas a su situación particular.`,
+    ],
+  },
+];
+
+export const getServiceBySlug = (slug = '') => SERVICES.find((service) => service.slug === slug.toLowerCase());
+
+export const servicePath = (service) => `/${service.slug}`;
+
+
+
+================================================================================
+
+// FILE: src/hooks/useElementHeight.js
+--------------------------------------------------
+import { useEffect, useState } from 'react';
+
+/** Altura (px) de un elemento, actualizada con ResizeObserver (incluye la carga de imágenes). */
+export default function useElementHeight(ref, enabled = true) {
+  const [height, setHeight] = useState(null);
+
+  useEffect(() => {
+    const element = ref.current;
+    if (!enabled || !element) {
+      setHeight(null);
+      return undefined;
+    }
+    const observer = new ResizeObserver(() => setHeight(element.offsetHeight));
+    observer.observe(element);
+    return () => observer.disconnect();
+  }, [ref, enabled]);
+
+  return height;
+}
+
+
+
+================================================================================
+
+// FILE: src/hooks/useIsMobile.js
+--------------------------------------------------
+import useMediaQuery from './useMediaQuery';
+
+export const MOBILE_QUERY = '(max-width: 768px)';
+
+export default function useIsMobile() {
+  return useMediaQuery(MOBILE_QUERY);
+}
+
+
+
+================================================================================
+
+// FILE: src/hooks/useMediaQuery.js
+--------------------------------------------------
+import { useCallback, useSyncExternalStore } from 'react';
+
+/** Suscribe un componente a una media query (sin listeners de resize manuales). */
+export default function useMediaQuery(query) {
+  const subscribe = useCallback(
+    (onChange) => {
+      const mql = window.matchMedia(query);
+      mql.addEventListener('change', onChange);
+      return () => mql.removeEventListener('change', onChange);
+    },
+    [query],
+  );
+
+  return useSyncExternalStore(
+    subscribe,
+    () => window.matchMedia(query).matches,
+    () => false, // valor en el servidor / prerender
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/hooks/useScrolledPast.js
+--------------------------------------------------
+import { useEffect, useState } from 'react';
+
+/** `true` cuando el scroll vertical supera `offset` px. Solo re-renderiza cuando cambia el booleano. */
+export default function useScrolledPast(offset) {
+  const [past, setPast] = useState(false);
+
+  useEffect(() => {
+    const update = () => setPast(window.scrollY > offset);
+    update();
+    window.addEventListener('scroll', update, { passive: true });
+    return () => window.removeEventListener('scroll', update);
+  }, [offset]);
+
+  return past;
+}
+
+
+
+================================================================================
+
+// FILE: src/main.jsx
+--------------------------------------------------
+import { StrictMode } from 'react';
+import { createRoot } from 'react-dom/client';
+import { HelmetProvider } from 'react-helmet-async';
+import App from './App';
+import './styles/Index.scss';
+
+createRoot(document.getElementById('root')).render(
+  <StrictMode>
+    <HelmetProvider>
+      <App />
+    </HelmetProvider>
+  </StrictMode>,
+);
+
+
+
+================================================================================
+
+// FILE: src/pages/Contacto.jsx
+--------------------------------------------------
+import ContactForm from '../components/contact/ContactForm';
+import Seo from '../components/seo/Seo';
+import MapEmbed from '../components/ui/MapEmbed';
+import SocialNetworks from '../components/ui/SocialNetworks';
+
+export default function Contacto() {
+  return (
+    <>
+      <Seo
+        title="Contacto – Jubilamos"
+        description="Escribinos o agendá tu entrevista virtual. Resolvemos consultas previsionales en todo el país."
+        path="/contacto"
+      />
+      <main className="contactPage">
+        <h1>CONTACTANOS</h1>
+        <ContactForm />
+
+        <div className="socialCard">
+          <p>¡También podés contactarnos a través de nuestras redes sociales!</p>
+          <SocialNetworks />
+        </div>
+
+        <MapEmbed />
+      </main>
+    </>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/pages/HomePage.jsx
+--------------------------------------------------
+import Seo from '../components/seo/Seo';
+import AnsesAlert from '../components/home/AnsesAlert';
+import ServicesSection from '../components/home/ServicesSection';
+import ConsultationCTA from '../components/ui/ConsultationCta';
+import { CONTACT, SITE_URL, SOCIAL_LINKS, mailUrl, telUrl } from '../config/site';
+
+const FEATURES = [
+  { title: 'Entrevistas Virtuales:', text: 'Asesoramiento remoto sin necesidad de desplazarte' },
+  { title: 'Alcance Nacional:', text: 'Gestionamos trámites en todo el país' },
+  { title: 'Defensa Integral:', text: 'Protección de tus derechos en sede administrativa y judicial' },
+];
+
+// Datos estructurados para Google (resultado enriquecido de negocio local)
+const LEGAL_SERVICE_JSON_LD = {
+  '@context': 'https://schema.org',
+  '@type': 'LegalService',
+  name: 'Jubilamos – Estudio Jurídico Previsional',
+  url: SITE_URL,
+  telephone: `+${CONTACT.phone}`,
+  email: CONTACT.email,
+  address: {
+    '@type': 'PostalAddress',
+    streetAddress: CONTACT.street,
+    addressLocality: 'Ciudad Autónoma de Buenos Aires',
+    addressCountry: 'AR',
+  },
+  areaServed: 'AR',
+  sameAs: SOCIAL_LINKS.filter(({ id }) => ['fb', 'ig', 'yt'].includes(id)).map(({ href }) => href),
+};
+
+export default function HomePage() {
+  return (
+    <>
+      <Seo
+        title="Jubilamos – Derecho Previsional y Sucesiones"
+        description="Estudio jurídico especializado en jubilaciones, pensiones, reajustes y sucesiones. Atención remota en todo el país."
+        path="/"
+        jsonLd={LEGAL_SERVICE_JSON_LD}
+      />
+
+      <section id="introduction" className="heroSection">
+        <div className="heroContainer">
+          <div className="heroBadge">
+            <span className="heroBadgeDot" />
+            Dres. Monti &amp; Ferrara • Estudio Jurídico Previsional
+          </div>
+
+          <h1 className="heroTitle">
+            Estudio Jurídico Especializado en <span className="heroHighlight">Derecho Previsional</span> y Sucesiones
+          </h1>
+
+          <p className="heroDescription">
+            En <strong>Jubilamos</strong> nos especializamos en brindarte la mejor orientación y resguardo en tus
+            trámites frente a <strong>ANSES</strong>, tanto en sede administrativa como judicial, garantizándote máxima
+            seguridad jurídica, calidez y celeridad a lo largo de todo el proceso.
+          </p>
+
+          <div className="heroFeatures">
+            {FEATURES.map(({ title, text }) => (
+              <div className="heroFeatureItem" key={title}>
+                <span className="heroCheck" aria-hidden="true">✓</span> <strong>{title}</strong> {text}
+              </div>
+            ))}
+          </div>
+
+          <div className="heroCtaWrapper">
+            <ConsultationCTA />
+          </div>
+
+          <p className="heroContactNote">
+            Podés comunicarte también por teléfono al <a href={telUrl}>{CONTACT.phoneDisplay}</a> o vía mail a{' '}
+            <a href={mailUrl}>{CONTACT.email}</a>. Tu tranquilidad es nuestra prioridad.
+          </p>
+        </div>
+      </section>
+
+      <main>
+        <ServicesSection />
+        <AnsesAlert />
+      </main>
+    </>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/pages/Nosotros.jsx
+--------------------------------------------------
+import { Link } from 'react-router-dom';
+import Seo from '../components/seo/Seo';
+import PageCTA from '../components/ui/PageCta';
+import { CONTACT, mailUrl, whatsappUrl } from '../config/site';
+
+const SERVICE_LINKS = [
+  { label: 'Jubilaciones', to: '/jubilaciones' },
+  { label: 'Pensiones', to: '/pensionesporfallecimiento' },
+  { label: 'Rentas Vitalicias', to: '/rentavitalicia' },
+  { label: 'Reajuste de Haberes', to: '/reajustedehaberes' },
+  { label: 'Sucesiones', to: '/sucesiones' },
+];
+
+export default function Nosotros() {
+  return (
+    <>
+      <Seo
+        title="Nosotros – Jubilamos"
+        description="Conocé al estudio jurídico Jubilamos: los Dres. Monti y Ferrara, abogados dedicados exclusivamente al Derecho Previsional. Atención en todo el país."
+        path="/nosotros"
+      />
+      <main className="nosotros-page">
+        <h1>NOSOTROS</h1>
+        <p>
+          En Jubilamos, nuestra prioridad es brindar apoyo integral a nuestros clientes en todas las etapas de sus
+          trámites ante ANSES y en la protección de sus derechos. Nos especializamos en ofrecer asesoramiento y la mejor
+          orientación, asegurando la máxima seguridad jurídica y bienestar para quienes confían en nuestros servicios.
+        </p>
+        <p>
+          Nuestro compromiso es garantizar la más alta calidad en la asistencia que proporcionamos. Con calidez,
+          celeridad y una amplia experiencia en el campo, trabajamos incansablemente para asegurar que cada cliente
+          reciba el apoyo necesario de manera oportuna y eficiente. Creemos firmemente en la importancia de proteger los
+          derechos y velar el bienestar en cada paso del proceso.
+        </p>
+        <p>
+          En Jubilamos, fusionamos calidez humana con experiencia legal. Cada caso es abordado con dedicación y cuidado.
+          Tu tranquilidad y satisfacción son nuestra meta constante, de la mano de los especialistas Dr. Monti y Dr.
+          Ferrara, abogados dedicados exclusivamente al Derecho Previsional.
+        </p>
+        <ul>
+          {SERVICE_LINKS.map(({ label, to }) => (
+            <li key={to}>
+              <Link to={to}>
+                <span aria-hidden="true">✅</span> {label}
+              </Link>
+            </li>
+          ))}
+        </ul>
+        <p>
+          Tenemos ubicadas nuestras oficinas en el corazón de la Recoleta, en la Ciudad de Buenos Aires, realizamos
+          trámites y gestiones previsionales en todo el país.
+        </p>
+        <p>
+          <u>ENTREVISTAS VIRTUALES</u>: En nuestro estudio jurídico, realizamos entrevistas de forma remota,
+          ofreciéndote la comodidad de evitar desplazamientos a nuestras oficinas. Podés comunicarte con nosotros a
+          través de{' '}
+          <a href={whatsappUrl()} target="_blank" rel="noopener noreferrer">WhatsApp</a>, teléfono (
+          {CONTACT.phoneDisplay}) o <a href={mailUrl}>correo electrónico</a>. Tu tranquilidad es nuestra prioridad, y
+          nuestro compromiso es brindarte el respaldo que necesites.
+        </p>
+        <PageCTA />
+      </main>
+    </>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/pages/NotFound.jsx
+--------------------------------------------------
+import { Link } from 'react-router-dom';
+import Seo from '../components/seo/Seo';
+import { SERVICES, servicePath } from '../data/services';
+
+export default function NotFound() {
+  return (
+    <>
+      <Seo
+        title="Página no encontrada – Jubilamos"
+        description="La página que buscás no existe o fue movida."
+        noindex
+      />
+      <main>
+        <h1>Página no encontrada</h1>
+        <p>La página solicitada no existe o fue movida. Quizás te interese alguno de nuestros servicios:</p>
+        <ul className="bulletList">
+          {SERVICES.map((service) => (
+            <li key={service.slug}>
+              <Link to={servicePath(service)}>{service.title}</Link>
+            </li>
+          ))}
+        </ul>
+        <p>
+          <Link to="/">Volver al inicio</Link>
+        </p>
+      </main>
+    </>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/pages/PoliticaDePrivacidad.jsx
+--------------------------------------------------
+import Seo from '../components/seo/Seo';
+
+const SECTIONS = [
+  {
+    title: '1. Información Legal y Titularidad',
+    paragraphs: [
+      <>
+        El presente sitio web (“Jubilamos”) es titularidad del Estudio Jurídico de los{' '}
+        <strong>Dres. Maximiliano Monti y Ferrara</strong>. Nuestro domicilio legal y oficinas de atención se encuentran
+        en <strong>Av. Santa Fe 1845, Ciudad Autónoma de Buenos Aires (CABA)</strong>, Argentina.
+      </>,
+    ],
+  },
+  {
+    title: '2. Ejercicio Profesional y Resultados',
+    paragraphs: [
+      'La información contenida en este sitio web tiene carácter meramente informativo y divulgativo. En ningún caso constituye asesoramiento legal integral ni sustituye la consulta personalizada. Cada situación previsional o jurídica es única y requiere un análisis previo y detallado de la documentación pertinente. No garantizamos resultados específicos, ya que los mismos dependen de los organismos correspondientes (ej. ANSES) y de las resoluciones judiciales.',
+    ],
+  },
+  {
+    title: '3. Protección de Datos Personales',
+    paragraphs: [
+      <>
+        En cumplimiento de la <strong>Ley de Protección de Datos Personales (Ley N° 25.326)</strong> de la República
+        Argentina, informamos que los datos recabados a través de WhatsApp, correos electrónicos o formularios de
+        contacto serán tratados con absoluta confidencialidad y secreto profesional.
+      </>,
+      'Dichos datos se utilizarán única y exclusivamente para evaluar su caso, responder a sus consultas y brindarle el servicio legal solicitado. No compartimos, vendemos ni cedemos sus datos a terceros sin su consentimiento expreso.',
+    ],
+  },
+  {
+    title: '4. Enlaces a Terceros',
+    paragraphs: [
+      'Este sitio puede contener enlaces a sitios web de terceros (como organismos oficiales). El Estudio Jurídico no se hace responsable por las políticas de privacidad ni por el contenido de dichos sitios externos.',
+    ],
+  },
+  {
+    title: '5. Contacto',
+    paragraphs: [
+      'Para cualquier consulta relacionada con este aviso legal o el tratamiento de sus datos, puede comunicarse directamente a nuestros canales oficiales detallados en la sección de contacto.',
+    ],
+  },
+];
+
+export default function PoliticaDePrivacidad() {
+  return (
+    <>
+      <Seo
+        title="Política de Privacidad y Aviso Legal | Jubilamos"
+        description="Aviso legal y políticas de privacidad del estudio jurídico de los Dres. Monti y Ferrara."
+        path="/politica-de-privacidad"
+      />
+      <main className="legalPage">
+        <h1>Política de Privacidad y Aviso Legal</h1>
+        {SECTIONS.map(({ title, paragraphs }) => (
+          <section key={title} className="legalPage__section">
+            <h2>{title}</h2>
+            {paragraphs.map((content, index) => (
+              <p key={index}>{content}</p>
+            ))}
+          </section>
+        ))}
+      </main>
+    </>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/pages/ServicePage.jsx
+--------------------------------------------------
+import { Navigate, useLocation } from 'react-router-dom';
+import images from '../assets/images/imagesIndex';
+import PageCTA from '../components/ui/PageCta';
+import Seo from '../components/seo/Seo';
+import { servicePath } from '../data/services';
+
+function Section({ level = 4, heading, paragraphs }) {
+  const Heading = `h${level}`;
+  return (
+    <>
+      <Heading className={level === 3 ? 'h3__subtitle' : undefined}>{heading}</Heading>
+      {paragraphs.map((text) => (
+        <p key={text.slice(0, 40)}>{text}</p>
+      ))}
+    </>
+  );
+}
+
+/** Plantilla única para todos los servicios (datos en src/data/services.js). */
+export default function ServicePage({ service }) {
+  const { pathname } = useLocation();
+  const path = servicePath(service);
+
+  // Unifica /rentaVitalicia, /rentavitalicia/ → /rentavitalicia (evita contenido duplicado)
+  if (pathname !== path) return <Navigate to={path} replace />;
+
+  const image = images[service.image];
+  const { lead = [], body = [], sections = [] } = service;
+
+  return (
+    <>
+      <Seo title={service.seoTitle} description={service.seoDescription} path={path} image={image} />
+      <main>
+        <h1>{service.heading ?? service.title}</h1>
+        <img className="pages__img" src={image} alt={service.imageAlt} />
+
+        {lead.map((text) => (
+          <p key={text.slice(0, 40)} className="bigFontSize">{text}</p>
+        ))}
+        {body.map((text) => (
+          <p key={text.slice(0, 40)}>{text}</p>
+        ))}
+        {sections.map((section) => (
+          <Section key={section.heading} {...section} />
+        ))}
+
+        <PageCTA />
+      </main>
+    </>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/pages/WellnessSectionPage.jsx
+--------------------------------------------------
+import Seo from '../components/seo/Seo';
+
+const PILLARS = [
+  {
+    title: '1. Presión arterial controlada',
+    text: 'La hipertensión es uno de los factores de riesgo más importantes. Estudios publicados en revistas como The Lancet han demostrado que mantener la presión dentro de valores normales reduce significativamente el riesgo de infarto y ACV.',
+  },
+  {
+    title: '2. Actividad física regular',
+    text: 'No hace falta entrenamiento intenso. Caminar 30 minutos diarios ya reduce riesgo cardiovascular. La Asociación Americana del Corazón recomienda actividad moderada cinco días por semana.',
+  },
+  {
+    title: '3. Alimentación equilibrada',
+    text: 'Patrones como la dieta mediterránea han mostrado en múltiples estudios disminuir eventos cardiovasculares, mejorar el perfil lipídico y reducir inflamación.',
+  },
+  {
+    title: '4. Control del colesterol y la glucosa',
+    text: 'La detección precoz permite intervenir antes de que aparezcan complicaciones.',
+  },
+];
+
+const WARNING_SIGNS = ['Dolor en el pecho', 'Falta de aire inusual', 'Mareos frecuentes', 'Hinchazón persistente en piernas'];
+
+export default function WellnessSectionPage() {
+  return (
+    <>
+      <Seo
+        title="Salud Cardiovascular – Jubilamos"
+        description="Consejos para cuidar el corazón después de los 60. Prevención y hábitos saludables."
+        path="/articulos"
+        type="article"
+      />
+      <main>
+        <h1>La salud cardiovascular después de los 60</h1>
+
+        <p className="bigFontSize">
+          <strong>Qué dice la evidencia y qué se puede hacer</strong>
+        </p>
+        <p className="bigFontSize">
+          Envejecer no significa resignarse a problemas cardíacos. De hecho, muchas enfermedades cardiovasculares pueden
+          prevenirse o retrasarse con hábitos adecuados, incluso después de los 60 años.
+        </p>
+        <p>
+          Según la Organización Mundial de la Salud, las enfermedades cardiovasculares siguen siendo la principal causa
+          de muerte a nivel mundial. Sin embargo, la mayoría de los factores de riesgo son modificables.
+        </p>
+
+        <h3 className="h3__subtitle">Los cuatro pilares que más impacto tienen</h3>
+        <p>La evidencia científica es clara en estos puntos:</p>
+
+        {PILLARS.map(({ title, text }) => (
+          <section key={title}>
+            <h4>{title}</h4>
+            <p>{text}</p>
+          </section>
+        ))}
+
+        <h3 className="h3__subtitle">Después de jubilarse, ¿qué cambia?</h3>
+        <p>
+          Muchas personas reducen su nivel de actividad física al dejar el trabajo. También pueden cambiar los hábitos
+          alimentarios o aumentar el sedentarismo. Por eso esta etapa requiere atención consciente.
+        </p>
+        <p>
+          No se trata de vivir con miedo, sino de entender que pequeñas decisiones diarias tienen impacto acumulativo.
+        </p>
+
+        <h3 className="h3__subtitle">Señales que no deben ignorarse</h3>
+        <ul className="bulletList">
+          {WARNING_SIGNS.map((sign) => (
+            <li key={sign}>{sign}</li>
+          ))}
+        </ul>
+        <p>
+          <strong>Ante estos síntomas siempre corresponde consulta médica.</strong>
+        </p>
+
+        <p>
+          En Jubilamos creemos que una jubilación saludable también implica cuidar el corazón, porque la autonomía y la
+          calidad de vida dependen directamente de ello.
+        </p>
+      </main>
+    </>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/routes/AppRoutes.jsx
+--------------------------------------------------
+import { Route, Routes } from 'react-router-dom';
+import { SERVICES, servicePath } from '../data/services';
+import Contacto from '../pages/Contacto';
+import HomePage from '../pages/HomePage';
+import NotFound from '../pages/NotFound';
+import Nosotros from '../pages/Nosotros';
+import PoliticaDePrivacidad from '../pages/PoliticaDePrivacidad';
+import ServicePage from '../pages/ServicePage';
+import WellnessSectionPage from '../pages/WellnessSectionPage';
+
+// Las URLs de los servicios salen de `slug` (idénticas a las históricas).
+// React Router no distingue mayúsculas: /rentaVitalicia entra acá y ServicePage redirige a /rentavitalicia.
+export default function AppRoutes() {
+  return (
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      {SERVICES.map((service) => (
+        <Route key={service.slug} path={servicePath(service)} element={<ServicePage service={service} />} />
+      ))}
+      <Route path="/nosotros" element={<Nosotros />} />
+      <Route path="/contacto" element={<Contacto />} />
+      <Route path="/articulos" element={<WellnessSectionPage />} />
+      <Route path="/politica-de-privacidad" element={<PoliticaDePrivacidad />} />
+      <Route path="*" element={<NotFound />} />
+    </Routes>
+  );
+}
+
+
+
+================================================================================
+
+// FILE: src/styles/Index.scss
+--------------------------------------------------
+﻿/* ========================================================
+   Path: src/styles/Index.scss
+   Estilos Globales, Resets y Componentes Comunes
+   ======================================================== */
+@use './variables' as v;
+@use './header';
+@use './hero';
+@use './indexMain';
+@use './footer';
+@use './contact';
+@use './nosotros';
+@use './components';
+
+/* Reset general */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* 1rem = 10px para cálculos cómodos */
+html {
+  font-size: 62.5%;
+  scroll-behavior: smooth;
+}
+
+body {
+  font-family: 'Plus Jakarta Sans', system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  font-size: 1.6rem; /* 16px base legible para todo el sitio */
+  color: #1e293b;
+  background-color: #f8fafc;
+  margin: 0;
+  padding: 0;
+  line-height: 1.6;
+  -webkit-font-smoothing: antialiased;
+}
+
+ul, ol {
+  list-style-type: none;
+  padding-left: 0;
+}
+
+/* ========================================================
+   ESTILOS GENERALES PARA PÁGINAS INTERNAS
+   ======================================================== */
+main {
+  padding: 4rem 2rem 6rem 2rem;
+  background-color: #f8fafc;
+  color: #1e293b;
+  display: flex;
+  flex-direction: column;
+  align-items: center; // Centra el contenedor de lectura
+
+  // Ancho óptimo de lectura para no cansar la vista
+  & > * {
+    width: 100%;
+    max-width: 900px;
+  }
+
+  // Título de la página
+  h1 {
+    font-size: 3.4rem;
+    margin-bottom: 2rem;
+    text-align: center;
+    text-transform: uppercase;
+    line-height: 1.25; 
+    color: #0f172a;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+
+  // Foto principal de la página
+  .pages__img {
+    width: 100%;
+    max-width: 65rem;
+    height: auto;
+    max-height: 36rem;
+    object-fit: cover;
+    border-radius: 16px;
+    margin: 1.5rem auto 3.5rem auto;
+    display: block;
+    box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
+  }
+
+  .bigFontSize {
+    font-size: 1.85rem;
+    line-height: 1.75;
+    color: #334155;
+    margin-bottom: 2.2rem;
+    font-weight: 500;
+  }
+
+  p {
+    font-size: 1.6rem;
+    line-height: 1.75;
+    margin-bottom: 2rem;
+    color: #475569;
+    text-align: left;
+  }
+
+  // Subtítulos principales (Requisitos, Moratorias, etc.)
+  h3 {
+    font-size: 2.2rem;
+    color: #0f172a;
+    font-weight: 700;
+    margin-top: 4rem;
+    margin-bottom: 1.2rem;
+    border-left: 4px solid #0a7a83; // Línea decorativa que da porte legal
+    padding-left: 1.2rem;
+  }
+
+  // Subtítulos de casos especiales (Malvinas, Salud, etc.)
+  h4 {
+    font-size: 1.8rem;
+    margin-top: 3rem;
+    margin-bottom: 0.8rem;
+    color: #0a7a83;
+    font-weight: 700;
+    text-decoration: none !important; // Eliminamos el subrayado rígido
+  }
+}
+
+/* ========================================================
+   BOTONES FLOTANTES: WHATSAPP Y SUBIR
+   ======================================================== */
+.wsp-btn {
+  box-sizing: border-box;
+  text-decoration: none;
+  position: fixed;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  background: #25d366;
+  color: #FFF;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 3.2rem;
+  box-shadow: 0 4px 16px rgba(37, 211, 102, 0.4);
+  z-index: 999;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  width: 6rem;
+  height: 6rem;
+
+  &:hover {
+    color: #ffffff;
+    transform: scale(1.1);
+    box-shadow: 0 6px 20px rgba(37, 211, 102, 0.6);
+  }
+}
+
+.scrollTopBtn {
+  position: fixed;
+  bottom: 9.5rem; /* Ubicado justo arriba de WhatsApp */
+  right: 3.2rem;   /* Mismo eje vertical que WhatsApp */
+  width: 4.4rem;
+  height: 4.4rem;
+  border-radius: 50%;
+  background-color: #1e293b;
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.15);
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.25);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  z-index: 998;
+  transition: all 0.25s ease;
+
+  &:hover {
+    background-color: #0f172a;
+    transform: translateY(-3px);
+    box-shadow: 0 6px 20px rgba(0, 0, 0, 0.35);
+  }
+}
+
+.ctaContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  margin-top: 2rem;
+  justify-content: center;
+  align-items: center;
+
+  @media (min-width: 600px) {
+    flex-direction: row;
+  }
+}
+
+.ctaBtn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.8rem;
+  width: 100%;
+  padding: 1.3rem 2.4rem;
+  font-size: 1.6rem;
+  font-weight: 700;
+  text-decoration: none !important;
+  border-radius: 8px;
+  transition: all 0.25s ease;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  @media (min-width: 600px) {
+    width: auto;
+    font-size: 1.65rem;
+  }
+
+  &:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 8px 18px rgba(0, 0, 0, 0.2);
+  }
+
+  &--left {
+    color: #ffffff; 
+    background-color: #16a34a; /* Verde institucional sólido */
+    border: 2px solid #16a34a;
+
+    &:hover {
+      background-color: #15803d;
+      border-color: #15803d;
+      color: #ffffff !important;
+    }
+  }
+
+  &--right {
+    background-color: transparent;
+    color: #ffffff;
+    border: 2px solid #ffffff;
+
+    &:hover {
+      background-color: #ffffff; 
+      color: #0f172a !important;
+    }
+  }
+}
+
+.ctaIcon {
+  font-size: 1.8rem;
+}
+
+
+================================================================================
+
+// FILE: src/styles/_components.scss
+--------------------------------------------------
+/* ========================================================
+   Path: src/styles/_components.scss
+   Estilos de los componentes nuevos del refactor
+   (reemplazan los estilos inline que había en JSX)
+   ======================================================== */
+
+/* ---------- Accesibilidad ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid #16a34a;
+  outline-offset: 2px;
+}
+
+/* ---------- Home: banner de salud + aviso ANSES ---------- */
+.wellnessSync {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  transition: height 0.1s ease;
+}
+
+/* ---------- CTA al pie de cada página de servicio ---------- */
+.pageCta {
+  margin-top: 4.5rem;
+  padding: 3rem 2rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(10, 122, 131, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  text-align: center;
+
+  &__title {
+    margin: 0 0 1rem;
+    padding: 0;
+    border: none;
+    color: #0f172a;
+    font-size: 2.2rem;
+  }
+
+  &__text {
+    margin-bottom: 2rem;
+    color: #475569;
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+
+    .ctaBtn {
+      width: auto;
+      padding: 1.2rem 2.4rem;
+    }
+
+    .ctaBtn--right {
+      color: #0f172a;
+      border-color: #0f172a;
+
+      &:hover {
+        background-color: #0f172a;
+        color: #ffffff !important;
+      }
+    }
+  }
+}
+
+/* ---------- Listas con viñetas dentro de <main> ---------- */
+.bulletList {
+  list-style: disc;
+  padding-left: 2.4rem;
+
+  li {
+    margin-bottom: 0.6rem;
+  }
+}
+
+/* ---------- Formulario de contacto ---------- */
+.formNotice {
+  margin-top: 1.5rem;
+  color: #475569;
+  font-size: 1.4rem;
+
+  &--small {
+    font-size: 1.25rem;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+/* ---------- Política de privacidad ---------- */
+.legalPage {
+  line-height: 1.6;
+
+  h1 {
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+  }
+
+  &__section {
+    margin-bottom: 2rem;
+
+    h2 {
+      margin-bottom: 1rem;
+      color: #34495e;
+      font-size: 2rem;
+    }
+  }
+}
+
+
+
+================================================================================
+
+// FILE: src/styles/_contact.scss
+--------------------------------------------------
+﻿/* Path: src\styles\_contact.scss */
+/* src/styles/_contact.scss */
+@use "sass:color";
+@use "./variables" as v;
+
+/* ===========================
+   VARIABLES LOCALES DEL FORMULARIO
+   =========================== */
+$ink: #222;      // Texto principal
+$muted: #666;    // Texto secundario
+$border: color.scale(v.$headerFooterBackground, $lightness: 60%); // Borde gris claro
+$focus: v.$mainGreen; // Color de enfoque (verde)
+$ring: rgba($focus, .25); // Sombra de enfoque
+
+/* ===========================
+   ESTRUCTURA GENERAL DE LA PÃGINA
+   =========================== */
+.contactPage {
+  // Variable para unificar el ancho mÃ¡ximo de los contenedores
+  --container-width: min(820px, 92%);
+
+  // Aplica el ancho y centrado a todos los hijos directos de .contactPage
+  & > * {
+    width: 100%;
+    max-width: var(--container-width);
+    margin-left: auto;
+    margin-right: auto;
+  }
+
+  // Estilo para el mapa de Google Maps
+  iframe {
+    aspect-ratio: 16 / 9; // Mantiene la proporciÃ³n del video
+    height: auto;
+    margin-top: 2rem;
+    border: none; // Sin borde
+    border-radius: .8rem; // Bordes redondeados consistentes
+  }
+}
+
+/* ===========================
+   FORMULARIO DE CONTACTO
+   =========================== */
+form {
+  // Estilos del contenedor del formulario (tarjeta)
+  background: #fff;
+  color: $ink;
+  padding: 2.5rem;
+  margin-top: 2rem;
+  border: 1px solid $border;
+  border-radius: 10px;
+  box-shadow: 0 8px 20px rgba(0,0,0,.06);
+
+  h2, p {
+    text-align: center;
+  }
+
+  h2 {
+    font-size: clamp(1.8rem, 3vw, 2.5rem);
+    font-weight: 700;
+    margin: 0 0 1rem;
+    color: color.scale(v.$headerFooterBackground, $lightness: 15%);
+  }
+
+  p {
+    color: $muted;
+    margin: 0 0 2rem;
+  }
+
+  // Contenedor para cada campo (label + input)
+  .form-group {
+    display: grid;
+    gap: .5rem;
+    margin-bottom: 1.5rem;
+  }
+
+  label {
+    font-size: 1.5rem;
+    font-weight: 600;
+  }
+
+  input,
+  select,
+  textarea {
+    appearance: none;
+    width: 100%;
+    background: #fff;
+    border: 1px solid $border;
+    border-radius: 8px;
+    padding: 1rem 1.5rem;
+    font-size: 1.25rem;
+    line-height: 1.4;
+    outline: none;
+    transition: border-color .15s ease, box-shadow .15s ease;
+
+    &:focus {
+      border-color: $focus;
+      box-shadow: 0 0 0 3px $ring;
+    }
+  }
+
+  textarea {
+    resize: vertical;
+    min-height: 160px;
+  }
+
+  // BotÃ³n de envÃ­o
+  button {
+    display: block;
+    margin: 1.5rem auto 0;
+    padding: 1.2rem 2.8rem;
+    font-size: 1.25rem;
+    font-weight: 700;
+    border-radius: 10px;
+    border: 2px solid $focus;
+    background: transparent;
+    color: color.mix(#000, $focus, 25%);
+    cursor: pointer;
+    transition: background .15s ease, color .15s ease, transform .02s ease;
+
+    &:hover   { background: $focus; color: #fff; }
+    &:active  { transform: translateY(1px); }
+    &:disabled{ opacity: .6; cursor: not-allowed; }
+  }
+}
+
+// Layout de 2 columnas para pantallas grandes
+@media (min-width: 860px) {
+  form .row-2 {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* ===========================
+   TARJETA DE REDES SOCIALES
+   =========================== */
+.socialCard { // <-- CORREGIDO a camelCase como pediste
+  background-color: #fff;
+  border-radius: .8rem;
+  border: 1px solid #ddd;
+  padding: 2.5rem 2rem;
+  text-align: center; // Mantenemos centrado para el H3 y los Ã­conos
+  margin-top: 2rem;
+  box-shadow: 0 4px 12px rgba(0,0,0,.08);
+
+  h3 {
+    text-transform: uppercase;
+    font-size: 1.8rem;
+    margin-bottom: 1rem;
+  }
+
+  p {
+    text-align: justify!important;
+    margin-bottom: 2.5rem;
+    max-width: 50ch; // Mantenemos esto para que las lÃ­neas no sean muy largas
+    margin-left: auto;  // Esto asegura que el bloque del pÃ¡rrafo estÃ© centrado
+    margin-right: auto; // si su max-width es menor que el contenedor.
+  }
+}
+
+
+
+================================================================================
+
+// FILE: src/styles/_footer.scss
+--------------------------------------------------
+﻿/* Path: src/styles/_footer.scss */
+@use './variables' as v;
+
+footer {
+  background: linear-gradient(135deg, #020617 0%, #064e3b 100%);
+  color: #cbd5e1;
+  padding: 6rem 2rem 0 2rem;
+  font-size: 1.5rem;
+  line-height: 1.6;
+  box-shadow: inset 0 20px 40px -20px rgba(0, 0, 0, 0.5);
+
+  a {
+    color: #34d399;
+    text-decoration: none;
+    transition: all 0.2s ease;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+
+  .footer__container {
+    max-width: 1280px;
+    margin: 0 auto;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 4rem;
+
+    @media screen and (min-width: 768px) {
+      grid-template-columns: 1.25fr 0.8fr 1.2fr;
+      gap: 5rem;
+    }
+
+    section {
+      h3 {
+        color: #f8fafc;
+        font-size: 1.65rem;
+        font-weight: 600;
+        letter-spacing: 2px;
+        margin-bottom: 2rem;
+        text-transform: uppercase;
+        opacity: 0.95;
+      }
+
+      p {
+        font-size: 1.45rem;
+        color: #cbd5e1;
+        line-height: 1.7;
+        margin-bottom: 1.5rem;
+        text-align: left !important;
+      }
+
+      .privacyNotice a {
+        font-size: 1.25rem;
+        color: #94a3b8;
+        &:hover { color: #34d399; }
+      }
+    }
+  }
+
+  /* Iconos sociales */
+  .socialNetworks__ul {
+    display: flex;
+    gap: 1.2rem;
+    margin-bottom: 2rem;
+    padding: 0;
+    list-style: none;
+
+    a {
+      width: 42px;
+      height: 42px;
+      background: #1e293b;
+      color: #f8fafc !important;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1.8rem;
+      box-shadow: 0 4px 10px rgba(0,0,0,0.3);
+      transition: all 0.25s ease;
+
+      &.fb:hover { background: #1877f2; transform: scale(1.12); }
+      &.ig:hover { background: linear-gradient(45deg, #f09433, #e6683c, #dc2743, #cc2366, #bc1888); transform: scale(1.12); }
+      &.mail:hover { background: #ea4335; transform: scale(1.12); }
+      &.wa:hover { background: #25d366; transform: scale(1.12); }
+      &.yt:hover { background: #ff0000; transform: scale(1.12); }
+    }
+  }
+
+  /* Sitios de Interés (Subrayado animado y flechita verde) */
+  #links ul {
+    list-style: none;
+    padding: 0;
+
+    li {
+      margin-bottom: 1.4rem;
+
+      a {
+        color: #e2e8f0;
+        font-size: 1.5rem;
+        font-weight: 500;
+        position: relative;
+        padding-bottom: 3px;
+        display: inline-flex;
+        align-items: center;
+        gap: 10px;
+        text-decoration: none !important;
+
+        .linkArrow {
+          color: #34d399;
+          font-size: 1.2rem;
+          transition: transform 0.25s ease;
+        }
+
+        &::after {
+          content: '';
+          position: absolute;
+          width: 0;
+          height: 2px;
+          bottom: 0;
+          left: 0;
+          background-color: #34d399;
+          transition: width 0.3s ease;
+        }
+
+        &:hover {
+          color: #ffffff;
+          &::after { width: 100%; }
+          .linkArrow { transform: translateX(5px); }
+        }
+      }
+    }
+  }
+
+  /* Mapa y Oficinas */
+  #mapa {
+    .addressMap {
+      color: #34d399;
+      font-weight: 600;
+      cursor: pointer;
+    }
+
+    iframe {
+      width: 100%;
+      height: 190px;
+      border-radius: 8px;
+      margin-top: 1.5rem;
+      border: 2px solid rgba(255, 255, 255, 0.1) !important;
+      filter: grayscale(80%) contrast(1.2);
+      transition: filter 0.4s ease;
+
+      &:hover {
+        filter: grayscale(0%) contrast(1);
+      }
+    }
+  }
+
+  hr {
+    border: none;
+    border-top: 1px solid rgba(255, 255, 255, 0.1);
+    max-width: 1280px;
+    margin: 4rem auto 0 auto;
+  }
+
+  /* Barra inferior */
+  .developerSection {
+    padding: 2.2rem 1.5rem;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    max-width: 1280px;
+    margin: 0 auto;
+
+    p {
+      margin: 0;
+      font-size: 1.35rem;
+      color: #94a3b8;
+      a { color: #34d399; }
+    }
+
+    .reactLogoContainer {
+      color: #61DBFB;
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-weight: 600;
+      font-size: 1.4rem;
+      text-decoration: none !important;
+
+      .reactLogo {
+        font-size: 2.2rem;
+        animation: reactLogo-spin 20s linear infinite;
+
+        @keyframes reactLogo-spin {
+          0% { transform: rotate(0deg); }
+          100% { transform: rotate(360deg); }
+        }
+      }
+    }
+  }
+
+  .destacado {
+    outline: 2px solid #34d399;
+    outline-offset: 12px;
+    border-radius: 8px;
+    background: rgba(52, 211, 153, 0.05);
+  }
+}
+
+
+================================================================================
+
+// FILE: src/styles/_header.scss
+--------------------------------------------------
+﻿/* Path: src/styles/_header.scss */
+@use './variables' as v;
+
+header {
+  background-color: v.$headerFooterBackground;
+  padding: 0.8rem 1.5rem;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s ease;
+
+  /* Reducción suave al scrollear */
+  &.scrolled {
+    padding: 0.4rem 1.5rem;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.35);
+  }
+
+  #logo {
+    display: inline-flex;
+    align-items: center;
+
+    img {
+      height: 52px;             /* Altura fija y elegante */
+      width: auto;
+      object-fit: contain;
+      border-radius: 8px;       /* Suaviza las esquinas del logo */
+      transition: transform 0.25s ease;
+
+      &:hover {
+        transform: scale(1.04);
+      }
+    }
+  }
+
+  nav {
+    margin-top: 0.8rem;
+
+    ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: 1rem;
+
+      li {
+        margin: 0;
+
+        a, 
+        .active {
+          display: inline-block;
+          color: #f1f5f9;
+          text-decoration: none !important; /* Elimina el subrayado rígido */
+          font-size: 1.5rem;               /* Tamaño legible */
+          font-weight: 500;
+          letter-spacing: 0.5px;
+          padding: 0.3rem 0;
+          position: relative;
+          transition: color 0.25s ease;
+
+          /* Línea indicadora moderna al pasar el mouse */
+          &::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 0;
+            height: 2px;
+            background-color: v.$mainGreen;
+            transition: width 0.25s ease;
+          }
+
+          &:hover {
+            color: v.$mainGreen;
+            transform: none; /* Quitamos el zoom brusco para un look más refinado */
+
+            &::after {
+              width: 100%;
+            }
+          }
+        }
+
+        /* Estilo para la página actual */
+        .active {
+          color: v.$mainGreen;
+          font-weight: 600;
+
+          &::after {
+            width: 100%;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ========================================================
+   Tablet en adelante (horizontal, alineado y limpio)
+   ======================================================== */
+@media screen and (min-width: 768px) {
+  header {
+    padding: 0.8rem 2.5rem;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    &.scrolled {
+      padding: 0.4rem 2.5rem;
+    }
+
+    #logo {
+      img {
+        height: 58px;
+      }
+    }
+
+    nav {
+      margin-top: 0;
+
+      ul {
+        flex-direction: row;
+        gap: 2rem;
+
+        li {
+          a, 
+          .active {
+            font-size: 1.5rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* ========================================================
+   Escritorio grande
+   ======================================================== */
+@media screen and (min-width: 1024px) {
+  header {
+    padding: 1rem 4rem;
+
+    &.scrolled {
+      padding: 0.5rem 4rem;
+    }
+
+    #logo {
+      img {
+        height: 62px;
+      }
+    }
+
+    nav {
+      ul {
+        gap: 2.8rem;
+
+        li {
+          a, 
+          .active {
+            font-size: 1.6rem;
+          }
+        }
+      }
+    }
+  }
+}
+
+
+================================================================================
+
+// FILE: src/styles/_hero.scss
+--------------------------------------------------
+/* ========================================================
+   Path: src/styles/_hero.scss
+   HERO SECTION MODERNO
+   ======================================================== */
+
+.heroSection {
+  background: linear-gradient(145deg, #093b3f 0%, #032124 100%);
+  color: #ffffff;
+  padding: 6rem 1.5rem 5rem 1.5rem;
+  position: relative;
+  overflow: hidden;
+  box-shadow: inset 0 -20px 30px -15px rgba(0, 0, 0, 0.4);
+
+  /* Destello sutil de fondo */
+  &::after {
+    content: '';
+    position: absolute;
+    top: -50%;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(circle, rgba(10, 122, 131, 0.35) 0%, rgba(0, 0, 0, 0) 70%);
+    pointer-events: none;
+  }
+}
+
+.heroContainer {
+  max-width: 960px;
+  margin: 0 auto;
+  text-align: center;
+  position: relative;
+  z-index: 2;
+}
+
+.heroBadge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  background-color: rgba(255, 255, 255, 0.1);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #e2e8f0;
+  font-size: 1.25rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  padding: 0.5rem 1.4rem;
+  border-radius: 50px;
+  margin-bottom: 2rem;
+
+  .heroBadgeDot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background-color: #4ade80; /* Verde brillante de estado activo */
+    box-shadow: 0 0 8px #4ade80;
+  }
+}
+
+.heroTitle {
+  font-size: 3.8rem;
+  font-weight: 800;
+  line-height: 1.2;
+  color: #ffffff;
+  margin-bottom: 2rem;
+  letter-spacing: -0.5px;
+
+  .heroHighlight {
+    background: linear-gradient(120deg, #6ee7b7 0%, #38bdf8 100%);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 2.8rem;
+  }
+}
+
+.heroDescription {
+  font-size: 1.7rem;
+  line-height: 1.65;
+  color: #cbd5e1;
+  max-width: 800px;
+  margin: 0 auto 3rem auto;
+  text-align: center;
+
+  strong {
+    color: #ffffff;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 1.5rem;
+  }
+}
+
+/* Píldoras de Confianza */
+.heroFeatures {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1.2rem;
+  margin-bottom: 3.5rem;
+
+  .heroFeatureItem {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    background-color: rgba(255, 255, 255, 0.06);
+    border: 1px solid rgba(255, 255, 255, 0.12);
+    border-radius: 30px;
+    padding: 0.6rem 1.4rem;
+    font-size: 1.35rem;
+    color: #f1f5f9;
+    font-weight: 500;
+
+    .heroCheck {
+      color: #4ade80;
+      font-weight: 800;
+    }
+  }
+}
+
+.heroCtaWrapper {
+  display: flex;
+  justify-content: center;
+  margin-top: 1rem;
+}
+
+/* Canales de contacto secundarios */
+.heroContactNote {
+  margin-top: 2.2rem;
+  font-size: 1.35rem;
+  color: #94a3b8;
+  line-height: 1.5;
+
+  a {
+    color: #e2e8f0;
+    text-decoration: underline;
+    transition: color 0.2s ease;
+
+    &:hover {
+      color: #ffffff;
+    }
+  }
+}
+
+
+================================================================================
+
+// FILE: src/styles/_indexMain.scss
+--------------------------------------------------
+﻿/* ========================================================
+   src/styles/_indexMain.scss
+   ======================================================== */
+@use './variables' as v;
+@use './hero'; 
+
+main {
+  background-color: #f8fafc; /* Fondo neutro, elegante y descansado */
+  padding: 3rem 1.5rem;
+  max-width: 1360px;
+  margin: 0 auto;
+}
+
+.servicesSection {
+  width: 100%;
+  margin: 0 auto 4rem auto;
+}
+
+.servicesHeader {
+  text-align: center;
+  margin-bottom: 3.5rem;
+
+  .servicesBadge {
+    display: inline-block;
+    font-size: 1.2rem;
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    color: #1a3c34;
+    background-color: #e2ece9;
+    padding: 0.4rem 1.2rem;
+    border-radius: 50px;
+    margin-bottom: 1rem;
+    text-transform: uppercase;
+  }
+
+  .servicesTitle {
+    font-size: 2.8rem;
+    color: #0f172a;
+    font-weight: 700;
+    margin: 0 0 0.8rem 0;
+    line-height: 1.2;
+
+    @media (max-width: 768px) {
+      font-size: 2.2rem;
+    }
+  }
+
+  .servicesSubtitle {
+    font-size: 1.6rem;
+    color: #475569;
+    max-width: 600px;
+    margin: 0 auto;
+    line-height: 1.5;
+  }
+}
+
+/* Grilla Responsiva de 4 Columnas */
+#mainGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 2.5rem;
+  justify-content: center;
+
+  @media screen and (min-width: 640px) {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  @media screen and (min-width: 1100px) {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+/* ========================================================
+   2. LA TARJETA INDIVIDUAL (SERVICE CARD)
+   ======================================================== */
+.serviceCard {
+  background-color: #ffffff;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 1px solid rgba(15, 23, 42, 0.08);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.04);
+  transition: transform 0.3s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.3s cubic-bezier(0.16, 1, 0.3, 1),
+              border-color 0.3s ease;
+  display: flex;
+
+  .mainGrid__link {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    text-decoration: none;
+    color: inherit;
+    border: none;       /* Se elimina el borde secundario viejo */
+    box-shadow: none;   /* Se elimina la sombra duplicada */
+    padding: 0;
+    border-radius: 0;
+  }
+
+  /* Hover prémium: la card flota y gana profundidad */
+  &:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 20px 30px -10px rgba(15, 23, 42, 0.12);
+    border-color: rgba(10, 122, 131, 0.3);
+
+    .serviceCard__img {
+      transform: scale(1.06);
+    }
+
+    .serviceCard__action {
+      color: #0a7a83;
+      svg {
+        transform: translateX(5px);
+      }
+    }
+  }
+
+  /* Foto superior a sangre */
+  &__imageWrapper {
+    position: relative;
+    width: 100%;
+    height: 190px;
+    overflow: hidden;
+    background-color: #e2e8f0;
+
+    .serviceCard__img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.45s ease;
+    }
+
+    .serviceCard__overlayTag {
+      position: absolute;
+      top: 12px;
+      right: 12px;
+      background: rgba(15, 23, 42, 0.75);
+      backdrop-filter: blur(4px);
+      color: #ffffff;
+      font-size: 1.1rem;
+      font-weight: 600;
+      padding: 0.3rem 0.8rem;
+      border-radius: 6px;
+      letter-spacing: 0.5px;
+    }
+  }
+
+  /* Contenido interno */
+  &__content {
+    padding: 2rem 1.8rem;
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+  }
+
+  &__title {
+    font-size: 1.8rem;
+    font-weight: 700;
+    color: #0f172a;
+    line-height: 1.3;
+    margin: 0 0 1rem 0;
+    min-height: 4.8rem; /* Alinea los títulos entre tarjetas sin desfasarse */
+    text-transform: uppercase;
+    letter-spacing: 0.3px;
+  }
+
+  &__description {
+    font-size: 1.45rem;
+    line-height: 1.6;
+    color: #475569;
+    margin: 0 0 1.8rem 0;
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 4;
+    line-clamp: 4;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+  }
+
+  /* Llamada a la acción al pie de la tarjeta */
+  &__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #1e293b;
+    margin-top: auto;
+    transition: color 0.2s ease;
+
+    svg {
+      transition: transform 0.2s ease;
+    }
+  }
+}
+
+/* ========================================================
+   3. BANNERS: SALUD (WELLNESS) Y ANSES
+   ======================================================== */
+.wellnessSectionBanner, 
+.ansesBannerImg,
+.ansesImgContainer {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  border-radius: 16px;
+  border: 1px solid rgba(10, 122, 131, 0.25);
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.06);
+  box-sizing: border-box;
+  overflow: hidden;
+  transition: transform 0.3s ease, box-shadow 0.3s ease;
+
+  @media screen and (min-width: 1024px) {
+    width: 100%;
+    height: 23.4rem !important;
+  }
+}
+
+/* SECCIÓN SALUD (Wellness) */
+.wellnessSectionBanner {
+  background-color: #edf7ed;
+  margin-bottom: 2.5rem;
+  text-align: center;
+  position: relative;
+  font-family: "Playfair Display", serif;
+  height: 100%;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 3.5rem 2rem;
+
+  @media (min-width: 768px) {
+    margin-top: 5rem;
+  }
+
+  @media (min-width: 1024px) {
+    padding: 0;
+  }
+}
+
+.wellnessContainer {
+  max-width: 800px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 2;
+}
+
+.wellnessTitle {
+  color: #1a3c34;
+  font-size: 3.2rem !important;
+  font-weight: 700;
+  margin-bottom: 1rem;
+  line-height: 1.25;
+
+  @media (min-width: 768px) {
+    font-size: 2.6rem;
+  }
+}
+
+.wellnessSubtitle {
+  font-family: Arial, sans-serif;
+  margin: 0 auto 2.5rem auto;
+  font-size: 1.5rem !important;
+  width: 100%;
+  max-width: 600px;
+  text-align: center !important;
+  color: #4a5568;
+  line-height: 1.6;
+}
+
+.wellnessBtn {
+  font-family: Arial, sans-serif;
+  display: inline-block;
+  font-size: 1.4rem !important;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  background-color: #1a3c34;
+  padding: 1.2rem 2.8rem;
+  border-radius: 50px;
+  text-decoration: none;
+  box-shadow: 0 4px 12px rgba(26, 60, 52, 0.25);
+  transition: all 0.25s ease;
+
+  &:hover {
+    background-color: #122923;
+    transform: translateY(-3px);
+    box-shadow: 0 8px 20px rgba(26, 60, 52, 0.35);
+  }
+}
+
+.decoration-icon {
+  position: absolute;
+  opacity: 0.22;
+  pointer-events: none;
+  display: none;
+
+  @media (min-width: 768px) {
+    display: block;
+    &.icon-heart { left: 8%; top: 50%; transform: translateY(-50%); }
+    &.icon-apple { right: 12%; top: 25%; }
+    &.icon-dumbbell { right: 8%; top: 65%; }
+  }
+}
+
+/* SECCIÓN ALERTA ANSES */
+.ansesBannerImg {
+  width: 100%;
+  height: auto;
+  object-fit: contain;
+}
+
+.ansesImgContainer {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #ffffff;
+  padding: 1.5rem;
+}
+
+.ansesBannerImgX {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+}
+
+/* ========================================================
+   PESTAÑAS DE FILTRO INTERACTIVAS
+   ======================================================== */
+.servicesFilters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 1rem;
+  margin-top: 2.5rem;
+
+  .filterBtn {
+    background-color: #ffffff;
+    color: #475569;
+    border: 1px solid #cbd5e1;
+    padding: 0.8rem 1.8rem;
+    border-radius: 50px;
+    font-size: 1.35rem;
+    font-weight: 600;
+    cursor: pointer;
+    transition: all 0.25s ease;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.03);
+
+    &:hover {
+      border-color: #0a7a83;
+      color: #0a7a83;
+      background-color: #f0fdfa;
+      transform: translateY(-2px);
+    }
+
+    &.active {
+      background-color: #0a7a83;
+      color: #ffffff;
+      border-color: #0a7a83;
+      box-shadow: 0 4px 12px rgba(10, 122, 131, 0.3);
+    }
+  }
+}
+
+/* ========================================================
+   PULIDO DEL BOTÓN EN LAS CARDS
+   ======================================================== */
+.serviceCard {
+  &__footer {
+    margin-top: auto;
+    padding-top: 1.5rem;
+    border-top: 1px solid rgba(226, 232, 240, 0.7);
+  }
+
+  &__action {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.6rem;
+    font-size: 1.35rem;
+    font-weight: 700;
+    color: #0a7a83;
+    padding: 0.6rem 1.2rem;
+    border-radius: 8px;
+    background-color: #f0fdfa;
+    transition: all 0.25s ease;
+
+    svg {
+      transition: transform 0.25s ease;
+    }
+  }
+
+  &:hover {
+    .serviceCard__action {
+      background-color: #0a7a83;
+      color: #ffffff;
+
+      svg {
+        transform: translateX(4px);
+      }
+    }
+  }
+}
+
+
+================================================================================
+
+// FILE: src/styles/_nosotros.scss
+--------------------------------------------------
+﻿/* Path: src/styles/_nosotros.scss */
+@use './variables' as v;
+
+.nosotros-page {
+  ul {
+    list-style-type: none; 
+    padding: 1.5rem;
+    margin: 2rem 0;
+    background-color: #ffffff;
+    border-radius: 12px;
+    border: 1px solid rgba(15, 23, 42, 0.08);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.03);
+
+    li {
+      margin-bottom: 1rem;
+      font-size: 1.6rem;
+      font-weight: 600;
+
+      &:last-child {
+        margin-bottom: 0;
+      }
+
+      a {
+        color: #0f172a !important; // Evita el blanco sobre blanco
+        text-decoration: none;
+        display: inline-block;
+        transition: color 0.2s ease, transform 0.2s ease;
+
+        &:hover {
+          color: #0a7a83 !important;
+          transform: translateX(4px);
+        }
+      }
+    }
+  }
+}
+
+
+================================================================================
+
+// FILE: src/styles/_variables.scss
+--------------------------------------------------
+﻿/* Path: src\styles\_variables.scss */
+// styles/_variables.scss
+
+$mainGreen: #8acfa2;
+$headerFooterBackground: #333;
+
+// tiempos y transiciones
+$time-fast: 0.20s;
+$time-base: 0.30s;
+$time-slow: 0.45s;
+$easing: ease;
+
+$tr-color: color $time-base $easing;
+$tr-transform: transform $time-base $easing;
+$tr-base: $tr-transform, $tr-color;
+$transition-fast: 0.3s;
+$transition-default: transform $transition-fast, color $transition-fast;
+
+
+
+================================================================================
+
+// FILE: vercel.json
+--------------------------------------------------
+{
+  "rewrites": [{ "source": "/:path*", "destination": "/index.html" }],
+  "headers": [
+    {
+      "source": "/assets/(.*)",
+      "headers": [{ "key": "Cache-Control", "value": "public, max-age=31536000, immutable" }]
+    },
+    {
+      "source": "/(.*)",
+      "headers": [
+        { "key": "X-Content-Type-Options", "value": "nosniff" },
+        { "key": "Referrer-Policy", "value": "strict-origin-when-cross-origin" },
+        { "key": "X-Frame-Options", "value": "SAMEORIGIN" }
+      ]
+    }
+  ]
+}
+
+
+
+================================================================================
+
+// FILE: vite.config.js
+--------------------------------------------------
+import react from '@vitejs/plugin-react';
+import { defineConfig } from 'vite';
+
+// https://vitejs.dev/config/
+export default defineConfig({
+  plugins: [react()],
+});
+
+
+
+================================================================================
+

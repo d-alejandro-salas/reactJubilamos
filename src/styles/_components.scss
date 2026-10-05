@@ -1,0 +1,119 @@
+/* ========================================================
+   Path: src/styles/_components.scss
+   Estilos de los componentes nuevos del refactor
+   (reemplazan los estilos inline que había en JSX)
+   ======================================================== */
+
+/* ---------- Accesibilidad ---------- */
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+}
+
+:focus-visible {
+  outline: 3px solid #16a34a;
+  outline-offset: 2px;
+}
+
+/* ---------- Home: banner de salud + aviso ANSES ---------- */
+.wellnessSync {
+  display: flex;
+  flex-direction: column;
+  width: 100%;
+  transition: height 0.1s ease;
+}
+
+/* ---------- CTA al pie de cada página de servicio ---------- */
+.pageCta {
+  margin-top: 4.5rem;
+  padding: 3rem 2rem;
+  background-color: #ffffff;
+  border-radius: 16px;
+  border: 1px solid rgba(10, 122, 131, 0.2);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.05);
+  text-align: center;
+
+  &__title {
+    margin: 0 0 1rem;
+    padding: 0;
+    border: none;
+    color: #0f172a;
+    font-size: 2.2rem;
+  }
+
+  &__text {
+    margin-bottom: 2rem;
+    color: #475569;
+    font-size: 1.6rem;
+    text-align: center;
+  }
+
+  &__actions {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1.5rem;
+
+    .ctaBtn {
+      width: auto;
+      padding: 1.2rem 2.4rem;
+    }
+
+    .ctaBtn--right {
+      color: #0f172a;
+      border-color: #0f172a;
+
+      &:hover {
+        background-color: #0f172a;
+        color: #ffffff !important;
+      }
+    }
+  }
+}
+
+/* ---------- Listas con viñetas dentro de <main> ---------- */
+.bulletList {
+  list-style: disc;
+  padding-left: 2.4rem;
+
+  li {
+    margin-bottom: 0.6rem;
+  }
+}
+
+/* ---------- Formulario de contacto ---------- */
+.formNotice {
+  margin-top: 1.5rem;
+  color: #475569;
+  font-size: 1.4rem;
+
+  &--small {
+    font-size: 1.25rem;
+  }
+
+  a {
+    color: inherit;
+    text-decoration: underline;
+  }
+}
+
+/* ---------- Política de privacidad ---------- */
+.legalPage {
+  line-height: 1.6;
+
+  h1 {
+    margin-bottom: 1.5rem;
+    color: #2c3e50;
+  }
+
+  &__section {
+    margin-bottom: 2rem;
+
+    h2 {
+      margin-bottom: 1rem;
+      color: #34495e;
+      font-size: 2rem;
+    }
+  }
+}

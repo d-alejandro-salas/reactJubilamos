@@ -1,19 +1,21 @@
-// src/App.jsx
-import { BrowserRouter as Router } from 'react-router-dom';
-import { Header } from './components/Header';
-import { Footer } from './components/Footer';
-import AppRoutes from './routes/Routes';
-import Buttons from './components/Buttons';
-import DefaultSeo from './components/seo/DefaultSeo'; 
+import { BrowserRouter } from 'react-router-dom';
+import ErrorBoundary from './components/ErrorBoundary';
+import FloatingActions from './components/layout/FloatingActions';
+import Footer from './components/layout/Footer';
+import Header from './components/layout/Header';
+import ScrollToTop from './components/layout/ScrollToTop';
+import AppRoutes from './routes/AppRoutes';
 
-const App = () => (
-  <Router>
-    <DefaultSeo />
-    <Header />
-    <AppRoutes />
-    <Footer />
-    <Buttons />
-  </Router>
-);
-
-export default App;
+export default function App() {
+  return (
+    <BrowserRouter>
+      <ScrollToTop />
+      <Header />
+      <ErrorBoundary>
+        <AppRoutes />
+      </ErrorBoundary>
+      <Footer />
+      <FloatingActions />
+    </BrowserRouter>
+  );
+}
