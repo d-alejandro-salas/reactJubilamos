@@ -1,6 +1,3 @@
-// Datos del sitio en un único lugar. Archivo "puro" (sin imports de assets)
-// para poder usarlo también desde scripts de Node (sitemap).
-
 export const SITE_URL = 'https://www.jubilamos.com.ar';
 export const SITE_NAME = 'Jubilamos';
 export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`; // TODO: subir esta imagen a /public
