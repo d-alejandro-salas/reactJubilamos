@@ -7,8 +7,8 @@ export const DEFAULT_OG_IMAGE = `${SITE_URL}/og-default.jpg`; // TODO: subir est
 
 export const CONTACT = {
   /** Formato internacional sin "+" (WhatsApp / tel:). Móvil argentino: 54 + 9 + área + número. */
-  phone: '5491132140614',
-  phoneDisplay: '+54 9 11 3214-0614',
+  phone: '5491133213443',
+  phoneDisplay: '+54 9 11 3321-3443',
   email: 'jubilamosinf@hotmail.com',
   street: 'Av. Santa Fe 1845',
   city: 'Ciudad Autónoma de Buenos Aires',
